@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+    # ------------------------------------------------------ 
+    # Interventions
+    # ------------------------------------------------------ 
+
+    <record model="ir.ui.view" id="crm_case_form_view_inter">
+        <field name="name">CRM - Interventions Form</field>
+        <field name="model">crm.case</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Interventions">
+                <group colspan="4" col="7">
+                    <field name="name" select="1" string="Intervention" colspan="2"/>
+                    <field name="section_id" colspan="1"/>
+                    <field name="user_id" select="2" string="Responsible"/>
+                        <newline/>
+                        <label string="Intervention Stage: " align="1.0"/>
+                        <group colspan="1" col="2">
+                        <field name="stage_id" select="1" nolabel="1"/>
+                        <button icon="gtk-go-forward" string="" name="stage_next" type="object"/>
+                        </group>
+                    <field name="date" string="Arrived between" required="1"/>
+                    <field name="date_deadline" select="2" string="And" required="1"/>
+                    <button string="Schedule Meeting" icon="terp-crm" name="%(crm_configuration.wizard_crm_meeting)d" type="action"/>
+                </group>
+                <notebook colspan="4">
+                <page string="Description">
+                    <field name="partner_id" select="1" on_change="onchange_partner_id(partner_id, email_cc)" colspan="2"/>
+                    <field name="partner_address_id" string="Contact" on_change="onchange_partner_address_id(partner_address_id, email_cc)" colspan="1"/>
+                    <field name="partner_phone" required="1"/>
+                    <field name="partner_mobile"/>
+                    <field name="canal_id"/>
+                    <field name="categ_id" select="1" on_change="onchange_categ_id(categ_id)" string="Location" required="1"/>
+                    <field name="priority" string="Priority"/>
+                    <field name="duration" string="Estimated Duration"/>
+                    <separator colspan="4" string="Description Information"/>
+                    <field name="note" nolabel="1" colspan="4" required="1"/>
+                    <separator colspan="4" string="References"/>
+                    <field colspan="4" name="ref"/>
+
+                </page>
+
+                <page string="Feedback">
+                <group expand="1">
+                    <separator string="Customer" colspan="2"/>
+                    <separator string="Internal" colspan="2"/>
+                    <field name="category2_id" select="1" string="Gratification"/>
+                    <field name="som"/>
+                    <field name="email_cc"/>
+                    <field name="planned_cost" string="Duration"/>
+                    <field name="description" string="Customer" colspan="2" nolabel="1"/>
+                    <field name="internal_comment" string="Internal" colspan="2" nolabel="1"/>
+                    <button name="case_log" string="For Customer" states="open" type="object" colspan="2"/>
+                    <button name="case_internal_log" string="In Internal" states="open" type="object" colspan="2"/>
+                    <separator colspan="4" string="References"/>
+                    <field colspan="4" name="ref2"/>
+                </group>
+
+                <separator colspan="4"/>
+                <group col="8" colspan="4">
+                    <field name="state" select="2" readonly="1"/>
+                    <button name="case_pending" string="Pending" states="open" type="object"/>
+                    <button name="case_close" string="Close" states="draft,open,pending" type="object"/>
+                </group>
+                </page>
+                <page string="History Feedback">
+                <field name="history_line" colspan="2" nolabel="1" mode="tree,form" domain="[('types','=','default')]">
+                    <tree string="Previous Feedback Customer">
+                        <field name="date"/>
+                        <field name="user_id"/>
+                        <field name="description" string="Text"/>
+                    </tree>
+                </field>
+                <field name="internal_history" colspan="2" nolabel="1" mode="tree,form" domain="[('types','=','internal')]">
+                    <tree string="Previous Feedback Internal">
+                        <field name="date"/>
+                        <field name="user_id"/>
+                        <field name="description" string="Text"/>
+                    </tree>
+                </field>
+
+                </page>
+
+                <page string="History">
+                    <separator colspan="4" string="Dates"/>
+                    <field name="create_date"/>
+                    <field name="date_closed"/>
+                    <field name="date_action_last"/>
+                    <field name="date_action_next"/>
+                    <field name="log_ids" nolabel="1" colspan="4">
+                        <form string="Actions">
+                            <separator string="Action Information" colspan="4"/>
+                            <field name="name" colspan="4"/>
+                            <field name="date"/>
+                            <field name="user_id"/>
+                            <field name="som"/>
+                            <field name="canal_id"/>
+                        </form>
+                    </field>
+                </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="crm_case_tree_view_inter">
+        <field name="name">CRM - Interventions Tree</field>
+        <field name="model">crm.case</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Interventions Tree"  colors="red:state=='open'">
+                <field name="id"/>
+                <field name="name" string="Interventions"/>
+                <field name="stage_id"  string="Sales Stage"/>
+                <field name="partner_id" string="Partner"/>
+                <field name="planned_revenue"/>
+                <field name="probability"/>
+                <field name="date" string="Next Meeting"/>
+                <field name="user_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="crm_case_calendar_view_inter">
+        <field name="name">CRM - Interventions Calendar</field>
+        <field name="model">crm.case</field>
+        <field name="type">calendar</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar string="Interventions" date_start="date" color="user_id" date_delay="duration">
+                <field name="name"/>
+                <field name="partner_id"/>
+            </calendar>
+        </field>
+    </record>
+</data>
+</openerp>

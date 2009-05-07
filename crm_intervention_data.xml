@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<openerp>
+<data noupdate="1">
+    <record model="crm.case.section" id="section_support_inter">
+        <field name="name">Interventions</field>
+        <field name="code">Inter</field>
+    </record>
+
+    <record model="crm.case.categ" id="categ_inter1">
+        <field name="name">Sur site</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+    <record model="crm.case.categ" id="categ_inter2">
+        <field name="name">En atelier</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+
+
+<!--        CASE STATUS(stage_id)        -->
+    <record model="crm.case.stage" id="stage_inter1">
+        <field name="name">Demande</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+    <record model="crm.case.stage" id="stage_inter2">
+        <field name="name">Confirmation</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+    <record model="crm.case.stage" id="stage_inter3">
+        <field name="name">Date fixed</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+    <record model="crm.case.stage" id="stage_inter4">
+        <field name="name">Done</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+    <record model="crm.case.stage" id="stage_inter5">
+        <field name="name">Extended</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+
+<!--        CASE CATEGORY2(category2_id)        -->
+    <record model="crm.case.category2" id="category_inter1">
+        <field name="name">Very Happy</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>    
+    <record model="crm.case.category2" id="category_inter2">
+        <field name="name">Happy</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+    <record model="crm.case.category2" id="category_inter3">
+        <field name="name">Unhappy</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+    <record model="crm.case.category2" id="category_inter4">
+        <field name="name">Badly</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+    <record model="crm.case.category2" id="category_inter5">
+        <field name="name">Furious</field>
+        <field name="section_id" ref="section_support_inter"/>
+    </record>
+
+</data>
+</openerp>
