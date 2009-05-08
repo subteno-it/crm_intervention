@@ -49,7 +49,30 @@ class crm_intervention(osv.osv):
         'internal_comment': fields.text('Internal Comment'),
         'history_line': fields.one2many('crm.case.history', 'case_id', 'Communication', readonly=1),
         'internal_history': fields.one2many('crm.case.history', 'case_id', 'Communication', readonly=1),
+        'partner_id':fields.many2one('res.partner', 'Customer', readonly=True, states={'open':[('readonly',False)]}, change_default=True, select=True),
+        'partner_invoice_id':fields.many2one('res.partner.address', 'Invoice Address', readonly=True, required=True, states={'open':[('readonly',False)]}),
+        'partner_order_id':fields.many2one('res.partner.address', 'Intervention Contact', readonly=True, required=True, states={'open':[('readonly',False)]}, help="The name and address of the contact that requested the intervention."),
+        'partner_shipping_id':fields.many2one('res.partner.address', 'Intervention Address', readonly=True, required=True, states={'open':[('readonly',False)]}),
     }
+    _defaults = {
+        'partner_invoice_id': lambda self, cr, uid, context: context.get('partner_id', False) and self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['invoice'])['invoice'],
+        'partner_order_id': lambda self, cr, uid, context: context.get('partner_id', False) and  self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['contact'])['contact'],
+        'partner_shipping_id': lambda self, cr, uid, context: context.get('partner_id', False) and self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['delivery'])['delivery'],
+    }
+
+    def onchange_partner_id(self, cr, uid, ids, part):
+        if not part:
+            return {'value':{'partner_invoice_id': False, 'partner_shipping_id':False, 'partner_order_id':False, 'email_from': False, 'partner_phone':False, 'partner_mobile':False }}
+        addr = self.pool.get('res.partner').address_get(cr, uid, [part], ['default','delivery','invoice','contact'])
+        part = self.pool.get('res.partner').browse(cr, uid, part)
+        val = {'partner_invoice_id': addr['invoice'],
+               'partner_order_id':addr['contact'],
+               'partner_shipping_id':addr['delivery'],
+              }
+        val['email_from'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).email
+        val['partner_phone'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).phone
+        val['partner_mobile'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).mobile
+        return {'value':val}
 
     def case_log(self, cr, uid, ids,context={}, email=False, *args):
         cases = self.browse(cr, uid, ids)

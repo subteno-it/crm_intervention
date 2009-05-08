@@ -15,7 +15,7 @@
                 <group colspan="4" col="7">
                     <field name="name" select="1" string="Intervention" colspan="2"/>
                     <field name="section_id" colspan="1"/>
-                    <field name="user_id" select="2" string="Responsible"/>
+                    <field name="user_id" select="2" string="Planned for"/>
                         <newline/>
                         <label string="Intervention Stage: " align="1.0"/>
                         <group colspan="1" col="2">
@@ -27,15 +27,20 @@
                     <button string="Schedule Meeting" icon="terp-crm" name="%(crm_configuration.wizard_crm_meeting)d" type="action"/>
                 </group>
                 <notebook colspan="4">
+                    <page string="Customer contact">
+                        <field name="partner_id" on_change="onchange_partner_id(partner_id)" required="1" select="1"/>
+                        <field domain="[('partner_id','=',partner_id)]" name="partner_order_id"/>
+                        <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id"/>
+                        <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id"/>
+                        <field name="partner_phone" required="1"/>
+                        <field name="partner_mobile"/>
+                        <field name="email_from" widget="email"/>
+                    </page>
                 <page string="Description">
-                    <field name="partner_id" select="1" on_change="onchange_partner_id(partner_id, email_cc)" colspan="2"/>
-                    <field name="partner_address_id" string="Contact" on_change="onchange_partner_address_id(partner_address_id, email_cc)" colspan="1"/>
-                    <field name="partner_phone" required="1"/>
-                    <field name="partner_mobile"/>
                     <field name="canal_id"/>
                     <field name="categ_id" select="1" on_change="onchange_categ_id(categ_id)" string="Location" required="1"/>
                     <field name="priority" string="Priority"/>
-                    <field name="duration" string="Estimated Duration"/>
+                    <field name="duration" string="Estimated Duration" widget="float_time"/>
                     <separator colspan="4" string="Description Information"/>
                     <field name="note" nolabel="1" colspan="4" required="1"/>
                     <separator colspan="4" string="References"/>
@@ -50,7 +55,7 @@
                     <field name="category2_id" select="1" string="Gratification"/>
                     <field name="som"/>
                     <field name="email_cc"/>
-                    <field name="planned_cost" string="Duration"/>
+                    <field name="planned_cost" string="Duration" widget="float_time"/>
                     <field name="description" string="Customer" colspan="2" nolabel="1"/>
                     <field name="internal_comment" string="Internal" colspan="2" nolabel="1"/>
                     <button name="case_log" string="For Customer" states="open" type="object" colspan="2"/>
