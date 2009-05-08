@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Sequences for crm_intervention.crm_intervention -->
+        <record id="seq_type_crm_intervention" model="ir.sequence.type">
+            <field name="name">CRM - Intervention Form</field>
+            <field name="code">crm_intervention.case</field>
+        </record>
+        <record id="seq_crm_intervention" model="ir.sequence">
+            <field name="name">CRM Intervention </field>
+            <field name="code">crm_intervention.case</field>
+            <field name="prefix">ri</field>
+            <field name="padding">3</field>
+        </record>
+    </data>
+</openerp>

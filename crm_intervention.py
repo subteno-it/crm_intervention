@@ -46,6 +46,7 @@ class crm_intervention(osv.osv):
 
     _columns = {
         'customer_request': fields.text('Customer Request'),
+        'number_request': fields.char('Number Request', size=64, required=True),
         'internal_comment': fields.text('Internal Comment'),
         'history_line': fields.one2many('crm.case.history', 'case_id', 'Communication', readonly=1),
         'internal_history': fields.one2many('crm.case.history', 'case_id', 'Communication', readonly=1),
@@ -61,9 +62,10 @@ class crm_intervention(osv.osv):
         'partner_invoice_id': lambda self, cr, uid, context: context.get('partner_id', False) and self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['invoice'])['invoice'],
         'partner_order_id': lambda self, cr, uid, context: context.get('partner_id', False) and  self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['contact'])['contact'],
         'partner_shipping_id': lambda self, cr, uid, context: context.get('partner_id', False) and self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['delivery'])['delivery'],
+        'number_request': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'crm_intervention.case'),
     }
 
-    def onchange_partner_id(self, cr, uid, ids, part):
+    def onchange_partner_intervention_id(self, cr, uid, ids, part):
         if not part:
             return {'value':{'partner_invoice_id': False, 'partner_shipping_id':False, 'partner_order_id':False, 'email_from': False, 'partner_phone':False, 'partner_mobile':False }}
         addr = self.pool.get('res.partner').address_get(cr, uid, [part], ['default','delivery','invoice','contact'])

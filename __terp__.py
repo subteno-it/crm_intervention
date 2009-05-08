@@ -36,6 +36,7 @@
         'crm_intervention_data.xml',
         'crm_intervention_view.xml',
         'crm_intervention_menu.xml',
+        'crm_intervention_sequence.xml',
     ],
     'update_xml': [],
     'demo_xml': [],

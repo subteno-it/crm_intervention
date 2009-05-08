@@ -13,7 +13,8 @@
         <field name="arch" type="xml">
             <form string="Interventions">
                 <group colspan="4" col="7">
-                    <field name="name" select="1" string="Intervention" colspan="2"/>
+                    <field name="name" select="1" string="Intervention" colspan="7"/>
+                    <field name="number_request" select="1" string="Intervention n°" colspan="2"/>
                     <field name="section_id" colspan="1"/>
                     <field name="user_id" select="2" string="Planned for"/>
                         <newline/>
@@ -28,7 +29,7 @@
                 </group>
                 <notebook colspan="4">
                     <page string="Customer contact">
-                        <field name="partner_id" on_change="onchange_partner_id(partner_id)" required="1" select="1"/>
+                        <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" select="1"/>
                         <field domain="[('partner_id','=',partner_id)]" name="partner_order_id"/>
                         <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id"/>
                         <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id"/>
