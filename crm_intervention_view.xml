@@ -12,20 +12,18 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Interventions">
-                <group colspan="4" col="7">
-                    <field name="name" select="1" string="Subject" colspan="7"/>
-                    <field name="number_request" select="1" string="Intervention n°" colspan="2"/>
-                    <field name="section_id" colspan="1"/>
-                    <field name="user_id" select="2" string="Planned for"/>
-                        <newline/>
-                        <label string="Intervention Stage: " align="1.0"/>
-                        <group colspan="1" col="2">
+                <group colspan="4" col="6">
+                    <field name="number_request" select="1" string="Intervention n°" colspan="1"/>
+                    <field name="name" select="1" string="Subject" colspan="3"/>
+                    <button string="Schedule Meeting" icon="terp-crm" name="%(crm_configuration.wizard_crm_meeting)d" type="action" colspan="1"/>
+                    <newline/>
+                    <label string="Stage" align="1.0"/>
+                    <group colspan="1" col="2">
                         <field name="stage_id" select="1" nolabel="1"/>
                         <button icon="gtk-go-forward" string="" name="stage_next" type="object"/>
-                        </group>
-                    <field name="date" string="Arrived between" required="1"/>
-                    <field name="date_deadline" select="2" string="And" required="1"/>
-                    <button string="Schedule Meeting" icon="terp-crm" name="%(crm_configuration.wizard_crm_meeting)d" type="action"/>
+                    </group>
+                    <field name="section_id" colspan="1"/>
+                    <field name="user_id" select="2" string="Planned for" colspan="1"/>
                 </group>
                 <notebook colspan="4">
                     <page string="Customer contact">
@@ -33,15 +31,17 @@
                         <field domain="[('partner_id','=',partner_id)]" name="partner_order_id"/>
                         <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id"/>
                         <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id"/>
-                        <field name="partner_phone" required="1"/>
+                        <field name="partner_phone" required="0"/>
                         <field name="partner_mobile"/>
                         <field name="email_from" widget="email"/>
                     </page>
                 <page string="Description">
                     <field name="canal_id"/>
-                    <field name="categ_id" select="1" on_change="onchange_categ_id(categ_id)" string="Location" required="1"/>
                     <field name="priority" string="Priority"/>
-                    <field name="duration" string="Estimated Duration" widget="float_time"/>
+                    <field name="planned_start_date" colspan="1"/>
+                    <field name="planned_hours" widget="float_time"/>
+                    <field name="planned_end_date" select="2" colspan="1"/>
+                    <field name="categ_id" select="1" on_change="onchange_categ_id(categ_id)" string="Location" required="0"/>
                     <separator colspan="2" string="Description Information"/>
                     <separator colspan="2" string="Internal Information"/>
                     <field name="note" nolabel="1" colspan="2" required="0"/>
@@ -53,12 +53,14 @@
 
                 <page string="Feedback">
                 <group expand="1">
+                    <field name="effective_start_date" colspan="1"/>
+                    <field name="effective_hours" widget="float_time"/>
+                    <field name="effective_end_date" select="2" colspan="1"/>
+                    <field name="email_cc"/>
                     <separator string="Customer" colspan="2"/>
                     <separator string="Internal" colspan="2"/>
                     <field name="category2_id" select="1" string="Gratification"/>
                     <field name="som"/>
-                    <field name="email_cc"/>
-                    <field name="planned_cost" string="Duration" widget="float_time"/>
                     <field name="description" string="Customer" colspan="2" nolabel="1"/>
                     <field name="internal_comment" string="Internal" colspan="2" nolabel="1"/>
                     <button name="case_log" string="For Customer" states="open" type="object" colspan="2"/>
