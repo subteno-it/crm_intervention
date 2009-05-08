@@ -48,6 +48,7 @@ class crm_intervention(osv.osv):
         'customer_request': fields.text('Customer Request'),
         'number_request': fields.char('Number Request', size=64, required=True),
         'internal_comment': fields.text('Internal Comment'),
+        'internal_note': fields.text('Internal Note'),
         'history_line': fields.one2many('crm.case.history', 'case_id', 'Communication', readonly=1),
         'internal_history': fields.one2many('crm.case.history', 'case_id', 'Communication', readonly=1),
         'partner_id':fields.many2one('res.partner', 'Customer', readonly=True, states={'open':[('readonly',False)]}, change_default=True, select=True),

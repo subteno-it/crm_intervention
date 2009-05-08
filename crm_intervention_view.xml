@@ -13,7 +13,7 @@
         <field name="arch" type="xml">
             <form string="Interventions">
                 <group colspan="4" col="7">
-                    <field name="name" select="1" string="Intervention" colspan="7"/>
+                    <field name="name" select="1" string="Subject" colspan="7"/>
                     <field name="number_request" select="1" string="Intervention n°" colspan="2"/>
                     <field name="section_id" colspan="1"/>
                     <field name="user_id" select="2" string="Planned for"/>
@@ -42,8 +42,10 @@
                     <field name="categ_id" select="1" on_change="onchange_categ_id(categ_id)" string="Location" required="1"/>
                     <field name="priority" string="Priority"/>
                     <field name="duration" string="Estimated Duration" widget="float_time"/>
-                    <separator colspan="4" string="Description Information"/>
-                    <field name="note" nolabel="1" colspan="4" required="1"/>
+                    <separator colspan="2" string="Description Information"/>
+                    <separator colspan="2" string="Internal Information"/>
+                    <field name="note" nolabel="1" colspan="2" required="0"/>
+                    <field name="internal_note" nolabel="1" colspan="2"/>
                     <separator colspan="4" string="References"/>
                     <field colspan="4" name="ref"/>
 
