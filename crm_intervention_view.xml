@@ -16,7 +16,6 @@
                     <field name="name" select="1" string="Subject" colspan="2"/>
                     <field name="number_request" select="1" string="Reference" colspan="1"/>
                     <field name="section_id" colspan="1" invisible="False"/>
-                    <button string="Schedule Meeting" icon="terp-crm" name="%(crm_configuration.wizard_crm_meeting)d" type="action" colspan="1"/>
                     <newline/>
                     <label string="Stage :" align="1.0"/>
                     <group colspan="1" col="2">
