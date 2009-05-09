@@ -32,7 +32,6 @@
     'website': 'http://www.Syleam.fr',
     'depends': ['crm','crm_configuration'],
     'init_xml': [
-        #        'crm_configuration_wizard.xml',
         'crm_intervention_data.xml',
         'crm_intervention_view.xml',
         'crm_intervention_menu.xml',
