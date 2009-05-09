@@ -13,8 +13,8 @@
         <field name="arch" type="xml">
             <form string="Interventions">
                 <group colspan="4" col="7">
-                    <field name="name" select="1" string="Subject" colspan="2"/>
-                    <field name="number_request" select="1" string="Reference" colspan="1"/>
+                    <field name="name" select="1" string="Subject" colspan="2" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="number_request" select="1" string="Reference" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                     <field name="section_id" colspan="1" invisible="False"/>
                     <newline/>
                     <label string="Stage :" align="1.0"/>
@@ -22,46 +22,46 @@
                         <field name="stage_id" select="1" nolabel="1"/>
                         <button icon="gtk-go-forward" string="" name="stage_next" type="object"/>
                     </group>
-                    <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" select="1"/>
-                    <field name="user_id" select="2" string="Planned for" colspan="1"/>
+                    <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" select="1" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="user_id" select="2" string="Planned for" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                 </group>
                 <notebook colspan="4">
                     <page string="Customer contact">
-                        <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" required="1"/>
-                        <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" required="1"/>
-                        <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id" required="1"/>
-                        <field name="partner_phone" required="0"/>
-                        <field name="partner_mobile"/>
-                        <field name="email_from" widget="email"/>
+                        <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="partner_phone" required="0" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="partner_mobile" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="email_from" widget="email" attrs="{'readonly':[('state','=','done')]}"/>
                     </page>
                 <page string="Description">
-                    <field name="canal_id"/>
-                    <field name="priority" string="Priority"/>
-                    <field name="planned_start_date" colspan="1"/>
-                    <field name="planned_hours" widget="float_time"/>
-                    <field name="planned_end_date" select="2" colspan="1"/>
-                    <field name="categ_id" select="1" on_change="onchange_categ_id(categ_id)" string="Location" required="0"/>
+                    <field name="canal_id" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="planned_start_date" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="planned_hours" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="planned_end_date" select="2" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="categ_id" select="1" on_change="onchange_categ_id(categ_id)" string="Location" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                     <separator colspan="2" string="Description Information"/>
                     <separator colspan="2" string="Internal Information"/>
-                    <field name="note" nolabel="1" colspan="2" required="0"/>
-                    <field name="internal_note" nolabel="1" colspan="2"/>
+                    <field name="note" nolabel="1" colspan="2" required="0" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="internal_note" nolabel="1" colspan="2" attrs="{'readonly':[('state','=','done')]}"/>
                     <separator colspan="4" string="References"/>
-                    <field colspan="4" name="ref"/>
+                    <field colspan="4" name="ref" attrs="{'readonly':[('state','=','done')]}"/>
 
                 </page>
 
                 <page string="Feedback">
                 <group expand="1">
-                    <field name="effective_start_date" colspan="1"/>
-                    <field name="effective_hours" widget="float_time"/>
-                    <field name="effective_end_date" select="2" colspan="1"/>
-                    <field name="email_cc"/>
+                    <field name="effective_start_date" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="effective_hours" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="effective_end_date" select="2" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="email_cc" attrs="{'readonly':[('state','=','done')]}"/>
                     <separator string="Customer" colspan="2"/>
                     <separator string="Internal" colspan="2"/>
-                    <field name="category2_id" select="1" string="Gratification"/>
-                    <field name="som"/>
-                    <field name="description" string="Customer" colspan="2" nolabel="1"/>
-                    <field name="internal_comment" string="Internal" colspan="2" nolabel="1"/>
+                    <field name="category2_id" select="1" string="Gratification" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="som" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="description" string="Customer" colspan="2" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="internal_comment" string="Internal" colspan="2" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/>
                     <button name="case_log" string="For Customer" states="open" type="object" colspan="2"/>
                     <button name="case_internal_log" string="In Internal" states="open" type="object" colspan="2"/>
                     <separator colspan="4" string="References"/>
