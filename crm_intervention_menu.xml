@@ -1,286 +1,243 @@
 <?xml version="1.0"?>
 <openerp>
-<data noupdate="1">
-    <menuitem id="menu_aftersale" name="After-Sale Services" parent="crm.menu_crm"/>
+    <data noupdate="1">
+        <menuitem id="menu_aftersale" name="After-Sale Services" parent="crm.menu_crm"/>
 
-     <record model="ir.actions.act_window" id="crm_case_category_act_inter01">
-          <field name="name">All Interventions</field>
-          <field name="res_model">crm.case</field>
-          <field name="view_mode">tree,form,calendar,graph</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+')]'"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter01">
-          <field name="sequence" eval="3"/>
-          <field name="view_mode">calendar</field>
-          <field name="view_id" ref="crm_case_calendar_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter01"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter01">
-          <field name="sequence" eval="1"/>
-          <field name="view_mode">tree</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter01"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter01">
-          <field name="sequence" eval="2"/>
-          <field name="view_mode">form</field>
-          <field name="view_id" ref="crm_case_form_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter01"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter01">
-          <field name="sequence" eval="4"/>
-          <field name="view_mode">graph</field>
-          <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter01"/>
-     </record>
-     <menuitem name="Interventions" id="menu_crm_case_int" parent="menu_aftersale" action="crm_case_category_act_inter01"/>
-
-
-<!--          MENU          -->
-     <menuitem parent="menu_crm_case_int" id="menu_crm_case_categ0_act_inter01" action="crm_case_category_act_inter01"/>
-
-     <record model="ir.actions.act_window" id="crm_case_category_act_inter1">
-          <field name="name">All Open Interventions</field>
-          <field name="res_model">crm.case</field>
-          <field name="view_mode">tree,calendar,form,graph</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+'),(\'state\',\'=\',\'open\')]'"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter1">
-          <field name="sequence" eval="1"/>
-          <field name="view_mode">tree</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter1"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter1">
-          <field name="sequence" eval="2"/>
-          <field name="view_mode">calendar</field>
-          <field name="view_id" ref="crm_case_calendar_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter1"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter1">
-          <field name="sequence" eval="3"/>
-          <field name="view_mode">form</field>
-          <field name="view_id" ref="crm_case_form_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter1"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter1">
-          <field name="sequence" eval="4"/>
-          <field name="view_mode">graph</field>
-          <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter1"/>
-     </record>
-     <menuitem parent="menu_crm_case_categ0_act_inter01" id="menu_crm_case_categ0_act_inter1" action="crm_case_category_act_inter1"/>
+        <record model="ir.actions.act_window" id="crm_case_category_act_inter01">
+            <field name="name">All Interventions</field>
+            <field name="res_model">crm.case</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+')]'"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter01">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="crm_case_calendar_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter01"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter01">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter01"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter01">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_case_form_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter01"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter01">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter01"/>
+        </record>
+        <menuitem name="Interventions" id="menu_crm_case_int" parent="menu_aftersale" action="crm_case_category_act_inter01"/>
 
 
-     <record model="ir.actions.act_window" id="crm_case_category_act_inter_all2">
-          <field name="name">All Unassigned Intervention</field>
-          <field name="res_model">crm.case</field>
-          <field name="view_mode">tree,calendar,form,graph</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+'),(\'state\',\'=\',\'pending\'),(\'user_id\',\'=\',False)]'"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter_all2">
-          <field name="sequence" eval="1"/>
-          <field name="view_mode">tree</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter_all2"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter_all2">
-          <field name="sequence" eval="2"/>
-          <field name="view_mode">calendar</field>
-          <field name="view_id" ref="crm_case_calendar_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter_all2"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter_all2">
-          <field name="sequence" eval="3"/>
-          <field name="view_mode">form</field>
-          <field name="view_id" ref="crm_case_form_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter_all2"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter_all2">
-          <field name="sequence" eval="4"/>
-          <field name="view_mode">graph</field>
-          <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter_all2"/>
-     </record>
-     <menuitem parent="menu_crm_case_categ0_act_inter01" id="menu_crm_case_categ0_act_inter_all2" action="crm_case_category_act_inter_all2"/>
+        <!--          MENU          -->
+        <menuitem parent="menu_crm_case_int" id="menu_crm_case_categ0_act_inter01" action="crm_case_category_act_inter01"/>
+
+        <record model="ir.actions.act_window" id="crm_case_category_act_inter1">
+            <field name="name">All Open Interventions</field>
+            <field name="res_model">crm.case</field>
+            <field name="view_mode">tree,calendar,form,graph</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+'),(\'state\',\'=\',\'open\')]'"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter1">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter1"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter1">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="crm_case_calendar_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter1"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter1">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_case_form_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter1"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter1">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter1"/>
+        </record>
+        <menuitem parent="menu_crm_case_categ0_act_inter01" id="menu_crm_case_categ0_act_inter1" action="crm_case_category_act_inter1"/>
 
 
-<!-- ======================================================== -->
-     <record model="ir.actions.act_window" id="crm_case_category_act_inter22">
-          <field name="name">My Interventions</field>
-          <field name="res_model">crm.case</field>
-          <field name="view_mode">tree,calendar,form,graph</field>
-          <field name="view_id" ref="crm_case_calendar_view_inter"/>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+'),(\'user_id\',\'=\',uid)]'"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter22">
-          <field name="sequence" eval="2"/>
-          <field name="view_mode">calendar</field>
-          <field name="view_id" ref="crm_case_calendar_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter22"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter22">
-          <field name="sequence" eval="1"/>
-          <field name="view_mode">tree</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter22"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter22">
-          <field name="sequence" eval="3"/>
-          <field name="view_mode">form</field>
-          <field name="view_id" ref="crm_case_form_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter22"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter22">
-          <field name="sequence" eval="4"/>
-          <field name="view_mode">graph</field>
-          <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter22"/>
-     </record>
-     <menuitem parent="menu_crm_case_int" id="menu_crm_case_categ0_act_inter22" action="crm_case_category_act_inter22"/>
-
-     <record model="ir.actions.act_window" id="crm_case_category_act_inter">
-          <field name="name">Intervention</field>
-          <field name="res_model">crm.case</field>
-          <field name="view_type">form</field>
-          <field name="view_mode">form,tree,calendar</field>
-          <field name="view_id" ref="crm_case_form_view_inter"/>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+')]'"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter">
-          <field name="sequence" eval="1"/>
-          <field name="view_mode">form</field>
-          <field name="view_id" ref="crm_case_form_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter">
-          <field name="sequence" eval="2"/>
-          <field name="view_mode">tree</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_cal_view_inter">
-          <field name="sequence" eval="3"/>
-          <field name="view_mode">calendar</field>
-          <field name="act_window_id" ref="crm_case_category_act_inter"/>
-     </record>
-     <menuitem name="New Intervention"
-        parent="menu_crm_case_int"
-        id="menu_crm_case_categ0_act_inter"
-        action="crm_case_category_act_inter"
-        sequence="50"/>
-
-     <record model="ir.actions.act_window" id="crm_case_category_act_inter2">
-          <field name="name">My Open Intervention</field>
-          <field name="res_model">crm.case</field>
-          <field name="view_mode">tree,calendar,form,graph</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+'),(\'state\',\'=\',\'open\'),(\'user_id\',\'=\',uid)]'"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter2">
-          <field name="sequence" eval="1"/>
-          <field name="view_mode">tree</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter2"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter2">
-          <field name="sequence" eval="2"/>
-          <field name="view_mode">calendar</field>
-          <field name="view_id" ref="crm_case_calendar_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter2"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter2">
-          <field name="sequence" eval="3"/>
-          <field name="view_mode">form</field>
-          <field name="view_id" ref="crm_case_form_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter2"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter2">
-          <field name="sequence" eval="4"/>
-          <field name="view_mode">graph</field>
-          <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter2"/>
-     </record>
-     <menuitem parent="menu_crm_case_categ0_act_inter22" id="menu_crm_case_categ0_act_inter2" action="crm_case_category_act_inter2"/>
-
-     <record model="ir.actions.act_window" id="crm_case_category_act_inter_my2">
-          <field name="name">My Pending Intervention</field>
-          <field name="res_model">crm.case</field>
-          <field name="view_mode">tree,calendar,form,graph</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+'),(\'state\',\'=\',\'pending\'),(\'user_id\',\'=\',uid)]'"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter_my2">
-          <field name="sequence" eval="1"/>
-          <field name="view_mode">tree</field>
-          <field name="view_id" ref="crm_case_tree_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter_my2"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter_my2">
-          <field name="sequence" eval="2"/>
-          <field name="view_mode">calendar</field>
-          <field name="view_id" ref="crm_case_calendar_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter_my2"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter_my2">
-          <field name="sequence" eval="3"/>
-          <field name="view_mode">form</field>
-          <field name="view_id" ref="crm_case_form_view_inter"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter_my2"/>
-     </record>
-     <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter_my2">
-          <field name="sequence" eval="4"/>
-          <field name="view_mode">graph</field>
-          <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
-          <field name="act_window_id" ref="crm_case_category_act_inter_my2"/>
-     </record>
-     <menuitem parent="menu_crm_case_categ0_act_inter22" id="menu_crm_case_categ0_act_inter_my2" action="crm_case_category_act_inter_my2"/>
-
-<!--          REPORTS               -->
-     <record model="ir.actions.act_window" id="action_report_crm_case_inter_user">
-          <field name="res_model">report.crm.case.user</field>
-          <field name="view_type">form</field>
-          <field name="view_mode">graph,tree</field>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+')]'"/>
-     </record>
-     <menuitem name="Intervention" parent="report_crm.next_id_64" id="menu_action_report_crm_case_inter"/>
-     <menuitem name="Cases by Intervention and User" parent="menu_action_report_crm_case_inter" action="action_report_crm_case_inter_user" id="menu_action_report_crm_case_inter_user"/>
-
-     <record model="ir.actions.act_window" id="action_report_crm_case_inter_categ">
-          <field name="res_model">report.crm.case.section.categ2</field>
-          <field name="view_type">form</field>
-          <field name="view_mode">graph,tree</field>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+')]'"/>
-     </record>
-     <menuitem name="Cases by Intervention and Category2"  parent="menu_action_report_crm_case_inter" action="action_report_crm_case_inter_categ" id="menu_action_report_crm_case_inter_categ"/>
-
-     <record model="ir.actions.act_window" id="action_report_crm_case_inter_stage">
-          <field name="res_model">report.crm.case.section.stage</field>
-          <field name="view_type">form</field>
-          <field name="view_mode">graph,tree</field>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+')]'"/>
-     </record>
-     <menuitem name="Cases by Intervention and Stage" parent="menu_action_report_crm_case_inter"  action="action_report_crm_case_inter_stage" id="menu_action_report_crm_case_inter_stage"/>
-
-     <record model="ir.actions.act_window" id="action_report_crm_case_inter_categ_stage">
-          <field name="res_model">report.crm.case.section.categ.stage</field>
-          <field name="view_type">form</field>
-          <field name="view_mode">tree</field>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+')]'"/>
-     </record>
-     <menuitem name="Cases by Section, Category and Stage" parent="menu_action_report_crm_case_inter" action="action_report_crm_case_inter_categ_stage" id="menu_action_report_crm_case_inter_categ_stage"/>
-
-     <record model="ir.actions.act_window" id="action_report_crm_case_inter_categ_categ2">
-          <field name="res_model">report.crm.case.section.categ.categ2</field>
-          <field name="view_type">form</field>
-          <field name="view_mode">tree</field>
-          <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+')]'"/>
-     </record>
-     <menuitem name="Cases by Section, Category and Category2" parent="menu_action_report_crm_case_inter" action="action_report_crm_case_inter_categ_categ2" id="menu_action_report_crm_case_inter_categ_categ2"/>
+        <record model="ir.actions.act_window" id="crm_case_category_act_inter_all2">
+            <field name="name">All Unassigned Intervention</field>
+            <field name="res_model">crm.case</field>
+            <field name="view_mode">tree,calendar,form,graph</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+'),(\'state\',\'=\',\'pending\'),(\'user_id\',\'=\',False)]'"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter_all2">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter_all2"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter_all2">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="crm_case_calendar_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter_all2"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter_all2">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_case_form_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter_all2"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter_all2">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter_all2"/>
+        </record>
+        <menuitem parent="menu_crm_case_categ0_act_inter01" id="menu_crm_case_categ0_act_inter_all2" action="crm_case_category_act_inter_all2"/>
 
 
-</data>
+        <!-- ======================================================== -->
+        <record model="ir.actions.act_window" id="crm_case_category_act_inter22">
+            <field name="name">My Interventions</field>
+            <field name="res_model">crm.case</field>
+            <field name="view_mode">tree,calendar,form,graph</field>
+            <field name="view_id" ref="crm_case_calendar_view_inter"/>
+            <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+'),(\'user_id\',\'=\',uid)]'"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter22">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="crm_case_calendar_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter22"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter22">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter22"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter22">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_case_form_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter22"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter22">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter22"/>
+        </record>
+        <menuitem parent="menu_crm_case_int" id="menu_crm_case_categ0_act_inter22" action="crm_case_category_act_inter22"/>
+
+        <record model="ir.actions.act_window" id="crm_case_category_act_inter">
+            <field name="name">Intervention</field>
+            <field name="res_model">crm.case</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree,calendar</field>
+            <field name="view_id" ref="crm_case_form_view_inter"/>
+            <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+')]'"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_case_form_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_cal_view_inter">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">calendar</field>
+            <field name="act_window_id" ref="crm_case_category_act_inter"/>
+        </record>
+        <menuitem name="New Intervention"
+            parent="menu_crm_case_int"
+            id="menu_crm_case_categ0_act_inter"
+            action="crm_case_category_act_inter"
+            sequence="50"/>
+
+        <record model="ir.actions.act_window" id="crm_case_category_act_inter2">
+            <field name="name">My Open Intervention</field>
+            <field name="res_model">crm.case</field>
+            <field name="view_mode">tree,calendar,form,graph</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+'),(\'state\',\'=\',\'open\'),(\'user_id\',\'=\',uid)]'"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter2">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter2"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter2">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="crm_case_calendar_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter2"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter2">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_case_form_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter2"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter2">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter2"/>
+        </record>
+        <menuitem parent="menu_crm_case_categ0_act_inter22" id="menu_crm_case_categ0_act_inter2" action="crm_case_category_act_inter2"/>
+
+        <record model="ir.actions.act_window" id="crm_case_category_act_inter_my2">
+            <field name="name">My Pending Intervention</field>
+            <field name="res_model">crm.case</field>
+            <field name="view_mode">tree,calendar,form,graph</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="domain" eval="'[(\'section_id\',\'=\','+str(section_support_inter)+'),(\'state\',\'=\',\'pending\'),(\'user_id\',\'=\',uid)]'"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_inter_my2">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_case_tree_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter_my2"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view_inter_my2">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="crm_case_calendar_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter_my2"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_inter_my2">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_case_form_view_inter"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter_my2"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view_inter_my2">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="crm_configuration.crm_case_graph_view_stage_cost"/>
+            <field name="act_window_id" ref="crm_case_category_act_inter_my2"/>
+        </record>
+        <menuitem parent="menu_crm_case_categ0_act_inter22" id="menu_crm_case_categ0_act_inter_my2" action="crm_case_category_act_inter_my2"/>
+
+    </data>
 </openerp>
