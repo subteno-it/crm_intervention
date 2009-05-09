@@ -12,9 +12,10 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Interventions">
-                <group colspan="4" col="6">
+                <group colspan="4" col="7">
+                    <field name="name" select="1" string="Subject" colspan="2"/>
                     <field name="number_request" select="1" string="Reference" colspan="1"/>
-                    <field name="name" select="1" string="Subject" colspan="3"/>
+                    <field name="section_id" colspan="1" invisible="False"/>
                     <button string="Schedule Meeting" icon="terp-crm" name="%(crm_configuration.wizard_crm_meeting)d" type="action" colspan="1"/>
                     <newline/>
                     <label string="Stage :" align="1.0"/>
@@ -22,15 +23,14 @@
                         <field name="stage_id" select="1" nolabel="1"/>
                         <button icon="gtk-go-forward" string="" name="stage_next" type="object"/>
                     </group>
-                    <field name="section_id" colspan="1" invisible="True"/>
                     <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" select="1"/>
                     <field name="user_id" select="2" string="Planned for" colspan="1"/>
                 </group>
                 <notebook colspan="4">
                     <page string="Customer contact">
-                        <field domain="[('partner_id','=',partner_id)]" name="partner_order_id"/>
-                        <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id"/>
-                        <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id"/>
+                        <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" required="1"/>
+                        <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" required="1"/>
+                        <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id" required="1"/>
                         <field name="partner_phone" required="0"/>
                         <field name="partner_mobile"/>
                         <field name="email_from" widget="email"/>

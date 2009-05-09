@@ -58,9 +58,9 @@ class crm_intervention(osv.osv):
         'history_line': fields.one2many('crm.case.history', 'case_id', 'Communication', readonly=1),
         'internal_history': fields.one2many('crm.case.history', 'case_id', 'Communication', readonly=1),
         'partner_id':fields.many2one('res.partner', 'Customer', readonly=True, states={'open':[('readonly',False)]}, change_default=True, select=True),
-        'partner_invoice_id':fields.many2one('res.partner.address', 'Invoice Address', readonly=True, required=True, states={'open':[('readonly',False)]}),
-        'partner_order_id':fields.many2one('res.partner.address', 'Intervention Contact', readonly=True, required=True, states={'open':[('readonly',False)]}, help="The name and address of the contact that requested the intervention."),
-        'partner_shipping_id':fields.many2one('res.partner.address', 'Intervention Address', readonly=True, required=True, states={'open':[('readonly',False)]}),
+        'partner_invoice_id':fields.many2one('res.partner.address', 'Invoice Address', readonly=True, states={'open':[('readonly',False)]}),
+        'partner_order_id':fields.many2one('res.partner.address', 'Intervention Contact', readonly=True, states={'open':[('readonly',False)]}, help="The name and address of the contact that requested the intervention."),
+        'partner_shipping_id':fields.many2one('res.partner.address', 'Intervention Address', readonly=True, states={'open':[('readonly',False)]}),
         'partner_phone': fields.char('Phone', size=32),
         'partner_mobile': fields.char('Mobile', size=32),
 
