@@ -38,8 +38,8 @@
                             <field name="canal_id" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="date" string="Planned start date" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                            <field name="duration" string="Planned hours" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
-                            <field name="planned_end_date" select="2" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="duration" on_change="onchange_planned_duration(duration,date)" string="Planned hours" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="planned_end_date" on_change="onchange_planned_end_date(planned_end_date,date)" select="2" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="categ_id" select="1" on_change="onchange_categ_id(categ_id)" string="Location" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                             <separator colspan="2" string="Description Information"/>
                             <separator colspan="2" string="Internal Information"/>
@@ -53,8 +53,8 @@
                         <page string="Feedback">
                             <group expand="1">
                                 <field name="effective_start_date" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="effective_hours" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="effective_end_date" select="2" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                <field name="effective_duration" on_change="onchange_effective_duration(effective_duration,effective_start_date)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
+                                <field name="effective_end_date" on_change="onchange_planned_end_date(effective_end_date,effective_start_date)" select="2" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="email_cc" attrs="{'readonly':[('state','=','done')]}"/>
                                 <separator string="Customer" colspan="2"/>
                                 <separator string="Internal" colspan="2"/>

@@ -31,6 +31,7 @@
 from osv import fields, osv
 from tools.translate import _
 import time
+import datetime
 
 class crm_intervention_history(osv.osv):
     _inherit = 'crm.case.history'
@@ -52,7 +53,7 @@ class crm_intervention(osv.osv):
         'planned_end_date': fields.datetime('Planned end date'),
         'effective_start_date': fields.datetime('Effective start date'),
         'effective_end_date': fields.datetime('Effective end date'),
-        'effective_hours': fields.float('Effective Hours', help='Indicate real time to do the intervention.'),
+        'effective_duration': fields.float('Effective duration', help='Indicate real time to do the intervention.'),
         'history_line': fields.one2many('crm.case.history', 'case_id', 'Communication', readonly=1),
         'internal_history': fields.one2many('crm.case.history', 'case_id', 'Communication', readonly=1),
         'partner_id':fields.many2one('res.partner', 'Customer', change_default=True, select=True),
@@ -83,6 +84,34 @@ class crm_intervention(osv.osv):
         val['partner_phone'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).phone
         val['partner_mobile'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).mobile
         return {'value':val}
+
+    def onchange_planned_duration(self, cr, uid, ids, planned_duration, planned_start_date):
+        if not planned_duration:
+            return {'value':{'planned_end_date': False }}
+        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(planned_start_date , "%Y-%m-%d %H:%M:%S")))
+        return {'value': {'planned_end_date' : (start_date + datetime.timedelta(hours=planned_duration)).strftime('%Y-%m-%d %H:%M:%S')}}
+
+    def onchange_planned_end_date(self, cr, uid, ids, planned_end_date, planned_start_date):
+        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(planned_start_date, "%Y-%m-%d %H:%M:%S")))
+        end_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(planned_end_date, "%Y-%m-%d %H:%M:%S")))
+        difference = end_date - start_date
+        minutes, secondes = divmod(difference.seconds, 60)
+        hours, minutes = divmod(minutes, 60)
+        return {'value' : {'duration' : (float(difference.days*24) + float(hours) + float(minutes)/float(60))}}
+
+    def onchange_effective_duration(self, cr, uid, ids, effective_duration, effective_start_date):
+        if not effective_duration:
+            return {'value':{'effective_end_date': False }}
+        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(effective_start_date , "%Y-%m-%d %H:%M:%S")))
+        return {'value': {'effective_end_date' : (start_date + datetime.timedelta(hours=effective_duration)).strftime('%Y-%m-%d %H:%M:00')}}
+
+    def onchange_effective_end_date(self, cr, uid, ids, effective_end_date, effective_start_date):
+        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(effective_start_date, "%Y-%m-%d %H:%M:%S")))
+        end_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(effective_end_date, "%Y-%m-%d %H:%M:%S")))
+        difference = end_date - start_date
+        minutes, secondes = divmod(difference.seconds, 60)
+        hours, minutes = divmod(minutes, 60)
+        return {'value' : {'effective_duration' : (float(difference.days*24) + float(hours) + float(minutes)/float(60))}}
 
     def case_log(self, cr, uid, ids,context={}, email=False, *args):
         cases = self.browse(cr, uid, ids)
