@@ -47,7 +47,7 @@ class crm_intervention(osv.osv):
 
     _columns = {
         'customer_request': fields.text('Customer Request'),
-        'number_request': fields.char('Number Request', size=64, required=True),
+        'number_request': fields.char('Number Request', size=64),
         'internal_comment': fields.text('Internal Comment'),
         'internal_note': fields.text('Internal Note'),
         'planned_end_date': fields.datetime('Planned end date'),
