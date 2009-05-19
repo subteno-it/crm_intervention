@@ -83,9 +83,11 @@
                                 <tree string="Previous Feedback Customer">
                                     <field name="date"/>
                                     <field name="user_id"/>
+                                    <field name="types"/>
                                     <field name="description" string="Text"/>
                                 </tree>
                             </field>
+                            <!--
                             <field name="internal_history" colspan="2" nolabel="1" mode="tree,form" domain="[('types','=','internal')]">
                                 <tree string="Previous Feedback Internal">
                                     <field name="date"/>
@@ -93,6 +95,7 @@
                                     <field name="description" string="Text"/>
                                 </tree>
                             </field>
+                            -->
 
                         </page>
 
