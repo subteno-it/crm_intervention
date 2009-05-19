@@ -290,7 +290,7 @@ msgstr "Étendu"
 #. module: crm_intervention
 #: field:crm.case,effective_start_date:0
 msgid "Effective start date"
-msgstr "Date de d'arrivée"
+msgstr "Date d'arrivée"
 
 #. module: crm_intervention
 #: view:crm.case:0
