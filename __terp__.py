@@ -1,9 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    $Id$
+#    Crm_intervention module for OpenERP, for managing intervention in the CRM
+#    Copyright (C) 2009 SYLEAM (<http://www.Syleam.fr>) Sebastien LANGE
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -26,7 +25,7 @@
     'version': '1.0',
     'category': 'Generic Modules/CRM & SRM',
     'description': """
-    TODO
+    Managing intervention with crm case
 """,
     'author': 'Syleam',
     'website': 'http://www.Syleam.fr',
@@ -41,5 +40,6 @@
     'demo_xml': [],
     'installable': True,
     'active': False,
+    'certificate': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
