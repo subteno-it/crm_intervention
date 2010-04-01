@@ -52,8 +52,6 @@ class crm_intervention(osv.osv):
         'partner_invoice_id':fields.many2one('res.partner.address', 'Invoice Address'),
         'partner_order_id':fields.many2one('res.partner.address', 'Intervention Contact', help="The name and address of the contact that requested the intervention."),
         'partner_shipping_id':fields.many2one('res.partner.address', 'Intervention Address'),
-        'partner_phone': fields.char('Phone', size=32),
-        'partner_mobile': fields.char('Mobile', size=32),
 
     }
     _defaults = {
@@ -65,7 +63,7 @@ class crm_intervention(osv.osv):
 
     def onchange_partner_intervention_id(self, cr, uid, ids, part):
         if not part:
-            return {'value':{'partner_invoice_id': False, 'partner_shipping_id':False, 'partner_order_id':False, 'email_from': False, 'partner_phone':False, 'partner_mobile':False }}
+            return {'value':{'partner_invoice_id': False, 'partner_shipping_id':False, 'partner_order_id':False, 'email_from': False, 'partner_address_phone':False, 'partner_address_mobile':False }}
         addr = self.pool.get('res.partner').address_get(cr, uid, [part], ['default','delivery','invoice','contact'])
         part = self.pool.get('res.partner').browse(cr, uid, part)
         val = {'partner_invoice_id': addr['invoice'],
@@ -73,8 +71,8 @@ class crm_intervention(osv.osv):
                'partner_shipping_id':addr['delivery'],
               }
         val['email_from'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).email
-        val['partner_phone'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).phone
-        val['partner_mobile'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).mobile
+        val['partner_address_phone'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).phone
+        val['partner_address_mobile'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).mobile
         return {'value':val}
 
     def onchange_planned_duration(self, cr, uid, ids, planned_duration, planned_start_date):

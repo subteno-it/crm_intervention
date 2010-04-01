@@ -48,9 +48,9 @@
                         <page string="Customer contact">
                             <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                             <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
-                            <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
-                            <field name="partner_phone" required="0" attrs="{'readonly':[('state','=','done')]}"/>
-                            <field name="partner_mobile" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="partner_address_phone" required="0" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="partner_address_mobile" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="email_from" widget="email" attrs="{'readonly':[('state','=','done')]}"/>
                             <separator colspan="4" string="Customer Information"/>
                             <field name="customer_note" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>

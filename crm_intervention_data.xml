@@ -26,22 +26,22 @@
         </record>
 
         <record model="crm.case.categ" id="categ_inter1">
-            <field name="name">Sur site</field>
+            <field name="name">On customer</field>
             <field name="section_id" ref="section_support_inter"/>
         </record>
         <record model="crm.case.categ" id="categ_inter2">
-            <field name="name">En atelier</field>
+            <field name="name">Training Room</field>
             <field name="section_id" ref="section_support_inter"/>
         </record>
 
 
         <!--        CASE STATUS(stage_id)        -->
         <record model="crm.case.stage" id="stage_inter1">
-            <field name="name">Demande</field>
+            <field name="name">Request</field>
             <field name="section_id" ref="section_support_inter"/>
         </record>
         <record model="crm.case.stage" id="stage_inter2">
-            <field name="name">Confirmation</field>
+            <field name="name">Confirmed</field>
             <field name="section_id" ref="section_support_inter"/>
         </record>
         <record model="crm.case.stage" id="stage_inter3">
