@@ -29,7 +29,7 @@
 """,
     'author': 'Syleam',
     'website': 'http://www.Syleam.fr',
-    'depends': ['crm','crm_configuration'],
+    'depends': ['crm','crm_api'],
     'init_xml': [
         'crm_intervention_data.xml',
         'crm_intervention_view.xml',
