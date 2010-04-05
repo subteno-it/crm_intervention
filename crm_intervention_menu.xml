@@ -50,7 +50,7 @@
 
 
         <!--          MENU          -->
-        <menuitem parent="menu_crm_case_int" id="menu_crm_case_categ0_act_inter01" action="crm_case_category_act_inter01"/>
+        <menuitem parent="menu_crm_case_int" id="menu_crm_case_categ0_act_inter01" action="crm_case_category_act_inter01" icon="STOCK_EDIT"/>
 
         <record model="ir.actions.act_window" id="crm_case_category_act_inter1">
             <field name="name">All Open Interventions</field>
@@ -134,7 +134,7 @@
             <field name="view_id" ref="crm_case_form_view_inter"/>
             <field name="act_window_id" ref="crm_case_category_act_inter22"/>
         </record>
-        <menuitem parent="menu_crm_case_int" id="menu_crm_case_categ0_act_inter22" action="crm_case_category_act_inter22"/>
+        <menuitem parent="menu_crm_case_int" id="menu_crm_case_categ0_act_inter22" action="crm_case_category_act_inter22" icon="STOCK_HOME"/>
 
         <record model="ir.actions.act_window" id="crm_case_category_act_inter">
             <field name="name">Intervention</field>
