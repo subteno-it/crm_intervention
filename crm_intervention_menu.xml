@@ -46,8 +46,7 @@
             <field name="view_id" ref="crm_case_form_view_inter"/>
             <field name="act_window_id" ref="crm_case_category_act_inter01"/>
         </record>
-        <menuitem id="base.menu_sales" name="Sales" sequence="1"/>
-        <menuitem name="Interventions" id="menu_crm_case_int" parent="base.menu_sales" action="crm_case_category_act_inter01"/>
+        <menuitem name="Interventions" id="menu_crm_case_int" icon="STOCK_PREFERENCES" action="crm_case_category_act_inter01" sequence="3"/>
 
 
         <!--          MENU          -->
