@@ -4,16 +4,26 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.0\n"
+"Project-Id-Version: OpenERP Server 5.0.9\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-05-19 19:23:32+0000\n"
-"PO-Revision-Date: 2009-05-19 19:23:32+0000\n"
+"POT-Creation-Date: 2010-04-24 21:39:05+0000\n"
+"PO-Revision-Date: 2010-04-24 21:39:05+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: crm_intervention
+#: view:crm.case:0
+msgid "Customer"
+msgstr ""
+
+#. module: crm_intervention
+#: model:crm.case.stage,name:crm_intervention.stage_inter2
+msgid "Confirmed"
+msgstr ""
 
 #. module: crm_intervention
 #: model:ir.actions.act_window,name:crm_intervention.crm_case_category_act_inter1
@@ -38,8 +48,14 @@ msgid "For Customer"
 msgstr ""
 
 #. module: crm_intervention
-#: model:crm.case.category2,name:crm_intervention.category_inter1
-msgid "Very Happy"
+#: field:crm.case,internal_comment:0
+msgid "Internal Comment"
+msgstr ""
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:0
+#, python-format
+msgid "Historize"
 msgstr ""
 
 #. module: crm_intervention
@@ -58,11 +74,6 @@ msgid "Unhappy"
 msgstr ""
 
 #. module: crm_intervention
-#: model:crm.case.categ,name:crm_intervention.categ_inter1
-msgid "Sur site"
-msgstr ""
-
-#. module: crm_intervention
 #: view:crm.case:0
 msgid "Priority"
 msgstr ""
@@ -73,8 +84,8 @@ msgid "Action Information"
 msgstr ""
 
 #. module: crm_intervention
-#: field:crm.case,customer_request:0
-msgid "Customer Request"
+#: field:crm.case,effective_duration:0
+msgid "Effective duration"
 msgstr ""
 
 #. module: crm_intervention
@@ -114,10 +125,8 @@ msgid "Previous Feedback Customer"
 msgstr ""
 
 #. module: crm_intervention
-#: model:ir.module.module,description:crm_intervention.module_meta_information
-msgid "\n"
-"    TODO\n"
-""
+#: model:crm.case.categ,name:crm_intervention.categ_inter1
+msgid "On customer"
 msgstr ""
 
 #. module: crm_intervention
@@ -126,18 +135,13 @@ msgid "Happy"
 msgstr ""
 
 #. module: crm_intervention
-#: view:crm.case:0
-msgid "In Internal"
-msgstr ""
-
-#. module: crm_intervention
 #: model:crm.case.category2,name:crm_intervention.category_inter4
 msgid "Badly"
 msgstr ""
 
 #. module: crm_intervention
-#: model:crm.case.stage,name:crm_intervention.stage_inter2
-msgid "Confirmation"
+#: model:crm.case.stage,name:crm_intervention.stage_inter5
+msgid "Extended"
 msgstr ""
 
 #. module: crm_intervention
@@ -166,8 +170,8 @@ msgid "Planned end date"
 msgstr ""
 
 #. module: crm_intervention
-#: field:crm.case,internal_comment:0
-msgid "Internal Comment"
+#: field:crm.case,customer_request:0
+msgid "Customer Request"
 msgstr ""
 
 #. module: crm_intervention
@@ -178,11 +182,6 @@ msgstr ""
 #. module: crm_intervention
 #: constraint:crm.case.section:0
 msgid "Error ! You cannot create recursive sections."
-msgstr ""
-
-#. module: crm_intervention
-#: model:crm.case.stage,name:crm_intervention.stage_inter1
-msgid "Demande"
 msgstr ""
 
 #. module: crm_intervention
@@ -226,13 +225,10 @@ msgid "Stage"
 msgstr ""
 
 #. module: crm_intervention
-#: view:crm.case:0
-msgid "Customer"
-msgstr ""
-
-#. module: crm_intervention
-#: model:ir.ui.menu,name:crm_intervention.menu_aftersale
-msgid "After-Sale Services"
+#: model:ir.module.module,description:crm_intervention.module_meta_information
+msgid "\n"
+"    Managing intervention with crm case\n"
+""
 msgstr ""
 
 #. module: crm_intervention
@@ -251,6 +247,11 @@ msgid "Description Information"
 msgstr ""
 
 #. module: crm_intervention
+#: model:crm.case.stage,name:crm_intervention.stage_inter1
+msgid "Request"
+msgstr ""
+
+#. module: crm_intervention
 #: model:ir.actions.act_window,name:crm_intervention.crm_case_category_act_inter2
 #: model:ir.ui.menu,name:crm_intervention.menu_crm_case_categ0_act_inter2
 msgid "My Open Intervention"
@@ -260,11 +261,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:crm_intervention.crm_case_category_act_inter_my2
 #: model:ir.ui.menu,name:crm_intervention.menu_crm_case_categ0_act_inter_my2
 msgid "My Pending Intervention"
-msgstr ""
-
-#. module: crm_intervention
-#: model:crm.case.categ,name:crm_intervention.categ_inter2
-msgid "En atelier"
 msgstr ""
 
 #. module: crm_intervention
@@ -283,8 +279,8 @@ msgid "Furious"
 msgstr ""
 
 #. module: crm_intervention
-#: model:crm.case.stage,name:crm_intervention.stage_inter5
-msgid "Extended"
+#: model:crm.case.categ,name:crm_intervention.categ_inter2
+msgid "Training Room"
 msgstr ""
 
 #. module: crm_intervention
@@ -355,13 +351,18 @@ msgid "Interventions Tree"
 msgstr ""
 
 #. module: crm_intervention
+#: model:crm.case.category2,name:crm_intervention.category_inter1
+msgid "Very Happy"
+msgstr ""
+
+#. module: crm_intervention
 #: view:crm.case:0
 msgid "Pending"
 msgstr ""
 
 #. module: crm_intervention
-#: field:crm.case,effective_duration:0
-msgid "Effective duration"
+#: view:crm.case:0
+msgid "In Internal"
 msgstr ""
 
 #. module: crm_intervention

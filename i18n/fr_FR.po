@@ -4,16 +4,26 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.0\n"
+"Project-Id-Version: OpenERP Server 5.0.9\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-05-19 19:23:53+0000\n"
-"PO-Revision-Date: 2009-05-19 19:23:53+0000\n"
+"POT-Creation-Date: 2010-04-24 21:39:46+0000\n"
+"PO-Revision-Date: 2010-04-24 21:39:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: crm_intervention
+#: view:crm.case:0
+msgid "Customer"
+msgstr "Client"
+
+#. module: crm_intervention
+#: model:crm.case.stage,name:crm_intervention.stage_inter2
+msgid "Confirmed"
+msgstr "Confirmé"
 
 #. module: crm_intervention
 #: model:ir.actions.act_window,name:crm_intervention.crm_case_category_act_inter1
@@ -38,9 +48,15 @@ msgid "For Customer"
 msgstr "Pour le client"
 
 #. module: crm_intervention
-#: model:crm.case.category2,name:crm_intervention.category_inter1
-msgid "Very Happy"
-msgstr "Très satisfait"
+#: field:crm.case,internal_comment:0
+msgid "Internal Comment"
+msgstr "Commentaire interne"
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:0
+#, python-format
+msgid "Historize"
+msgstr "Historiser"
 
 #. module: crm_intervention
 #: view:crm.case:0
@@ -58,11 +74,6 @@ msgid "Unhappy"
 msgstr "Peu satisfait"
 
 #. module: crm_intervention
-#: model:crm.case.categ,name:crm_intervention.categ_inter1
-msgid "Sur site"
-msgstr ""
-
-#. module: crm_intervention
 #: view:crm.case:0
 msgid "Priority"
 msgstr "Priorité"
@@ -73,9 +84,9 @@ msgid "Action Information"
 msgstr "Infos sur l'action"
 
 #. module: crm_intervention
-#: field:crm.case,customer_request:0
-msgid "Customer Request"
-msgstr "Demande client"
+#: field:crm.case,effective_duration:0
+msgid "Effective duration"
+msgstr "Durée effectuée"
 
 #. module: crm_intervention
 #: help:crm.case,effective_duration:0
@@ -90,12 +101,12 @@ msgstr "Historique des comptes rendus"
 #. module: crm_intervention
 #: view:crm.case:0
 msgid "Customer Information"
-msgstr ""
+msgstr "Information client"
 
 #. module: crm_intervention
 #: view:crm.case:0
 msgid "Stage :"
-msgstr ""
+msgstr "Étape :"
 
 #. module: crm_intervention
 #: model:ir.actions.act_window,name:crm_intervention.crm_case_category_act_inter_all2
@@ -114,11 +125,9 @@ msgid "Previous Feedback Customer"
 msgstr "Historique client"
 
 #. module: crm_intervention
-#: model:ir.module.module,description:crm_intervention.module_meta_information
-msgid "\n"
-"    TODO\n"
-""
-msgstr ""
+#: model:crm.case.categ,name:crm_intervention.categ_inter1
+msgid "On customer"
+msgstr "Chez le client"
 
 #. module: crm_intervention
 #: model:crm.case.category2,name:crm_intervention.category_inter2
@@ -126,19 +135,14 @@ msgid "Happy"
 msgstr "Satisfait"
 
 #. module: crm_intervention
-#: view:crm.case:0
-msgid "In Internal"
-msgstr "En interne"
-
-#. module: crm_intervention
 #: model:crm.case.category2,name:crm_intervention.category_inter4
 msgid "Badly"
 msgstr "Pas satisfait"
 
 #. module: crm_intervention
-#: model:crm.case.stage,name:crm_intervention.stage_inter2
-msgid "Confirmation"
-msgstr ""
+#: model:crm.case.stage,name:crm_intervention.stage_inter5
+msgid "Extended"
+msgstr "Étendu"
 
 #. module: crm_intervention
 #: view:crm.case:0
@@ -166,9 +170,9 @@ msgid "Planned end date"
 msgstr "Date de fin planifiée"
 
 #. module: crm_intervention
-#: field:crm.case,internal_comment:0
-msgid "Internal Comment"
-msgstr "Commentaire interne"
+#: field:crm.case,customer_request:0
+msgid "Customer Request"
+msgstr "Demande client"
 
 #. module: crm_intervention
 #: help:crm.case,partner_order_id:0
@@ -178,12 +182,7 @@ msgstr "Le nom et adresse du contact qui a fait la demande d'intervention"
 #. module: crm_intervention
 #: constraint:crm.case.section:0
 msgid "Error ! You cannot create recursive sections."
-msgstr ""
-
-#. module: crm_intervention
-#: model:crm.case.stage,name:crm_intervention.stage_inter1
-msgid "Demande"
-msgstr "Demande"
+msgstr "Erreur ! Vous ne ppouvez pas créer de sections récursives."
 
 #. module: crm_intervention
 #: view:crm.case:0
@@ -226,14 +225,11 @@ msgid "Stage"
 msgstr "Étape"
 
 #. module: crm_intervention
-#: view:crm.case:0
-msgid "Customer"
-msgstr "Client"
-
-#. module: crm_intervention
-#: model:ir.ui.menu,name:crm_intervention.menu_aftersale
-msgid "After-Sale Services"
-msgstr "Service après-vente"
+#: model:ir.module.module,description:crm_intervention.module_meta_information
+msgid "\n"
+"    Managing intervention with crm case\n"
+""
+msgstr ""
 
 #. module: crm_intervention
 #: view:crm.case:0
@@ -251,6 +247,11 @@ msgid "Description Information"
 msgstr "Description de l'information"
 
 #. module: crm_intervention
+#: model:crm.case.stage,name:crm_intervention.stage_inter1
+msgid "Request"
+msgstr "Demande"
+
+#. module: crm_intervention
 #: model:ir.actions.act_window,name:crm_intervention.crm_case_category_act_inter2
 #: model:ir.ui.menu,name:crm_intervention.menu_crm_case_categ0_act_inter2
 msgid "My Open Intervention"
@@ -261,11 +262,6 @@ msgstr "Mes demandes ouvertes"
 #: model:ir.ui.menu,name:crm_intervention.menu_crm_case_categ0_act_inter_my2
 msgid "My Pending Intervention"
 msgstr "Mes demandes en attentes"
-
-#. module: crm_intervention
-#: model:crm.case.categ,name:crm_intervention.categ_inter2
-msgid "En atelier"
-msgstr "En atelier"
 
 #. module: crm_intervention
 #: view:crm.case:0
@@ -283,9 +279,9 @@ msgid "Furious"
 msgstr "Pas du tout satisfait"
 
 #. module: crm_intervention
-#: model:crm.case.stage,name:crm_intervention.stage_inter5
-msgid "Extended"
-msgstr "Étendu"
+#: model:crm.case.categ,name:crm_intervention.categ_inter2
+msgid "Training Room"
+msgstr "Salle de formation"
 
 #. module: crm_intervention
 #: field:crm.case,effective_start_date:0
@@ -355,14 +351,19 @@ msgid "Interventions Tree"
 msgstr ""
 
 #. module: crm_intervention
+#: model:crm.case.category2,name:crm_intervention.category_inter1
+msgid "Very Happy"
+msgstr "Très satisfait"
+
+#. module: crm_intervention
 #: view:crm.case:0
 msgid "Pending"
 msgstr "En attente"
 
 #. module: crm_intervention
-#: field:crm.case,effective_duration:0
-msgid "Effective duration"
-msgstr "Durée effectuée"
+#: view:crm.case:0
+msgid "In Internal"
+msgstr "En interne"
 
 #. module: crm_intervention
 #: model:crm.case.stage,name:crm_intervention.stage_inter4
