@@ -32,9 +32,9 @@
     'depends': ['crm','crm_api'],
     'init_xml': [
         'data/crm_intervention_data.xml',
-        'view/crm_intervention_view.xml',
-        'view/crm_intervention_menu.xml',
-        'view/crm_intervention_sequence.xml',
+        'data/sequence.xml',
+        'view/crm_intervention.xml',
+        'view/menu.xml',
     ],
     'update_xml': [],
     'demo_xml': [],
