@@ -151,5 +151,17 @@ class crm_intervention(osv.osv):
             obj.create(cr, uid, data, context)
         return self.write(cr, uid, ids, {'internal_comment': False, 'som': False, 'canal_id': False})
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        """
+        #TODO make doc string
+        Autorize duplicate intervention
+        """
+        if context is None:
+            context = {}
+        if self.browse(cr, uid, id, context=context).section_id.code == "Inter":
+            return super(crm_intervention, self).copy(cr, uid, id, {'number_request': self.pool.get('ir.sequence').get(cr, uid, 'crm_intervention.case'), 'date': False, 'planned_end_date': False,}, context=context)
+        else:
+            return super(crm_intervention, self).copy(cr, uid, id, default, context=context)
+
 crm_intervention()
 
