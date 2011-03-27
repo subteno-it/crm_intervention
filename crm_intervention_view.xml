@@ -64,7 +64,6 @@
                                 <field name="date_effective_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="duration_effective" on_change="onchange_effective_duration(duration_effective, date_effective_start)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="date_effective_end" on_change="onchange_planned_end_date(date_effective_end, date_effective_start)" select="2" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="email_cc" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="categ_id" context="{'object_id':'crm.intervention'}" select="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="description" string="Customer" colspan="4" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/>
                             </group>

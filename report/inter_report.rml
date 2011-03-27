@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+    <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+        <pageTemplate id="first">
+            <frame id="first" x1="35.0" y1="42.0" width="539" height="758"/>
+        </pageTemplate>
+    </template>
+    <stylesheet>
+        <blockTableStyle id="Standard_Outline">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table1">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table2">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+            <lineStyle kind="LINEBELOW" colorName="#8C8C8C" start="0,-1" stop="4,-1"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table3">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+            <lineStyle kind="LINEBELOW" colorName="#8C8C8C" start="0,-1" stop="5,-1"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table4">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+            <lineStyle kind="LINEBELOW" colorName="#8C8C8C" start="0,-1" stop="1,-1"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table5">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+            <lineStyle kind="LINEBELOW" colorName="#8C8C8C" start="0,-1" stop="3,-1"/>
+            <lineStyle kind="LINEABOVE" colorName="#8C8C8C" start="0,0" stop="3,0"/>
+            <lineStyle kind="LINEAFTER" colorName="#8C8C8C" start="3,0" stop="3,-1"/>
+            <lineStyle kind="LINEBEFORE" colorName="#8C8C8C" start="0,0" stop="0,-1"/>
+        </blockTableStyle>
+        <initialize>
+            <paraStyle name="all" alignment="justify"/>
+        </initialize>
+        <paraStyle name="Standard" fontName="Times-Roman"/>
+        <paraStyle name="Text body" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+        <paraStyle name="Heading" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="12.0" spaceAfter="6.0"/>
+        <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+        <paraStyle name="Table Contents" fontName="Times-Roman"/>
+        <paraStyle name="Table Heading" fontName="Times-Roman" alignment="CENTER"/>
+        <paraStyle name="Caption" fontName="Times-Roman" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="Index" fontName="Times-Roman"/>
+        <paraStyle name="terp_header" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_default_8" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Bold_8" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Centre_Bold_8" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="6.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Bold_9" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_9" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_tblheader_General" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_tblheader_General_Centre" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_default_Centre_8" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_tblheader_Details" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="Footer" fontName="Times-Roman"/>
+        <paraStyle name="Horizontal Line" fontName="Times-Roman" fontSize="6.0" leading="8" spaceBefore="0.0" spaceAfter="14.0"/>
+        <paraStyle name="Heading 9" fontName="Helvetica-Bold" fontSize="75%" leading="NaN" spaceBefore="12.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_tblheader_General_Right" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_tblheader_Details_Centre" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_tblheader_Details_Right" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="RIGHT" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_default_Right_8" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_header_Right" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_header_Centre" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_default_address" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Centre_9" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Right_9" fontName="Helvetica" fontSize="9.0" leading="11" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_1" fontName="Helvetica" fontSize="2.0" leading="3" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Right_9_Bold" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Italic" rightIndent="0.0" leftIndent="20.0" fontName="Helvetica-Oblique" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="Preformatted Text" fontName="Times-Roman" fontSize="10.0" leading="13" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Centre_9_Bold" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    </stylesheet>
+    <images/>
+    <story>
+        <para style="terp_default_8">[[ repeatIn(objects,'o') ]]</para>
+        <para style="terp_default_8">[[ setLang(o.partner_id.lang) ]]</para>
+        <blockTable colWidths="265.0,51.0,225.0" style="Table1">
+            <tr>
+                <td>
+                    <para style="terp_default_Bold_9">Shipping address :</para>
+                    <para style="terp_default_9">[[ o.partner_id.title or '' ]] [[ o.partner_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_shipping_id.title or '' ]] [[ o.partner_shipping_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_shipping_id.street ]]</para>
+                    <para style="terp_default_9">[[ o.partner_shipping_id.street2 or '' ]]</para>
+                    <para style="terp_default_9">[[ o.partner_shipping_id.city or '' ]] [[ o.partner_shipping_id.zip or '' ]]</para>
+                    <para style="terp_default_9">[[ o.partner_shipping_id.state_id and o.partner_shipping_id.state_id.name or '' ]] [[ o.partner_shipping_id.country_id and o.partner_shipping_id.country_id.name or '' ]]</para>
+                    <spacer length="7"/>
+                    <para style="terp_default_Bold_9">Invoice address :</para>
+                    <para style="terp_default_9">[[ o.partner_invoice_id.street ]] [[ o.partner_invoice_id.street2 and (', %s' % o.partner_invoice_id.street2 or '') ]]</para>
+                    <para style="terp_default_9">[[ o.partner_invoice_id.zip or '' ]] [[ o.partner_invoice_id.city or '' ]] [[ o.partner_invoice_id.country_id and (', %s' % (o.partner_invoice_id.country_id and o.partner_invoice_id.country_id.name or '')) ]]</para>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <para style="terp_default_9">[[ o.partner_id.title or '' ]] [[ o.partner_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_order_id.title or '' ]] [[ o.partner_order_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_order_id.street ]]</para>
+                    <para style="terp_default_9">[[ o.partner_order_id.street2 or '' ]]</para>
+                    <para style="terp_default_9">[[ o.partner_order_id.zip or '' ]] [[ o.partner_order_id.city or '' ]]</para>
+                    <para style="terp_default_9">[[ o.partner_order_id.state_id and o.partner_order_id.state_id.name or '' ]] [[ o.partner_order_id.country_id and o.partner_order_id.country_id.name or '' ]]</para>
+                    <spacer length="7"/>
+                    <para style="terp_default_9">Tel. : [[ o.partner_address_phone or removeParentNode('para') ]]</para>
+                    <para style="terp_default_9">Mobile : [[ o.partner_address_mobile or removeParentNode('para') ]]</para>
+                    <para style="terp_default_9">Mail : [[ o.email_from or removeParentNode('para') ]]</para>
+                </td>
+            </tr>
+        </blockTable>
+        <spacer length="30"/>
+        <illustration width="528" height="12">
+            <rect x="0" y="0" width="508" height="36" fill="no" stroke="yes" round="0.15 in"/>
+            <setFont name="Helvetica-Bold" size="15"/>
+            <drawCentredString x="254" y="13">Intervention report on [[time.strftime("%d/%m/%Y",time.localtime())]]</drawCentredString>
+        </illustration>
+        <spacer length="5"/>
+        <illustration>
+            <stroke color="#8C8C8C"/>
+            <rect x="0" y="-480" width="508" height="480" fill="no" stroke="yes" round="0.15 in"/>
+        </illustration>
+        <blockTable colWidths="10,244,9.5,122,122,20" style="Table2">
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <spacer length="5"/>
+                    <para style="terp_default_Bold_8">by [[o.user_id.name]]</para>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <spacer length="5"/>
+                    <para style="terp_default_Bold_8">Intervention ticket N°</para>
+                    <para style="terp_default_8">Create at</para>
+                </td>
+                <td>
+                    <spacer length="5"/>
+                    <para style="terp_default_Bold_8">[[ o.number_request ]]</para>
+                    <para style="terp_default_8">[[time.strftime("%d/%m/%Y",time.strptime(o.create_date, '%Y-%m-%d %H:%M:%S'))]]</para>
+                    <spacer length="5"/>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </blockTable>
+        <blockTable colWidths="10,150,75,100,75,98,19.5" style="Table3">
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <spacer length="10"/>
+                    <para style="terp_default_8">[[ translate(weekdayname(time.strftime("%w",time.strptime(o.date_effective_start, '%Y-%m-%d %H:%M:%S')))) ]] [[ time.strftime("%d/%m/%Y",time.strptime(o.date_effective_start, '%Y-%m-%d %H:%M:%S')) ]]</para>
+                </td>
+                <td>
+                    <spacer length="10"/>
+                    <para style="terp_default_8">from [[ time.strftime('%H:%M',time.strptime(o.date_effective_start, '%Y-%m-%d %H:%M:%S')) ]]</para>
+                </td>
+                <td>
+                    <spacer length="10"/>
+                    <para style="terp_default_8">to [[ time.strftime('%H:%M',time.strptime(o.date_effective_end, '%Y-%m-%d %H:%M:%S')) ]]</para>
+                </td>
+                <td>
+                    <spacer length="10"/>
+                    <para style="terp_default_8">for a duration of</para>
+                </td>
+                <td>
+                    <spacer length="10"/>
+                    <para style="terp_default_8">[[ fill(o.duration_effective,2) ]]</para>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </blockTable>
+        <blockTable colWidths="10,488,29.5" style="Table1">
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <spacer length="10"/>
+                    <para style="terp_default_Bold_8">Description of intervention</para>
+                    <spacer length="5"/>
+                    <para style="terp_default_8">[[ upcase(o.name) ]]</para>
+                    <spacer length="5"/>
+                    <para style="terp_default_8">[[ format(o.description) ]]</para>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </blockTable>
+
+
+    </story>
+</document>

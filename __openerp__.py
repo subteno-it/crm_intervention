@@ -40,6 +40,7 @@
         'security/ir.model.access.csv',
         'crm_intervention_view.xml',
         'crm_intervention_menu.xml',
+        'report/crm_intervention_view.xml',
     ],
     'demo_xml': [],
     'installable': True,

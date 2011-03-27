@@ -1,27 +1,25 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    crm_intervention module for OpenERP, Managing intervention in CRM
-#    Copyright (C) 2011 SYLEAM Info Services (<http://www.Syleam.fr/>) 
-#              Sebastien LANGE <sebastien.lange@syleam.fr>
+#    Crm_intervention_report module for OpenERP, add reports in intervention
+#    Copyright (C) 2009 SYLEAM (<http://www.Syleam.fr>) Sebastien LANGE
 #
-#    This file is a part of crm_intervention
-#
-#    crm_intervention is free software: you can redistribute it and/or modify
+#    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
-#    crm_intervention is distributed in the hope that it will be useful,
+#    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
+#    GNU General Public License for more details.
 #
-#    You should have received a copy of the GNU Affero General Public License
+#    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-
+import inter_ticket
+import inter_report
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
