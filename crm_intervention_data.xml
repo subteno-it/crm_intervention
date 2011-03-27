@@ -71,8 +71,10 @@
         <record id="seq_crm_intervention" model="ir.sequence">
             <field name="name">CRM Intervention </field>
             <field name="code">intervention</field>
-            <field name="prefix">ri</field>
-            <field name="padding">3</field>
+            <field name="prefix">I%(y)s%(woy)s%(weekday)s%(h24)s%(min)s</field>
+            <field name="padding">0</field>
+            <field name="number_increment">0</field>
+            <field name="number_next">0</field>
         </record>
 
     </data>
