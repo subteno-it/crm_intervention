@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        ##############################################################################
+        #
+        #    crm_intervention module for OpenERP, Managing intervention in CRM
+        #    Copyright (C) 2011 SYLEAM Info Services ([http://www.Syleam.fr/]) 
+        #              Sebastien LANGE [sebastien.lange@syleam.fr]
+        #
+        #    This file is a part of crm_intervention
+        #
+        #    crm_intervention is free software: you can redistribute it and/or modify
+        #    it under the terms of the GNU General Public License as published by
+        #    the Free Software Foundation, either version 3 of the License, or
+        #    (at your option) any later version.
+        #
+        #    crm_intervention is distributed in the hope that it will be useful,
+        #    but WITHOUT ANY WARRANTY; without even the implied warranty of
+        #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        #    GNU Affero General Public License for more details.
+        #
+        #    You should have received a copy of the GNU Affero General Public License
+        #    along with this program.  If not, see [http://www.gnu.org/licenses/].
+        #
+        ##############################################################################
+
+        #
+        # New section for intervntions
+        #
+        <record model="crm.case.section" id="section_interventions_department">
+            <field name="name">Interventions Department</field>
+            <field name="code">inter</field>
+        </record>
+
+        #
+        # Categories for intervention, the customer is happy or not
+        #
+        <record model="crm.case.categ" id="categ_inter1">
+            <field name="name">Very Happy</field>
+            <field name="section_id" ref="section_interventions_department"/>
+            <field name="object_id" search="[('model','=','crm.intervention')]" model="ir.model"/>
+        </record>
+        <record model="crm.case.categ" id="categ_inter2">
+            <field name="name">Happy</field>
+            <field name="section_id" ref="section_interventions_department"/>
+            <field name="object_id" search="[('model','=','crm.intervention')]" model="ir.model"/>
+        </record>
+        <record model="crm.case.categ" id="categ_inter3">
+            <field name="name">Unhappy</field>
+            <field name="section_id" ref="section_interventions_department"/>
+            <field name="object_id" search="[('model','=','crm.intervention')]" model="ir.model"/>
+        </record>
+        <record model="crm.case.categ" id="categ_inter4">
+            <field name="name">Badly</field>
+            <field name="section_id" ref="section_interventions_department"/>
+            <field name="object_id" search="[('model','=','crm.intervention')]" model="ir.model"/>
+        </record>
+        <record model="crm.case.categ" id="categ_inter5">
+            <field name="name">Furious</field>
+            <field name="section_id" ref="section_interventions_department"/>
+            <field name="object_id" search="[('model','=','crm.intervention')]" model="ir.model"/>
+        </record>
+
+        #
+        # Sequence for number of intervention
+        #
+        <record id="seq_type_crm_intervention" model="ir.sequence.type">
+            <field name="name">CRM - Intervention</field>
+            <field name="code">intervention</field>
+        </record>
+        <record id="seq_crm_intervention" model="ir.sequence">
+            <field name="name">CRM Intervention </field>
+            <field name="code">intervention</field>
+            <field name="prefix">ri</field>
+            <field name="padding">3</field>
+        </record>
+
+    </data>
+</openerp>
