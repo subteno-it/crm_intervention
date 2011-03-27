@@ -27,7 +27,7 @@
         <!--  Intervention Form View -->
 
         <record model="ir.ui.view" id="crm_case_form_view_intervention">
-            <field name="name">CRM - Intervention Support Form</field>
+            <field name="name">CRM - Intervention Form</field>
             <field name="model">crm.intervention</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
@@ -56,7 +56,6 @@
                             <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="date_planned_end" on_change="onchange_planned_end_date(date_planned_end, date_planned_start)" select="2" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="duration_planned" on_change="onchange_planned_duration(duration_planned, date_planned_start)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
-                            <separator colspan="4" string="Description Information"/>
                             <field name="intervention_todo" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                         </page>
                         <page string="After Intervention">
@@ -165,7 +164,7 @@
         <!-- intervention Support Tree View  -->
 
         <record model="ir.ui.view" id="crm_case_tree_view_intervention">
-            <field name="name">CRM - intervention Support Tree</field>
+            <field name="name">CRM - intervention Tree</field>
             <field name="model">crm.intervention</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
@@ -201,7 +200,7 @@
         <!--  intervention Support Calendar View -->
 
         <record model="ir.ui.view" id="crm_case_intervention_calendar_view">
-            <field name="name">CRM - intervention Support Calendar</field>
+            <field name="name">CRM - Intervention Calendar</field>
             <field name="model">crm.intervention</field>
             <field name="type">calendar</field>
             <field name="priority" eval="2"/>

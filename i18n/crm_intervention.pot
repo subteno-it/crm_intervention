@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-27 13:18+0000\n"
-"PO-Revision-Date: 2011-03-27 13:18+0000\n"
+"POT-Creation-Date: 2011-03-27 14:12+0000\n"
+"PO-Revision-Date: 2011-03-27 14:12+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,18 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: crm_intervention
-#: selection:crm.intervention,priority:0
-msgid "High"
+#: view:crm.intervention:0
+msgid "Group By..."
+msgstr ""
+
+#. module: crm_intervention
+#: model:ir.actions.report.xml,name:crm_intervention.report_crm_intervention
+msgid "Intervention Report"
 msgstr ""
 
 #. module: crm_intervention
 #: view:crm.intervention:0
-msgid "Group By..."
+msgid "Planned for"
 msgstr ""
 
 #. module: crm_intervention
@@ -56,6 +61,24 @@ msgid "Watchers Emails"
 msgstr ""
 
 #. module: crm_intervention
+#: code:addons/crm_intervention/report/inter_report.py:39
+#: code:addons/crm_intervention/report/inter_ticket.py:39
+#, python-format
+msgid "thursday"
+msgstr ""
+
+#. module: crm_intervention
+#: model:ir.module.module,shortdesc:crm_intervention.module_meta_information
+msgid "CRM Intervention"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+#: report:crm_intervention.inter_ticket:0
+msgid "to"
+msgstr ""
+
+#. module: crm_intervention
 #: field:crm.intervention,partner_shipping_id:0
 msgid "Intervention Address"
 msgstr ""
@@ -63,6 +86,12 @@ msgstr ""
 #. module: crm_intervention
 #: selection:crm.intervention,priority:0
 msgid "Highest"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+#: report:crm_intervention.inter_ticket:0
+msgid "Invoice address :"
 msgstr ""
 
 #. module: crm_intervention
@@ -96,6 +125,12 @@ msgid "Cancelled"
 msgstr ""
 
 #. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+#: report:crm_intervention.inter_ticket:0
+msgid "Mail :"
+msgstr ""
+
+#. module: crm_intervention
 #: field:crm.intervention,partner_invoice_id:0
 msgid "Invoice Address"
 msgstr ""
@@ -109,6 +144,13 @@ msgstr ""
 #. module: crm_intervention
 #: field:crm.intervention,partner_order_id:0
 msgid "Intervention Contact"
+msgstr ""
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/report/inter_report.py:38
+#: code:addons/crm_intervention/report/inter_ticket.py:38
+#, python-format
+msgid "wednesday"
 msgstr ""
 
 #. module: crm_intervention
@@ -137,8 +179,23 @@ msgid "Partner"
 msgstr ""
 
 #. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+msgid "Create at"
+msgstr ""
+
+#. module: crm_intervention
 #: view:crm.intervention:0
 msgid "Subject"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Maintenance"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Action(s) requested :"
 msgstr ""
 
 #. module: crm_intervention
@@ -178,6 +235,17 @@ msgid "Lowest"
 msgstr ""
 
 #. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+#: report:crm_intervention.inter_ticket:0
+msgid "Shipping address :"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "for"
+msgstr ""
+
+#. module: crm_intervention
 #: field:crm.intervention,create_date:0
 msgid "Creation Date"
 msgstr ""
@@ -195,12 +263,17 @@ msgstr ""
 
 #. module: crm_intervention
 #: view:crm.intervention:0
-msgid "References"
+msgid "Deadline"
 msgstr ""
 
 #. module: crm_intervention
 #: help:crm.intervention,intervention_todo:0
 msgid "Indicate the description of this intervention to do"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Beguinning of the intervention : _____ h _____ min."
 msgstr ""
 
 #. module: crm_intervention
@@ -214,8 +287,30 @@ msgid "Dates"
 msgstr ""
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Description Information"
+#: report:crm_intervention.inter_report:0
+msgid "Description of intervention"
+msgstr ""
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/report/inter_report.py:40
+#: code:addons/crm_intervention/report/inter_ticket.py:40
+#, python-format
+msgid "friday"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+msgid "for a duration of"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Custmer signature and stamp :"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+msgid "by"
 msgstr ""
 
 #. module: crm_intervention
@@ -226,6 +321,11 @@ msgstr ""
 #. module: crm_intervention
 #: model:crm.case.categ,name:crm_intervention.categ_inter1
 msgid "Very Happy"
+msgstr ""
+
+#. module: crm_intervention
+#: model:ir.actions.report.xml,name:crm_intervention.inter_crm_intervention
+msgid "Intervention Ticket"
 msgstr ""
 
 #. module: crm_intervention
@@ -254,6 +354,23 @@ msgid "The state is set to 'Draft', when a case is created.                     
 "If the case is in progress the state is set to 'Open'.                              \n"
 "When the case is over, the state is set to 'Done'.                              \n"
 "If the case needs to be reviewed then the state is set to 'Pending'."
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Intervention ticket :"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+msgid "Intervention report on"
+msgstr ""
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/report/inter_report.py:37
+#: code:addons/crm_intervention/report/inter_ticket.py:37
+#, python-format
+msgid "tuesday"
 msgstr ""
 
 #. module: crm_intervention
@@ -298,6 +415,12 @@ msgid "Indicate the date of begin intervention planned"
 msgstr ""
 
 #. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+#: report:crm_intervention.inter_ticket:0
+msgid "from"
+msgstr ""
+
+#. module: crm_intervention
 #: selection:crm.intervention,priority:0
 msgid "Normal"
 msgstr ""
@@ -318,8 +441,13 @@ msgid "Phone"
 msgstr ""
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Date"
+#: report:crm_intervention.inter_ticket:0
+msgid "Please indicate your satisfaction rate :"
+msgstr ""
+
+#. module: crm_intervention
+#: field:crm.intervention,active:0
+msgid "Active"
 msgstr ""
 
 #. module: crm_intervention
@@ -343,6 +471,11 @@ msgid "Intervention Requests"
 msgstr ""
 
 #. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Interlocuteur name and permission :"
+msgstr ""
+
+#. module: crm_intervention
 #: field:crm.intervention,duration_planned:0
 msgid "Planned duration"
 msgstr ""
@@ -353,8 +486,8 @@ msgid "These people will receive email."
 msgstr ""
 
 #. module: crm_intervention
-#: field:crm.intervention,active:0
-msgid "Active"
+#: view:crm.intervention:0
+msgid "Date"
 msgstr ""
 
 #. module: crm_intervention
@@ -369,6 +502,7 @@ msgstr ""
 
 #. module: crm_intervention
 #: view:crm.intervention:0
+#: model:ir.ui.menu,name:crm_intervention.menu_intersupport_main
 msgid "Interventions"
 msgstr ""
 
@@ -409,9 +543,24 @@ msgid "Close"
 msgstr ""
 
 #. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Works done during intervention :"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Comment(s) :"
+msgstr ""
+
+#. module: crm_intervention
 #: view:crm.intervention:0
 #: selection:crm.intervention,state:0
 msgid "Open"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "yes, precise ->"
 msgstr ""
 
 #. module: crm_intervention
@@ -421,9 +570,21 @@ msgid "Intervention"
 msgstr ""
 
 #. module: crm_intervention
+#: code:addons/crm_intervention/report/inter_report.py:41
+#: code:addons/crm_intervention/report/inter_ticket.py:41
+#, python-format
+msgid "saturday"
+msgstr ""
+
+#. module: crm_intervention
 #: view:crm.intervention:0
 #: field:crm.intervention,user_id:0
 msgid "Responsible"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Information given by the interlocutor :"
 msgstr ""
 
 #. module: crm_intervention
@@ -463,6 +624,24 @@ msgid "Description"
 msgstr ""
 
 #. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "no"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+#: report:crm_intervention.inter_ticket:0
+msgid "Tel. :"
+msgstr ""
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/report/inter_report.py:35
+#: code:addons/crm_intervention/report/inter_ticket.py:35
+#, python-format
+msgid "sunday"
+msgstr ""
+
+#. module: crm_intervention
 #: help:crm.intervention,partner_invoice_id:0
 msgid "The name and address for the invoice"
 msgstr ""
@@ -474,8 +653,25 @@ msgid "Customer"
 msgstr ""
 
 #. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+msgid "Intervention ticket N°"
+msgstr ""
+
+#. module: crm_intervention
 #: field:crm.intervention,name:0
 msgid "Name"
+msgstr ""
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/report/inter_report.py:36
+#: code:addons/crm_intervention/report/inter_ticket.py:36
+#, python-format
+msgid "monday"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Intervenant"
 msgstr ""
 
 #. module: crm_intervention
@@ -484,8 +680,13 @@ msgid "Interventions team to which Case belongs to.                             
 msgstr ""
 
 #. module: crm_intervention
-#: model:ir.ui.menu,name:crm_intervention.menu_help_support_main
-msgid "intervention and Support"
+#: view:crm.intervention:0
+msgid "References"
+msgstr ""
+
+#. module: crm_intervention
+#: model:ir.module.module,description:crm_intervention.module_meta_information
+msgid "Intervention Management"
 msgstr ""
 
 #. module: crm_intervention
@@ -524,17 +725,28 @@ msgid "Planned End Date"
 msgstr ""
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Planned for"
+#: selection:crm.intervention,priority:0
+msgid "High"
 msgstr ""
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Deadline"
+#: report:crm_intervention.inter_ticket:0
+msgid "Ideas and comments :"
 msgstr ""
 
 #. module: crm_intervention
 #: field:crm.intervention,date_action_last:0
 msgid "Last Action"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "End of the intervention : _____ h _____ min."
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+#: report:crm_intervention.inter_ticket:0
+msgid "Mobile :"
 msgstr ""
 
