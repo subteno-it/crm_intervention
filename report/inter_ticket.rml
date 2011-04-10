@@ -61,8 +61,8 @@
             <tr>
                 <td>
                     <para style="terp_default_Bold_9">Shipping address :</para>
-                    <para style="terp_default_9">[[ o.partner_id.title or '' ]] [[ o.partner_id.name ]]</para>
-                    <para style="terp_default_9">[[ o.partner_shipping_id.title or '' ]] [[ o.partner_shipping_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_shipping_id.title and o.partner_shipping_id.title.shortcut or '' ]] [[ o.partner_shipping_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_shipping_id.street ]]</para>
                     <para style="terp_default_9">[[ o.partner_shipping_id.street2 or '' ]]</para>
                     <para style="terp_default_9">[[ o.partner_shipping_id.city or '' ]] [[ o.partner_shipping_id.zip or '' ]]</para>
@@ -75,8 +75,8 @@
                 <td>
                 </td>
                 <td>
-                    <para style="terp_default_9">[[ o.partner_id.title or '' ]] [[ o.partner_id.name ]]</para>
-                    <para style="terp_default_9">[[ o.partner_order_id.title or '' ]] [[ o.partner_order_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_order_id.title and o.partner_order_id.title.shortcut or '' ]] [[ o.partner_order_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.street ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.street2 or '' ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.zip or '' ]] [[ o.partner_order_id.city or '' ]]</para>
@@ -147,13 +147,13 @@
                         <stroke color="#8C8C8C"/>
                         <rect x="-10" y="-120" width="244" height="124" fill="no" stroke="yes" round="0.15 in"/>
                         <stroke color="#000000"/>
-                        <image file="addons/crm_intervention/report/Face-sad.png" x="0" y="-50" width="24" height="24"/>
+                        <image file="Face-sad.png" x="0" y="-50" width="24" height="24"/>
                         <rect x="30" y="-42" width="8" height="8" fill="no" stroke="yes"/>
-                        <image file="addons/crm_intervention/report/Face-plain.png" x="60" y="-50" width="24" height="24"/>
+                        <image file="Face-plain.png" x="60" y="-50" width="24" height="24"/>
                         <rect x="90" y="-42" width="8" height="8" fill="no" stroke="yes"/>
-                        <image file="addons/crm_intervention/report/Face-smile.png" x="120" y="-50" width="24" height="24"/>
+                        <image file="Face-smile.png" x="120" y="-50" width="24" height="24"/>
                         <rect x="150" y="-42" width="8" height="8" fill="no" stroke="yes"/>
-                        <image file="addons/crm_intervention/report/Face-smile-big.png" x="180" y="-50" width="24" height="24"/>
+                        <image file="Face-smile-big.png" x="180" y="-50" width="24" height="24"/>
                         <rect x="210" y="-42" width="8" height="8" fill="no" stroke="yes"/>
                     </illustration>
                     <para style="terp_default_8">End of the intervention : _____ h _____ min.</para>
