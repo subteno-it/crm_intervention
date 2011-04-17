@@ -34,7 +34,7 @@
                 <form string="Intervention">
                     <group colspan="4" col="7">
                         <field name="name" select="1" string="Subject" colspan="2" attrs="{'readonly':[('state','=','done')]}"/>
-                        <field name="number_request" required="1" select="1" string="Reference" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="number_request" required="1" select="1" string="Reference" colspan="1" attrs="{'readonly':[('state','!=','draft')]}"/>
                         <field name="section_id" colspan="1" widget="selection"/>
                         <newline/>
                         <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" select="1" attrs="{'readonly':[('state','=','done')]}"/>
