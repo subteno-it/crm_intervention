@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    crm_intervention module for OpenERP, Managing intervention in CRM
-#    Copyright (C) 2011 SYLEAM Info Services (<http://www.Syleam.fr/>) 
+#    Copyright (C) 2011 SYLEAM Info Services (<http://www.Syleam.fr/>)
 #              Sebastien LANGE <sebastien.lange@syleam.fr>
 #
 #    This file is a part of crm_intervention
@@ -263,8 +263,24 @@ class crm_intervention(crm.crm_case, osv.osv):
         """
         return True
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        """
+        #TODO make doc string
+        Comment this
+        """
+        if context is None:
+            context = {}
+
+        default['number_request'] = self.pool.get('ir.sequence').get(cr, uid, 'intervention')
+        default['date_effective_start'] = False
+        default['date_effective_end'] = False
+        default['duration_effective'] = 0.0
+        default['categ_id'] = False
+        default['description'] = False
+        default['timesheet_ids'] = False
+
+        return super(crm_intervention, self).copy(cr, uid, id, default, context=context)
+
 crm_intervention()
-
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
