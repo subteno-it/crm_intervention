@@ -31,10 +31,11 @@ import binascii
 import tools
 
 CRM_INTERVENTION_STATES = (
-    crm.AVAILABLE_STATES[2][0], # Cancelled
-    crm.AVAILABLE_STATES[3][0], # Done
-    crm.AVAILABLE_STATES[4][0], # Pending
+    crm.AVAILABLE_STATES[2][0],  # Cancelled
+    crm.AVAILABLE_STATES[3][0],  # Done
+    crm.AVAILABLE_STATES[4][0],  # Pending
 )
+
 
 class crm_intervention(crm.crm_case, osv.osv):
     _name = 'crm.intervention'
@@ -69,28 +70,28 @@ class crm_intervention(crm.crm_case, osv.osv):
         return section_obj.browse(cr, uid, section_ids[0], context=context).reply_to
 
     _columns = {
-        'id': fields.integer('ID', readonly=True), 
-        'name': fields.char('Name', size=128, required=True), 
-        'active': fields.boolean('Active', required=False), 
-        'date_action_last': fields.datetime('Last Action', readonly=1), 
-        'date_action_next': fields.datetime('Next Action', readonly=1), 
-        'description': fields.text('Description'), 
-        'create_date': fields.datetime('Creation Date' , readonly=True), 
-        'write_date': fields.datetime('Update Date' , readonly=True), 
-        'user_id': fields.many2one('res.users', 'Responsible'), 
+        'id': fields.integer('ID', readonly=True),
+        'name': fields.char('Name', size=128, required=True),
+        'active': fields.boolean('Active', required=False),
+        'date_action_last': fields.datetime('Last Action', readonly=1),
+        'date_action_next': fields.datetime('Next Action', readonly=1),
+        'description': fields.text('Description'),
+        'create_date': fields.datetime('Creation Date', readonly=True),
+        'write_date': fields.datetime('Update Date', readonly=True),
+        'user_id': fields.many2one('res.users', 'Responsible'),
         'section_id': fields.many2one('crm.case.section', 'Interventions Team', \
                         select=True, help='Interventions team to which Case belongs to.\
-                             Define Responsible user and Email account for mail gateway.'), 
-        'company_id': fields.many2one('res.company', 'Company'), 
-        'date_closed': fields.datetime('Closed', readonly=True), 
-        'email_cc': fields.text('Watchers Emails', size=252 , help="These email addresses will be added to the CC field of all inbound and outbound emails for this record before being sent. Separate multiple email addresses with a comma"), 
-        'email_from': fields.char('Email', size=128, help="These people will receive email."), 
-        'ref' : fields.reference('Reference', selection=crm._links_get, size=128), 
-        'ref2' : fields.reference('Reference 2', selection=crm._links_get, size=128), 
-        'priority': fields.selection(crm.AVAILABLE_PRIORITIES, 'Priority'), 
+                             Define Responsible user and Email account for mail gateway.'),
+        'company_id': fields.many2one('res.company', 'Company'),
+        'date_closed': fields.datetime('Closed', readonly=True),
+        'email_cc': fields.text('Watchers Emails', size=252, help="These email addresses will be added to the CC field of all inbound and outbound emails for this record before being sent. Separate multiple email addresses with a comma"),
+        'email_from': fields.char('Email', size=128, help="These people will receive email."),
+        'ref': fields.reference('Reference', selection=crm._links_get, size=128),
+        'ref2': fields.reference('Reference 2', selection=crm._links_get, size=128),
+        'priority': fields.selection(crm.AVAILABLE_PRIORITIES, 'Priority'),
         'categ_id': fields.many2one('crm.case.categ', 'Category', \
                         domain="[('section_id','=',section_id),\
-                        ('object_id.model', '=', 'crm.intervention')]"), 
+                        ('object_id.model', '=', 'crm.intervention')]"),
         'number_request': fields.char('Number Request', size=64),
         'customer_information': fields.text('Customer_information', ),
         'intervention_todo': fields.text('Intervention to do', help="Indicate the description of this intervention to do", ),
@@ -100,18 +101,18 @@ class crm_intervention(crm.crm_case, osv.osv):
         'date_effective_end': fields.datetime('Effective end date', help="Indicate the date of end intervention",),
         'duration_planned': fields.float('Planned duration', help='Indicate estimated to do the intervention.'),
         'duration_effective': fields.float('Effective duration', help='Indicate real time to do the intervention.'),
-        'partner_id':fields.many2one('res.partner', 'Customer', change_default=True, select=True),
-        'partner_invoice_id':fields.many2one('res.partner.address', 'Invoice Address', help="The name and address for the invoice",),
-        'partner_order_id':fields.many2one('res.partner.address', 'Intervention Contact', help="The name and address of the contact that requested the intervention."),
-        'partner_shipping_id':fields.many2one('res.partner.address', 'Intervention Address'),
+        'partner_id': fields.many2one('res.partner', 'Customer', change_default=True, select=True),
+        'partner_invoice_id': fields.many2one('res.partner.address', 'Invoice Address', help="The name and address for the invoice",),
+        'partner_order_id': fields.many2one('res.partner.address', 'Intervention Contact', help="The name and address of the contact that requested the intervention."),
+        'partner_shipping_id': fields.many2one('res.partner.address', 'Intervention Address'),
         'partner_address_phone': fields.char('Phone', size=64),
         'partner_address_mobile': fields.char('Mobile', size=64),
-        'state': fields.selection(crm.AVAILABLE_STATES, 'State', size=16, readonly=True, 
+        'state': fields.selection(crm.AVAILABLE_STATES, 'State', size=16, readonly=True,
                               help='The state is set to \'Draft\', when a case is created.\
                               \nIf the case is in progress the state is set to \'Open\'.\
                               \nWhen the case is over, the state is set to \'Done\'.\
                               \nIf the case needs to be reviewed then the state is set to \'Pending\'.'),
-        'message_ids': fields.one2many('mailgate.message', 'res_id', 'Messages', domain=[('model','=',_name)]),
+        'message_ids': fields.one2many('mailgate.message', 'res_id', 'Messages', domain=[('model', '=', _name)]),
     }
 
     _defaults = {
@@ -130,23 +131,23 @@ class crm_intervention(crm.crm_case, osv.osv):
 
     def onchange_partner_intervention_id(self, cr, uid, ids, part):
         if not part:
-            return {'value':{'partner_invoice_id': False, 'partner_shipping_id':False, 'partner_order_id':False, 'email_from': False, 'partner_address_phone':False, 'partner_address_mobile':False }}
-        addr = self.pool.get('res.partner').address_get(cr, uid, [part], ['default','delivery','invoice','contact'])
+            return {'value': {'partner_invoice_id': False, 'partner_shipping_id': False, 'partner_order_id': False, 'email_from': False, 'partner_address_phone': False, 'partner_address_mobile': False}}
+        addr = self.pool.get('res.partner').address_get(cr, uid, [part], ['default', 'delivery', 'invoice', 'contact'])
         part = self.pool.get('res.partner').browse(cr, uid, part)
         val = {'partner_invoice_id': addr['invoice'],
-               'partner_order_id':addr['contact'],
-               'partner_shipping_id':addr['delivery'],
+               'partner_order_id': addr['contact'],
+               'partner_shipping_id': addr['delivery'],
               }
         val['email_from'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).email
         val['partner_address_phone'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).phone
         val['partner_address_mobile'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).mobile
-        return {'value':val}
+        return {'value': val}
 
     def onchange_planned_duration(self, cr, uid, ids, planned_duration, planned_start_date):
         if not planned_duration:
-            return {'value':{'date_planned_end': False }}
-        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(planned_start_date , "%Y-%m-%d %H:%M:%S")))
-        return {'value': {'date_planned_end' : (start_date + datetime.timedelta(hours=planned_duration)).strftime('%Y-%m-%d %H:%M:%S')}}
+            return {'value': {'date_planned_end': False}}
+        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(planned_start_date, "%Y-%m-%d %H:%M:%S")))
+        return {'value': {'date_planned_end': (start_date + datetime.timedelta(hours=planned_duration)).strftime('%Y-%m-%d %H:%M:%S')}}
 
     def onchange_planned_end_date(self, cr, uid, ids, planned_end_date, planned_start_date):
         start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(planned_start_date, "%Y-%m-%d %H:%M:%S")))
@@ -154,13 +155,13 @@ class crm_intervention(crm.crm_case, osv.osv):
         difference = end_date - start_date
         minutes, secondes = divmod(difference.seconds, 60)
         hours, minutes = divmod(minutes, 60)
-        return {'value' : {'duration_planned' : (float(difference.days*24) + float(hours) + float(minutes)/float(60))}}
+        return {'value': {'duration_planned': (float(difference.days * 24) + float(hours) + float(minutes) / float(60))}}
 
     def onchange_effective_duration(self, cr, uid, ids, effective_duration, effective_start_date):
         if not effective_duration:
-            return {'value':{'date_effective_end': False }}
-        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(effective_start_date , "%Y-%m-%d %H:%M:%S")))
-        return {'value': {'date_effective_end' : (start_date + datetime.timedelta(hours=effective_duration)).strftime('%Y-%m-%d %H:%M:00')}}
+            return {'value': {'date_effective_end': False}}
+        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(effective_start_date, "%Y-%m-%d %H:%M:%S")))
+        return {'value': {'date_effective_end': (start_date + datetime.timedelta(hours=effective_duration)).strftime('%Y-%m-%d %H:%M:00')}}
 
     def onchange_effective_end_date(self, cr, uid, ids, effective_end_date, effective_start_date):
         start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(effective_start_date, "%Y-%m-%d %H:%M:%S")))
@@ -168,7 +169,7 @@ class crm_intervention(crm.crm_case, osv.osv):
         difference = end_date - start_date
         minutes, secondes = divmod(difference.seconds, 60)
         hours, minutes = divmod(minutes, 60)
-        return {'value' : {'duration_effective' : (float(difference.days*24) + float(hours) + float(minutes)/float(60))}}
+        return {'value': {'duration_effective': (float(difference.days * 24) + float(hours) + float(minutes) / float(60))}}
 
     def message_new(self, cr, uid, msg, context=None):
         """
@@ -204,7 +205,7 @@ class crm_intervention(crm.crm_case, osv.osv):
         for attactment in attachents or []:
             data_attach = {
                 'name': attactment,
-                'datas':binascii.b2a_base64(str(attachents.get(attactment))),
+                'datas': binascii.b2a_base64(str(attachents.get(attactment))),
                 'datas_fname': attactment,
                 'description': 'Mail attachment',
                 'res_model': self._name,
@@ -219,7 +220,7 @@ class crm_intervention(crm.crm_case, osv.osv):
         @param self: The object pointer
         @param cr: the current row, from the database cursor,
         @param uid: the current user’s ID for security checks,
-        @param ids: List of update mail’s IDs 
+        @param ids: List of update mail’s IDs
         """
         if isinstance(ids, (str, int, long)):
             ids = [ids]
@@ -228,9 +229,9 @@ class crm_intervention(crm.crm_case, osv.osv):
             vals['priority'] = msg.get('priority')
 
         maps = {
-            'cost':'planned_cost',
+            'cost': 'planned_cost',
             'revenue': 'planned_revenue',
-            'probability':'probability'
+            'probability': 'probability'
         }
         vls = {}
         for line in msg['body'].split('\n'):
@@ -247,7 +248,7 @@ class crm_intervention(crm.crm_case, osv.osv):
         for case in self.browse(cr, uid, ids, context=context):
             values = dict(vals)
             if case.state in CRM_INTERVENTION_STATES:
-                values.update(state=crm.AVAILABLE_STATES[1][0]) #re-open
+                values.update(state=crm.AVAILABLE_STATES[1][0])  # re-open
             res = self.write(cr, uid, [case.id], values, context=context)
         return res
 
