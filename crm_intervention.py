@@ -272,6 +272,9 @@ class crm_intervention(crm.crm_case, osv.osv):
         if context is None:
             context = {}
 
+        if default is None:
+            default = {}
+
         default['number_request'] = self.pool.get('ir.sequence').get(cr, uid, 'intervention')
         default['date_effective_start'] = False
         default['date_effective_end'] = False
