@@ -23,6 +23,7 @@ import time
 from report import report_sxw
 from tools.translate import _
 
+
 class inter_report(report_sxw.rml_parse):
 
         def upcase(self, name):
@@ -50,7 +51,6 @@ class inter_report(report_sxw.rml_parse):
             while len(tmplist):
                 result += '%s\n' % tmplist.pop()
             return result
-
 
         def __init__(self, cr, uid, name, context):
             super(inter_report, self).__init__(cr, uid, name, context)

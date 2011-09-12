@@ -23,6 +23,7 @@ import time
 from report import report_sxw
 from tools.translate import _
 
+
 class inter_ticket(report_sxw.rml_parse):
 
         def upcase(self, name):
@@ -40,7 +41,6 @@ class inter_ticket(report_sxw.rml_parse):
                            _("friday"),
                            _("saturday")]
             return weekdayname[int(numberDay)]
-
 
         def __init__(self, cr, uid, name, context):
                 super(inter_ticket, self).__init__(cr, uid, name, context)

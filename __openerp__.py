@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    crm_intervention module for OpenERP, Managing intervention in CRM
-#    Copyright (C) 2011 SYLEAM Info Services (<http://www.Syleam.fr/>) 
+#    Copyright (C) 2011 SYLEAM Info Services (<http://www.Syleam.fr/>)
 #              Sebastien LANGE <sebastien.lange@syleam.fr>
 #
 #    This file is a part of crm_intervention
