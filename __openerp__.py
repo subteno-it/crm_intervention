@@ -27,7 +27,7 @@
     'version': '0.1',
     'category': 'Generic Modules/CRM & SRM',
     'description': """Intervention Management""",
-    'author': 'SYLEAM Info Services',
+    'author': 'SYLEAM',
     'website': 'http://www.Syleam.fr/',
     'depends': [
         'crm',
