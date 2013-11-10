@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data>
+    <data noupdate="1">
         ##############################################################################
         #
         #    crm_intervention module for OpenERP, Managing intervention in CRM
         #    Copyright (C) 2011 SYLEAM Info Services ([http://www.Syleam.fr/]) 
         #              Sebastien LANGE [sebastien.lange@syleam.fr]
+        #              Christophe CHAUVET [christophe.chauvet@gmail.com]
         #
         #    This file is a part of crm_intervention
         #

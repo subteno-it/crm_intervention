@@ -4,6 +4,7 @@
 #    crm_intervention module for OpenERP, Managing intervention in CRM
 #    Copyright (C) 2011 SYLEAM Info Services (<http://www.Syleam.fr/>)
 #              Sebastien LANGE <sebastien.lange@syleam.fr>
+#              Christophe CHAUVET <christophe.chauvet@gmail.com>
 #
 #    This file is a part of crm_intervention
 #
@@ -32,17 +33,16 @@
     'depends': [
         'crm',
     ],
-    'init_xml': [
-        'crm_intervention_data.xml',
-    ],
-    'update_xml': [
+    'data': [
         'security/crm_security.xml',
         'security/ir.model.access.csv',
         'crm_intervention_view.xml',
         'crm_intervention_menu.xml',
+        'crm_intervention_data.xml',
         'report/crm_intervention_view.xml',
     ],
-    'demo_xml': [],
+    'demo': [],
+    'test': [],
     'installable': True,
     'active': False,
     'license': 'AGPL-3',
