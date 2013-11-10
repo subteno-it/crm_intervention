@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <openerp>
     <data>
         ##############################################################################
@@ -29,16 +29,15 @@
         <record model="ir.ui.view" id="crm_case_form_view_intervention">
             <field name="name">CRM - Intervention Form</field>
             <field name="model">crm.intervention</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Intervention">
+                <form string="Intervention" version="7.0">
                     <group colspan="4" col="7">
-                        <field name="name" select="1" string="Subject" colspan="2" attrs="{'readonly':[('state','=','done')]}"/>
-                        <field name="number_request" required="1" select="1" string="Reference" colspan="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="name" string="Subject" colspan="2" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="number_request" required="1" string="Reference" colspan="1" attrs="{'readonly':[('state','!=','draft')]}"/>
                         <field name="section_id" colspan="1" widget="selection"/>
                         <newline/>
-                        <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" select="1" attrs="{'readonly':[('state','=','done')]}"/>
-                        <field name="user_id" select="1" string="Planned for" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="user_id" string="Planned for" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                     </group>
                     <notebook colspan="4">
                         <page string="General">
@@ -54,7 +53,7 @@
                         <page string="Before Intervention">
                             <field name="date_planned_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
-                            <field name="date_planned_end" on_change="onchange_planned_end_date(date_planned_end, date_planned_start)" select="2" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="date_planned_end" on_change="onchange_planned_end_date(date_planned_end, date_planned_start)" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="duration_planned" on_change="onchange_planned_duration(duration_planned, date_planned_start)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="intervention_todo" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                         </page>
@@ -62,8 +61,8 @@
                             <group expand="1">
                                 <field name="date_effective_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="duration_effective" on_change="onchange_effective_duration(duration_effective, date_effective_start)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="date_effective_end" on_change="onchange_effective_end_date(date_effective_end, date_effective_start)" select="2" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="categ_id" context="{'object_id':'crm.intervention'}" select="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                <field name="date_effective_end" on_change="onchange_effective_end_date(date_effective_end, date_effective_start)" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                <field name="categ_id" context="{'object_id':'crm.intervention'}" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="description" string="Customer" colspan="4" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/>
                             </group>
                         </page>
@@ -71,17 +70,13 @@
                             <group colspan="4">
                                 <field colspan="4" name="email_cc" string="Global CC" widget="char"/>
                             </group>
-                            <field name="message_ids" colspan="4" nolabel="1" mode="tree,form">
+                            <field name="message_ids" colspan="4" nolabel="1">
                                 <tree string="History">
                                     <field name="display_text" string="History Information"/>
                                     <field name="history" invisible="1"/>
-                                    <button
-                                        string="Reply" attrs="{'invisible': [('history', '!=', True)]}"
-                                        name="%(crm.action_crm_send_mail)d"
-                                        context="{'mail':'reply', 'model': 'crm.intervention', 'include_original' : True}"
-                                        icon="terp-mail-replied" type="action" />
+                                    <button string="Reply" attrs="{'invisible': [('history', '!=', True)]}" name="%(crm.action_crm_send_mail)d" context="{'mail':'reply', 'model': 'crm.intervention', 'include_original' : True}" icon="terp-mail-replied" type="action"/>
                                 </tree>
-                                <form string="History">
+                                <form string="History" version="7.0">
                                     <group col="4" colspan="4">
                                         <field name="email_from"/>
                                         <field name="date"/>
@@ -94,14 +89,10 @@
                                         <page string="Details">
                                             <group attrs="{'invisible': [('history', '!=', True)]}">
                                                 <field name="description" colspan="4" nolabel="1" height="250"/>
-                                                <button colspan="4"
-                                                    string="Reply"
-                                                    name="%(crm.action_crm_send_mail)d"
-                                                    context="{'mail':'reply', 'model': 'crm.intervention', 'include_original' : True}"
-                                                    icon="terp-mail-replied" type="action" />
+                                                <button colspan="4" string="Reply" name="%(crm.action_crm_send_mail)d" context="{'mail':'reply', 'model': 'crm.intervention', 'include_original' : True}" icon="terp-mail-replied" type="action"/>
                                             </group>
                                             <group attrs="{'invisible': [('history', '=', True)]}">
-                                                <field name="display_text" colspan="4" nolabel="1"  height="250"/>
+                                                <field name="display_text" colspan="4" nolabel="1" height="250"/>
                                             </group>
                                         </page>
                                         <page string="Attachments">
@@ -110,14 +101,8 @@
                                     </notebook>
                                 </form>
                             </field>
-                            <button string="Add Internal Note"
-                                name="%(crm.action_crm_add_note)d"
-                                context="{'model': 'crm.lead' }"
-                                icon="terp-document-new" type="action" />
-                            <button string="Send New Email"
-                                name="%(crm.action_crm_send_mail)d"
-                                context="{'mail':'new', 'model': 'crm.intervention'}"
-                                icon="terp-mail-message-new" type="action" />
+                            <button string="Add Internal Note" name="%(crm.action_crm_add_note)d" context="{'model': 'crm.lead' }" icon="terp-document-new" type="action"/>
+                            <button string="Send New Email" name="%(crm.action_crm_send_mail)d" context="{'mail':'new', 'model': 'crm.intervention'}" icon="terp-mail-message-new" type="action"/>
                         </page>
                         <page string="Extra Info" groups="base.group_extended">
                             <group colspan="2" col="2">
@@ -127,7 +112,7 @@
                             </group>
                             <group colspan="2" col="2">
                                 <separator colspan="4" string="Misc"/>
-                                <field name="id" select="1"/>
+                                <field name="id"/>
                                 <field name="active"/>
                             </group>
                             <newline/>
@@ -139,23 +124,12 @@
                         </page>
                     </notebook>
                     <group col="8" colspan="4">
-                        <field name="state" select="1"/>
-                        <button name="case_cancel"
-                            states="draft,open,pending" string="Cancel"
-                            type="object" icon="gtk-cancel" />
-                        <button name="case_open"
-                            states="draft,pending" string="Open"
-                            type="object" icon="gtk-go-forward" />
-                        <button name="case_pending"
-                            states="draft,open" string="Pending"
-                            type="object" icon="gtk-media-pause" />
-                        <button name="case_close"
-                            states="open,draft,pending" string="Close"
-                            type="object" icon="gtk-jump-to" />
-                        <button name="case_reset"
-                            states="done,cancel"
-                            string="Reset to Draft" type="object"
-                            icon="gtk-convert" />
+                        <field name="state"/>
+                        <button name="case_cancel" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel"/>
+                        <button name="case_open" states="draft,pending" string="Open" type="object" icon="gtk-go-forward"/>
+                        <button name="case_pending" states="draft,open" string="Pending" type="object" icon="gtk-media-pause"/>
+                        <button name="case_close" states="open,draft,pending" string="Close" type="object" icon="gtk-jump-to"/>
+                        <button name="case_reset" states="done,cancel" string="Reset to Draft" type="object" icon="gtk-convert"/>
                     </group>
                 </form>
             </field>
@@ -166,10 +140,8 @@
         <record model="ir.ui.view" id="crm_case_tree_view_intervention">
             <field name="name">CRM - intervention Tree</field>
             <field name="model">crm.intervention</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree string="Intervention Tree"
-                    colors="black:state=='open';blue:state=='pending';gray:state in ('cancel','close')">
+                <tree string="Intervention Tree" colors="black:state=='open';blue:state=='pending';gray:state in ('cancel','close')">
                     <field name="number_request"/>
                     <field name="name" string="Interventions"/>
                     <field name="partner_id" string="Partner"/>
@@ -179,20 +151,11 @@
                     <field name="duration_planned" widget="float_time"/>
                     <field name="categ_id"/>
                     <field name="state"/>
-                    <button name="case_cancel" string="Cancel"
-                        states="draft,open,pending" type="object"
-                        icon="gtk-cancel" />
-                    <button name="case_open" string="Open"
-                        states="draft,pending" type="object"
-                        icon="gtk-go-forward" />
-                    <button name="case_pending" string="Pending"
-                        states="draft,open" type="object"
-                        icon="gtk-media-pause" />
-                    <button name="case_close" string="Done"
-                        states="open,draft,pending" type="object"
-                        icon="gtk-close" />
-                    <button name="case_reset" string="Reset to Draft"
-                        states="done,cancel" type="object" icon="gtk-convert" />
+                    <button name="case_cancel" string="Cancel" states="draft,open,pending" type="object" icon="gtk-cancel"/>
+                    <button name="case_open" string="Open" states="draft,pending" type="object" icon="gtk-go-forward"/>
+                    <button name="case_pending" string="Pending" states="draft,open" type="object" icon="gtk-media-pause"/>
+                    <button name="case_close" string="Done" states="open,draft,pending" type="object" icon="gtk-close"/>
+                    <button name="case_reset" string="Reset to Draft" states="done,cancel" type="object" icon="gtk-convert"/>
                 </tree>
             </field>
         </record>
@@ -202,7 +165,6 @@
         <record model="ir.ui.view" id="crm_case_intervention_calendar_view">
             <field name="name">CRM - Intervention Calendar</field>
             <field name="model">crm.intervention</field>
-            <field name="type">calendar</field>
             <field name="priority" eval="2"/>
             <field name="arch" type="xml">
                 <calendar string="intervention Supports" date_start="date_planned_start" color="user_id" date_delay="duration_planned">
@@ -218,49 +180,28 @@
         <record id="view_crm_case_intervention_filter" model="ir.ui.view">
             <field name="name">CRM - intervention Search</field>
             <field name="model">crm.intervention</field>
-            <field name="type">search</field>
             <field name="arch" type="xml">
                 <search string="Search intervention">
-                    <filter icon="terp-go-today" string="Today"
-                        separator="1"
-                        domain="[('date_planned_start','=',time.strftime('%%Y-%%m-%%d'))]"
-                        help="Todays's intervention Requests"
-                        />
-                    <filter icon="terp-go-week"
-                        string="7 Days" separator="1"
-                        help="Intervention requests during last 7 days"
-                        domain="[('date_planned_start','&lt;', time.strftime('%%Y-%%m-%%d')), ('date_planned_start','&gt;=',(datetime.date.today()-datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"
-                        />
+                    <filter icon="terp-go-today" string="Today" separator="1" domain="[('date_planned_start','=',time.strftime('%%Y-%%m-%%d'))]" help="Todays's intervention Requests"/>
+                    <filter icon="terp-go-week" string="7 Days" separator="1" help="Intervention requests during last 7 days" domain="[('date_planned_start','&lt;', time.strftime('%%Y-%%m-%%d')), ('date_planned_start','&gt;=',(datetime.date.today()-datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
                     <separator orientation="vertical"/>
-                    <field name="name" select='1' string="Query"/>
-                    <field name="partner_id" />
-                    <field name="user_id" select="1" widget="selection"/>
-                    <field name="section_id" select="1" widget="selection" string="Interventions Team">
-                        <filter icon="terp-personal+" groups="base.group_extended"
-                            domain="['|', ('section_id', '=', context.get('section_id')), '|', ('section_id.user_id','=',uid), ('section_id.member_ids', 'in', [uid])]"
-                            help="My Interventions Team(s)" />
+                    <field name="name" string="Query"/>
+                    <field name="partner_id"/>
+                    <field name="user_id" widget="selection"/>
+                    <field name="section_id" widget="selection" string="Interventions Team">
+                        <filter icon="terp-personal+" groups="base.group_extended" domain="['|', ('section_id', '=', context.get('section_id')), '|', ('section_id.user_id','=',uid), ('section_id.member_ids', 'in', [uid])]" help="My Interventions Team(s)"/>
                     </field>
                     <field name="date_planned_start" widget="date"/>
                     <newline/>
                     <group expand="0" string="Group By...">
-                        <filter string="Partner" icon="terp-partner"
-                            domain="[]" help="Partner"
-                            context="{'group_by':'partner_id'}" />
-                        <filter string="Responsible" icon="terp-personal"
-                            domain="[]" help="Responsible User"
-                            context="{'group_by':'user_id'}" />
+                        <filter string="Partner" icon="terp-partner" domain="[]" help="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter string="Responsible" icon="terp-personal" domain="[]" help="Responsible User" context="{'group_by':'user_id'}"/>
                         <separator orientation="vertical"/>
-                        <filter string="Priority" icon="terp-rating-rated"
-                            domain="[]" context="{'group_by':'priority'}" />
-                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]"
-                            context="{'group_by':'state'}" />
+                        <filter string="Priority" icon="terp-rating-rated" domain="[]" context="{'group_by':'priority'}"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
                         <separator orientation="vertical"/>
-                        <filter string="Date" icon="terp-go-month"
-                            domain="[]" help="Request Date"
-                            context="{'group_by':'date_planned_start'}" />
-                        <filter string="Deadline" icon="terp-go-month"
-                            domain="[]"
-                            context="{'group_by':'date_planned_end'}" />
+                        <filter string="Date" icon="terp-go-month" domain="[]" help="Request Date" context="{'group_by':'date_planned_start'}"/>
+                        <filter string="Deadline" icon="terp-go-month" domain="[]" context="{'group_by':'date_planned_end'}"/>
                     </group>
                 </search>
             </field>

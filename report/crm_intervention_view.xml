@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <openerp>
     <data>
         ##############################################################################
@@ -24,20 +24,8 @@
         #
         ##############################################################################
 
-        <report auto="False"
-            id="inter_crm_intervention"
-            model="crm.intervention"
-            name="crm_intervention.inter_ticket"
-            rml="crm_intervention/report/inter_ticket.rml"
-            groups="base.group_crm_intervention_user"
-            string="Intervention Ticket"/>
-        <report auto="False"
-            id="report_crm_intervention"
-            model="crm.intervention"
-            name="crm_intervention.inter_report"
-            rml="crm_intervention/report/inter_report.rml"
-            groups="base.group_crm_intervention_manager"
-            string="Intervention Report"/>
+        <report auto="False" id="inter_crm_intervention" model="crm.intervention" name="crm_intervention.inter_ticket" rml="crm_intervention/report/inter_ticket.rml" groups="base.group_crm_intervention_user" string="Intervention Ticket"/>
+        <report auto="False" id="report_crm_intervention" model="crm.intervention" name="crm_intervention.inter_report" rml="crm_intervention/report/inter_report.rml" groups="base.group_crm_intervention_manager" string="Intervention Report"/>
 
     </data>
 </openerp>

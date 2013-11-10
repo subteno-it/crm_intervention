@@ -20,8 +20,8 @@
 ##############################################################################
 
 import time
-from report import report_sxw
-from tools.translate import _
+from openerp.report import report_sxw
+from openerp.tools.translate import _
 
 
 class inter_report(report_sxw.rml_parse):
@@ -33,13 +33,15 @@ class inter_report(report_sxw.rml_parse):
             return str(name).zfill(nbr)
 
         def weekdayname(self, numberDay, context=None):
-            weekdayname = [_("sunday"),
-                           _("monday"),
-                           _("tuesday"),
-                           _("wednesday"),
-                           _("thursday"),
-                           _("friday"),
-                           _("saturday")]
+            weekdayname = [
+                _("sunday"),
+                _("monday"),
+                _("tuesday"),
+                _("wednesday"),
+                _("thursday"),
+                _("friday"),
+                _("saturday"),
+            ]
             return weekdayname[int(numberDay)]
 
         def historyline(self, history, types):

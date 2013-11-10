@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <openerp>
     <data noupdate="1">
         ##############################################################################
@@ -24,8 +24,7 @@
         #
         ##############################################################################
 
-        <menuitem id="base.menu_aftersale" name="After-Sale Services"
-            parent="base.menu_base_partner" sequence="7" />
+        <menuitem id="base.menu_aftersale" name="After-Sale Services" parent="base.menu_base_partner" sequence="7"/>
         #
         # Intervention (menu)
         #
@@ -60,9 +59,7 @@
             <field name="act_window_id" ref="crm_case_intervention_act111"/>
         </record>
 
-        <menuitem name="Interventions" id="menu_intersupport_main"
-            groups="base.group_extended,base.group_crm_intervention_user"
-            parent="base.menu_aftersale" action="crm_case_intervention_act111" sequence="3"/>
+        <menuitem name="Interventions" id="menu_intersupport_main" groups="base.group_extended,base.group_crm_intervention_user" parent="base.menu_aftersale" action="crm_case_intervention_act111" sequence="3"/>
 
     </data>
 </openerp>

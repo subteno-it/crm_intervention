@@ -23,12 +23,12 @@
 ##############################################################################
 
 from crm import crm
-from osv import osv
-from osv import fields
+from openerp.osv import orm
+from openerp.osv import fields
 import time
 import datetime
 import binascii
-import tools
+import openerp.tools as tools
 
 CRM_INTERVENTION_STATES = (
     crm.AVAILABLE_STATES[2][0],  # Cancelled
@@ -37,7 +37,7 @@ CRM_INTERVENTION_STATES = (
 )
 
 
-class crm_intervention(crm.crm_case, osv.osv):
+class crm_intervention(crm.crm_case, orm.Model):
     _name = 'crm.intervention'
     _description = 'Intervention'
     _order = "id desc"
@@ -45,10 +45,10 @@ class crm_intervention(crm.crm_case, osv.osv):
 
     def _get_default_section_intervention(self, cr, uid, context=None):
         """Gives default section for intervention section
-        @param self: The object pointer
-        @param cr: the current row, from the database cursor,
-        @param uid: the current user’s ID for security checks,
-        @param context: A standard dictionary for contextual values
+        :param self: The object pointer
+        :param cr: the current row, from the database cursor,
+        :param uid: the current user’s ID for security checks,
+        :param context: A standard dictionary for contextual values
         """
         section_obj = self.pool.get('crm.case.section')
         section_ids = section_obj.search(cr, uid, [('code', '=', 'inter')], offset=0, limit=None, order=None, context=context)
@@ -58,10 +58,10 @@ class crm_intervention(crm.crm_case, osv.osv):
 
     def _get_default_email_cc(self, cr, uid, context=None):
         """Gives default email address for intervention section
-        @param self: The object pointer
-        @param cr: the current row, from the database cursor,
-        @param uid: the current user’s ID for security checks,
-        @param context: A standard dictionary for contextual values
+        :param self: The object pointer
+        :param cr: the current row, from the database cursor,
+        :param uid: the current user’s ID for security checks,
+        :param context: A standard dictionary for contextual values
         """
         section_obj = self.pool.get('crm.case.section')
         section_ids = section_obj.search(cr, uid, [('code', '=', 'inter')], offset=0, limit=None, order=None, context=context)
@@ -102,9 +102,9 @@ class crm_intervention(crm.crm_case, osv.osv):
         'duration_planned': fields.float('Planned duration', help='Indicate estimated to do the intervention.'),
         'duration_effective': fields.float('Effective duration', help='Indicate real time to do the intervention.'),
         'partner_id': fields.many2one('res.partner', 'Customer', change_default=True, select=True),
-        'partner_invoice_id': fields.many2one('res.partner.address', 'Invoice Address', help="The name and address for the invoice",),
-        'partner_order_id': fields.many2one('res.partner.address', 'Intervention Contact', help="The name and address of the contact that requested the intervention."),
-        'partner_shipping_id': fields.many2one('res.partner.address', 'Intervention Address'),
+        'partner_invoice_id': fields.many2one('res.partner', 'Invoice Address', help="The name and address for the invoice",),
+        'partner_order_id': fields.many2one('res.partner', 'Intervention Contact', help="The name and address of the contact that requested the intervention."),
+        'partner_shipping_id': fields.many2one('res.partner', 'Intervention Address'),
         'partner_address_phone': fields.char('Phone', size=64),
         'partner_address_mobile': fields.char('Mobile', size=64),
         'state': fields.selection(crm.AVAILABLE_STATES, 'State', size=16, readonly=True,
@@ -134,13 +134,14 @@ class crm_intervention(crm.crm_case, osv.osv):
             return {'value': {'partner_invoice_id': False, 'partner_shipping_id': False, 'partner_order_id': False, 'email_from': False, 'partner_address_phone': False, 'partner_address_mobile': False}}
         addr = self.pool.get('res.partner').address_get(cr, uid, [part], ['default', 'delivery', 'invoice', 'contact'])
         part = self.pool.get('res.partner').browse(cr, uid, part)
-        val = {'partner_invoice_id': addr['invoice'],
-               'partner_order_id': addr['contact'],
-               'partner_shipping_id': addr['delivery'],
-              }
-        val['email_from'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).email
-        val['partner_address_phone'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).phone
-        val['partner_address_mobile'] = self.pool.get('res.partner.address').browse(cr, uid, addr['delivery']).mobile
+        val = {
+            'partner_invoice_id': addr['invoice'],
+            'partner_order_id': addr['contact'],
+            'partner_shipping_id': addr['delivery'],
+        }
+        val['email_from'] = self.pool.get('res.partner').browse(cr, uid, addr['delivery']).email
+        val['partner_address_phone'] = self.pool.get('res.partner').browse(cr, uid, addr['delivery']).phone
+        val['partner_address_mobile'] = self.pool.get('res.partner').browse(cr, uid, addr['delivery']).mobile
         return {'value': val}
 
     def onchange_planned_duration(self, cr, uid, ids, planned_duration, planned_start_date):
@@ -175,9 +176,9 @@ class crm_intervention(crm.crm_case, osv.osv):
         """
         Automatically calls when new email message arrives
 
-        @param self: The object pointer
-        @param cr: the current row, from the database cursor,
-        @param uid: the current user’s ID for security checks
+        :param self: The object pointer
+        :param cr: the current row, from the database cursor,
+        :param uid: the current user’s ID for security checks
         """
         mailgate_pool = self.pool.get('email.server.tools')
 
@@ -203,6 +204,7 @@ class crm_intervention(crm.crm_case, osv.osv):
         res = self.create(cr, uid, vals, context)
         attachents = msg.get('attachments', [])
         for attactment in attachents or []:
+            # TODO: Add missing context information
             data_attach = {
                 'name': attactment,
                 'datas': binascii.b2a_base64(str(attachents.get(attactment))),
@@ -217,10 +219,10 @@ class crm_intervention(crm.crm_case, osv.osv):
 
     def message_update(self, cr, uid, ids, vals={}, msg="", default_act='pending', context=None):
         """
-        @param self: The object pointer
-        @param cr: the current row, from the database cursor,
-        @param uid: the current user’s ID for security checks,
-        @param ids: List of update mail’s IDs
+        :param self: The object pointer
+        :param cr: the current row, from the database cursor,
+        :param uid: the current user’s ID for security checks,
+        :param ids: List of update mail’s IDs
         """
         if isinstance(ids, (str, int, long)):
             ids = [ids]
@@ -255,12 +257,12 @@ class crm_intervention(crm.crm_case, osv.osv):
     def msg_send(self, cr, uid, id, *args, **argv):
 
         """ Send The Message
-            @param self: The object pointer
-            @param cr: the current row, from the database cursor,
-            @param uid: the current user’s ID for security checks,
-            @param ids: List of email’s IDs
-            @param *args: Return Tuple Value
-            @param **args: Return Dictionary of Keyword Value
+            :param self: The object pointer
+            :param cr: the current row, from the database cursor,
+            :param uid: the current user’s ID for security checks,
+            :param ids: List of email’s IDs
+            :param *args: Return Tuple Value
+            :param **args: Return Dictionary of Keyword Value
         """
         return True
 
@@ -284,7 +286,5 @@ class crm_intervention(crm.crm_case, osv.osv):
         default['timesheet_ids'] = False
 
         return super(crm_intervention, self).copy(cr, uid, id, default, context=context)
-
-crm_intervention()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
