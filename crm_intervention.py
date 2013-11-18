@@ -22,7 +22,9 @@
 #
 ##############################################################################
 
-from crm import crm
+from openerp.addons.base_status.base_state import base_state
+from openerp.addons.base_status.base_stage import base_stage
+from openerp.addons.crm import crm
 from openerp.osv import orm
 from openerp.osv import fields
 import time
@@ -37,11 +39,11 @@ CRM_INTERVENTION_STATES = (
 )
 
 
-class crm_intervention(crm.crm_case, orm.Model):
+class crm_intervention(base_state, base_stage, orm.Model):
     _name = 'crm.intervention'
     _description = 'Intervention'
     _order = "id desc"
-    _inherit = ['mailgate.thread']
+    _inherit = ['mail.thread']
 
     def _get_default_section_intervention(self, cr, uid, context=None):
         """Gives default section for intervention section
@@ -50,6 +52,7 @@ class crm_intervention(crm.crm_case, orm.Model):
         :param uid: the current user’s ID for security checks,
         :param context: A standard dictionary for contextual values
         """
+        # TODO: Replace with XMLID
         section_obj = self.pool.get('crm.case.section')
         section_ids = section_obj.search(cr, uid, [('code', '=', 'inter')], offset=0, limit=None, order=None, context=context)
         if not section_ids:
@@ -63,6 +66,7 @@ class crm_intervention(crm.crm_case, orm.Model):
         :param uid: the current user’s ID for security checks,
         :param context: A standard dictionary for contextual values
         """
+        # TODO: Replace with XMLID
         section_obj = self.pool.get('crm.case.section')
         section_ids = section_obj.search(cr, uid, [('code', '=', 'inter')], offset=0, limit=None, order=None, context=context)
         if not section_ids:
@@ -80,7 +84,7 @@ class crm_intervention(crm.crm_case, orm.Model):
         'write_date': fields.datetime('Update Date', readonly=True),
         'user_id': fields.many2one('res.users', 'Responsible'),
         'section_id': fields.many2one('crm.case.section', 'Interventions Team', \
-                        select=True, help='Interventions team to which Case belongs to.\
+                        help='Interventions team to which Case belongs to.\
                              Define Responsible user and Email account for mail gateway.'),
         'company_id': fields.many2one('res.company', 'Company'),
         'date_closed': fields.datetime('Closed', readonly=True),
@@ -120,10 +124,10 @@ class crm_intervention(crm.crm_case, orm.Model):
         'partner_order_id': lambda self, cr, uid, context: context.get('partner_id', False) and  self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['contact'])['contact'],
         'partner_shipping_id': lambda self, cr, uid, context: context.get('partner_id', False) and self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['delivery'])['delivery'],
         'number_request': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'intervention'),
-        'active': lambda *a: 1,
-        'user_id': crm.crm_case._get_default_user,
+        'active': 1,
+        'user_id': lambda s, cr, uid, c: s._get_default_user(cr, uid, c),
         'email_cc': _get_default_email_cc,
-        'state': lambda *a: 'draft',
+        'state': 'draft',
         'section_id': _get_default_section_intervention,
         'company_id': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'crm.helpdesk', context=c),
         'priority': lambda *a: crm.AVAILABLE_PRIORITIES[2][0],
