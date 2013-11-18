@@ -74,8 +74,7 @@
             <field name="code">intervention</field>
             <field name="prefix">I%(y)s%(woy)s%(weekday)s%(h24)s%(min)s</field>
             <field name="padding">0</field>
-            <field name="number_increment">0</field>
-            <field name="number_next">0</field>
+            <field name="number_next">1</field>
         </record>
 
     </data>
