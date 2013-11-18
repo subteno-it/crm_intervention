@@ -37,7 +37,6 @@
         'security/crm_security.xml',
         'security/ir.model.access.csv',
         'crm_intervention_view.xml',
-        'crm_intervention_menu.xml',
         'crm_intervention_data.xml',
         'report/crm_intervention_view.xml',
     ],
