@@ -4,6 +4,7 @@
 #    crm_intervention module for OpenERP, Managing intervention in CRM
 #    Copyright (C) 2011 SYLEAM Info Services (<http://www.Syleam.fr/>)
 #              Sebastien LANGE <sebastien.lange@syleam.fr>
+#              Sylvain GARANCHER <sylvain.garancher@syleam.fr>
 #
 #    This file is a part of crm_intervention
 #
@@ -25,113 +26,77 @@
 from openerp.addons.base_status.base_state import base_state
 from openerp.addons.base_status.base_stage import base_stage
 from openerp.addons.crm import crm
-from openerp.osv import orm
-from openerp.osv import fields
+from openerp import Model, fields
 import time
 import datetime
 import binascii
 import openerp.tools as tools
 
 CRM_INTERVENTION_STATES = (
-    crm.AVAILABLE_STATES[2][0],  # Cancelled
-    crm.AVAILABLE_STATES[3][0],  # Done
-    crm.AVAILABLE_STATES[4][0],  # Pending
+    ('cancel', 'Cancelled'),
+    ('done', 'Held'),
+    ('pending', 'Pending'),
 )
 
 
-class crm_intervention(base_state, base_stage, orm.Model):
+class crm_intervention(base_state, base_stage, Model):
     _name = 'crm.intervention'
     _description = 'Intervention'
-    _order = "id desc"
+    _order = 'id desc'
     _inherit = ['mail.thread']
 
-    def _get_default_section_intervention(self, cr, uid, context=None):
-        """Gives default section for intervention section
-        :param self: The object pointer
-        :param cr: the current row, from the database cursor,
-        :param uid: the current user’s ID for security checks,
-        :param context: A standard dictionary for contextual values
-        """
-        # TODO: Replace with XMLID
-        section_obj = self.pool.get('crm.case.section')
-        section_ids = section_obj.search(cr, uid, [('code', '=', 'inter')], offset=0, limit=None, order=None, context=context)
-        if not section_ids:
-            return False
-        return section_ids[0]
+    name = fields.Char(size=128, required=True)
+    active = fields.Boolean(default=True)
+    date_action_last = fields.Datetime(string='Last Action', readonly=True)
+    date_action_next = fields.Datetime(string='Next Action', readonly=True)
+    description = fields.Text()
+    user_id = fields.Many2one('res.users', string='Responsible', default=lambda self: self._get_default_user())
+    section_id = fields.Many2one(
+        'crm.case.section', string='Interventions Team',
+        default=lambda self: self.env.ref('crm_intervention.section_interventions_department'),
+        help='Interventions team to which Case belongs to. Define Responsible user and Email account for mail gateway.',
+    )
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env['res.company']._company_default_get('crm.helpdesk'))
+    date_closed = fields.Datetime(string='Closed', readonly=True)
+    email_cc = fields.Text(
+        string='Watchers Emails',
+        default=lambda self: self.env.ref('crm_intervention.section_interventions_department').reply_to,
+        help='These email addresses will be added to the CC field of all inbound and outbound emails for this record before being sent. Separate multiple email addresses with a comma',
+    )
+    email_from = fields.Char(string='Email', size=128, help='These people will receive email.')
+    ref = fields.Reference(crm._links_get, string='Reference', size=128)
+    ref2 = fields.Reference(crm._links_get, string='Reference 2', size=128)
+    priority = fields.Selection(crm.AVAILABLE_PRIORITIES, default='pending')
+    categ_id = fields.Many2one('crm.case.categ', string='Category', domain="[('section_id', '=', section_id), ('object_id.model', '=', 'crm.intervention')]")
+    number_request = fields.Char(string='Number Request', size=64, default=lambda self: self.env['ir.sequence'].get('intervention'))
+    customer_information = fields.Text(string='Customer_information')
+    intervention_todo = fields.Text(string='Intervention to do', help='Indicate the description of this intervention to do')
+    date_planned_start = fields.Datetime(string='Planned Start Date', help='Indicate the date of begin intervention planned')
+    date_planned_end = fields.Datetime(string='Planned End Date', help='Indicate the date of end intervention planned')
+    date_effective_start = fields.Datetime(string='Effective start date', help='Indicate the date of begin intervention')
+    date_effective_end = fields.Datetime(string='Effective end date', help='Indicate the date of end intervention')
+    duration_planned = fields.Float(string='Planned duration', help='Indicate estimated to do the intervention.')
+    duration_effective = fields.Float(string='Effective duration', help='Indicate real time to do the intervention.')
+    partner_id = fields.Many2one('res.partner', string='Customer', change_default=True, select=True)
+    partner_invoice_id = fields.Many2one('res.partner', string='Invoice Address', help='The name and address for the invoice')
+    partner_order_id = fields.Many2one('res.partner', string='Intervention Contact', help='The name and address of the contact that requested the intervention.')
+    partner_shipping_id = fields.Many2one('res.partner', string='Intervention Address')
+    partner_address_phone = fields.Char(string='Phone', size=64)
+    partner_address_mobile = fields.Char(string='Mobile', size=64)
+    state = fields.Selection(
+        crm.AVAILABLE_STATES, readonly=True, default='draft',
+        help="""The state is set to 'Draft', when a case is created.
+        If the case is in progress the state is set to 'Open'.
+        When the case is over, the state is set to 'Done'.
+        If the case needs to be reviewed then the state is set to 'Pending'.""",
+    )
+    message_ids = fields.One2many('mail.message', 'res_id', string='Messages', domain=[('model', '=', _name)])
 
-    def _get_default_email_cc(self, cr, uid, context=None):
-        """Gives default email address for intervention section
-        :param self: The object pointer
-        :param cr: the current row, from the database cursor,
-        :param uid: the current user’s ID for security checks,
-        :param context: A standard dictionary for contextual values
-        """
-        # TODO: Replace with XMLID
-        section_obj = self.pool.get('crm.case.section')
-        section_ids = section_obj.search(cr, uid, [('code', '=', 'inter')], offset=0, limit=None, order=None, context=context)
-        if not section_ids:
-            return False
-        return section_obj.browse(cr, uid, section_ids[0], context=context).reply_to
-
-    _columns = {
-        'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Name', size=128, required=True),
-        'active': fields.boolean('Active', required=False),
-        'date_action_last': fields.datetime('Last Action', readonly=1),
-        'date_action_next': fields.datetime('Next Action', readonly=1),
-        'description': fields.text('Description'),
-        'create_date': fields.datetime('Creation Date', readonly=True),
-        'write_date': fields.datetime('Update Date', readonly=True),
-        'user_id': fields.many2one('res.users', 'Responsible'),
-        'section_id': fields.many2one('crm.case.section', 'Interventions Team', \
-                        help='Interventions team to which Case belongs to.\
-                             Define Responsible user and Email account for mail gateway.'),
-        'company_id': fields.many2one('res.company', 'Company'),
-        'date_closed': fields.datetime('Closed', readonly=True),
-        'email_cc': fields.text('Watchers Emails', size=252, help="These email addresses will be added to the CC field of all inbound and outbound emails for this record before being sent. Separate multiple email addresses with a comma"),
-        'email_from': fields.char('Email', size=128, help="These people will receive email."),
-        'ref': fields.reference('Reference', selection=crm._links_get, size=128),
-        'ref2': fields.reference('Reference 2', selection=crm._links_get, size=128),
-        'priority': fields.selection(crm.AVAILABLE_PRIORITIES, 'Priority'),
-        'categ_id': fields.many2one('crm.case.categ', 'Category', \
-                        domain="[('section_id','=',section_id),\
-                        ('object_id.model', '=', 'crm.intervention')]"),
-        'number_request': fields.char('Number Request', size=64),
-        'customer_information': fields.text('Customer_information', ),
-        'intervention_todo': fields.text('Intervention to do', help="Indicate the description of this intervention to do", ),
-        'date_planned_start': fields.datetime('Planned Start Date', help="Indicate the date of begin intervention planned", ),
-        'date_planned_end': fields.datetime('Planned End Date', help="Indicate the date of end intervention planned", ),
-        'date_effective_start': fields.datetime('Effective start date', help="Indicate the date of begin intervention",),
-        'date_effective_end': fields.datetime('Effective end date', help="Indicate the date of end intervention",),
-        'duration_planned': fields.float('Planned duration', help='Indicate estimated to do the intervention.'),
-        'duration_effective': fields.float('Effective duration', help='Indicate real time to do the intervention.'),
-        'partner_id': fields.many2one('res.partner', 'Customer', change_default=True, select=True),
-        'partner_invoice_id': fields.many2one('res.partner', 'Invoice Address', help="The name and address for the invoice",),
-        'partner_order_id': fields.many2one('res.partner', 'Intervention Contact', help="The name and address of the contact that requested the intervention."),
-        'partner_shipping_id': fields.many2one('res.partner', 'Intervention Address'),
-        'partner_address_phone': fields.char('Phone', size=64),
-        'partner_address_mobile': fields.char('Mobile', size=64),
-        'state': fields.selection(crm.AVAILABLE_STATES, 'State', size=16, readonly=True,
-                              help='The state is set to \'Draft\', when a case is created.\
-                              \nIf the case is in progress the state is set to \'Open\'.\
-                              \nWhen the case is over, the state is set to \'Done\'.\
-                              \nIf the case needs to be reviewed then the state is set to \'Pending\'.'),
-        'message_ids': fields.one2many('mail.message', 'res_id', 'Messages', domain=[('model', '=', _name)]),
-    }
-
-    _defaults = {
-        'partner_invoice_id': lambda self, cr, uid, context: context.get('partner_id', False) and self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['invoice'])['invoice'],
-        'partner_order_id': lambda self, cr, uid, context: context.get('partner_id', False) and  self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['contact'])['contact'],
-        'partner_shipping_id': lambda self, cr, uid, context: context.get('partner_id', False) and self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['delivery'])['delivery'],
-        'number_request': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'intervention'),
-        'active': 1,
-        'user_id': lambda s, cr, uid, c: s._get_default_user(cr, uid, c),
-        'email_cc': _get_default_email_cc,
-        'state': 'draft',
-        'section_id': _get_default_section_intervention,
-        'company_id': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'crm.helpdesk', context=c),
-        'priority': lambda *a: crm.AVAILABLE_PRIORITIES[2][0],
-    }
+    #_defaults = {
+        #'partner_invoice_id': lambda self, cr, uid, context: context.get('partner_id', False) and self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['invoice'])['invoice'],
+        #'partner_order_id': lambda self, cr, uid, context: context.get('partner_id', False) and  self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['contact'])['contact'],
+        #'partner_shipping_id': lambda self, cr, uid, context: context.get('partner_id', False) and self.pool.get('res.partner').address_get(cr, uid, [context['partner_id']], ['delivery'])['delivery'],
+    #}
 
     def onchange_partner_intervention_id(self, cr, uid, ids, part):
         if not part:
