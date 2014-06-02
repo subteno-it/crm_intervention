@@ -28,7 +28,7 @@ from openerp.addons.base_status.base_stage import base_stage
 from openerp.addons.crm import crm
 from openerp import Model, fields
 import time
-import datetime
+from datetime import datetime, timedelta
 import binascii
 import openerp.tools as tools
 
@@ -116,12 +116,12 @@ class crm_intervention(base_state, base_stage, Model):
     def onchange_planned_duration(self, cr, uid, ids, planned_duration, planned_start_date):
         if not planned_duration:
             return {'value': {'date_planned_end': False}}
-        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(planned_start_date, "%Y-%m-%d %H:%M:%S")))
-        return {'value': {'date_planned_end': (start_date + datetime.timedelta(hours=planned_duration)).strftime('%Y-%m-%d %H:%M:%S')}}
+        start_date = datetime.fromtimestamp(time.mktime(time.strptime(planned_start_date, '%Y-%m-%d %H:%M:%S')))
+        return {'value': {'date_planned_end': (start_date + timedelta(hours=planned_duration)).strftime('%Y-%m-%d %H:%M:%S')}}
 
     def onchange_planned_end_date(self, cr, uid, ids, planned_end_date, planned_start_date):
-        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(planned_start_date, "%Y-%m-%d %H:%M:%S")))
-        end_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(planned_end_date, "%Y-%m-%d %H:%M:%S")))
+        start_date = datetime.fromtimestamp(time.mktime(time.strptime(planned_start_date, '%Y-%m-%d %H:%M:%S')))
+        end_date = datetime.fromtimestamp(time.mktime(time.strptime(planned_end_date, '%Y-%m-%d %H:%M:%S')))
         difference = end_date - start_date
         minutes, secondes = divmod(difference.seconds, 60)
         hours, minutes = divmod(minutes, 60)
@@ -130,12 +130,12 @@ class crm_intervention(base_state, base_stage, Model):
     def onchange_effective_duration(self, cr, uid, ids, effective_duration, effective_start_date):
         if not effective_duration:
             return {'value': {'date_effective_end': False}}
-        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(effective_start_date, "%Y-%m-%d %H:%M:%S")))
-        return {'value': {'date_effective_end': (start_date + datetime.timedelta(hours=effective_duration)).strftime('%Y-%m-%d %H:%M:00')}}
+        start_date = datetime.fromtimestamp(time.mktime(time.strptime(effective_start_date, '%Y-%m-%d %H:%M:%S')))
+        return {'value': {'date_effective_end': (start_date + timedelta(hours=effective_duration)).strftime('%Y-%m-%d %H:%M:00')}}
 
     def onchange_effective_end_date(self, cr, uid, ids, effective_end_date, effective_start_date):
-        start_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(effective_start_date, "%Y-%m-%d %H:%M:%S")))
-        end_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(effective_end_date, "%Y-%m-%d %H:%M:%S")))
+        start_date = datetime.fromtimestamp(time.mktime(time.strptime(effective_start_date, '%Y-%m-%d %H:%M:%S')))
+        end_date = datetime.fromtimestamp(time.mktime(time.strptime(effective_end_date, '%Y-%m-%d %H:%M:%S')))
         difference = end_date - start_date
         minutes, secondes = divmod(difference.seconds, 60)
         hours, minutes = divmod(minutes, 60)
