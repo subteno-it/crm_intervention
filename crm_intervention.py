@@ -91,7 +91,6 @@ class crm_intervention(Model):
         If the case needs to be reviewed then the state is set to 'Pending'.""",
     )
 
-    @api.one
     @api.onchange('partner_id')
     def onchange_partner_intervention_id(self):
         if not self.partner_id:
@@ -106,7 +105,6 @@ class crm_intervention(Model):
         self.partner_address_phone = delivery_address.phone
         self.partner_address_mobile = delivery_address.mobile
 
-    @api.one
     @api.onchange('duration_planned')
     def onchange_planned_duration(self):
         if not self.duration_planned:
@@ -114,7 +112,6 @@ class crm_intervention(Model):
         start_date = fields.Datetime.from_string(self.date_planned_start)
         self.date_planned_end = fields.Datetime.to_string(start_date + timedelta(hours=self.duration_planned))
 
-    @api.one
     @api.onchange('date_planned_end')
     def onchange_planned_end_date(self):
         start_date = fields.Datetime.from_string(self.date_planned_start)
@@ -124,7 +121,6 @@ class crm_intervention(Model):
         hours, minutes = divmod(minutes, 60)
         self.duration_planned = float(difference.days * 24) + float(hours) + float(minutes) / float(60)
 
-    @api.one
     @api.onchange('duration_effective')
     def onchange_effective_duration(self):
         if not self.duration_effective:
@@ -132,7 +128,6 @@ class crm_intervention(Model):
         start_date = fields.Datetime.from_string(self.date_effective_start)
         self.date_effective_end = fields.Datetime.to_string(start_date + timedelta(hours=self.duration_effective))
 
-    @api.one
     @api.onchange('date_effective_end')
     def onchange_effective_end_date(self):
         start_date = fields.Datetime.from_string(self.date_effective_start)
