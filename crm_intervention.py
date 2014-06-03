@@ -157,4 +157,39 @@ class crm_intervention(Model):
 
         return super(crm_intervention, self).copy(default)
 
+    @api.one
+    def set_cancel(self):
+        """
+        Set the state to Cancel
+        """
+        self.state = 'cancel'
+
+    @api.one
+    def set_open(self):
+        """
+        Set the state to Open
+        """
+        self.state = 'open'
+
+    @api.one
+    def set_pending(self):
+        """
+        Set the state to Pending
+        """
+        self.state = 'pending'
+
+    @api.one
+    def set_done(self):
+        """
+        Set the state to done
+        """
+        self.state = 'done'
+
+    @api.one
+    def set_draft(self):
+        """
+        Set the state to draft
+        """
+        self.state = 'draft'
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

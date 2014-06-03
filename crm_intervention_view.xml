@@ -33,11 +33,11 @@
             <field name="arch" type="xml">
                 <form string="Intervention" version="7.0">
                     <header>
-                        <button name="case_cancel" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel"/>
-                        <button name="case_open" states="draft,pending" string="Open" type="object" icon="gtk-go-forward"/>
-                        <button name="case_pending" states="draft,open" string="Pending" type="object" icon="gtk-media-pause"/>
-                        <button name="case_close" states="open,draft,pending" string="Close" type="object" icon="gtk-jump-to"/>
-                        <button name="case_reset" states="done,cancel" string="Reset to Draft" type="object" icon="gtk-convert"/>
+                        <button name="set_cancel" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel"/>
+                        <button name="set_open" states="draft,pending" string="Open" type="object" icon="gtk-go-forward"/>
+                        <button name="set_pending" states="draft,open" string="Pending" type="object" icon="gtk-media-pause"/>
+                        <button name="set_done" states="open,draft,pending" string="Close" type="object" icon="gtk-jump-to"/>
+                        <button name="set_draft" states="done,cancel" string="Reset to Draft" type="object" icon="gtk-convert"/>
                         <field name="state" nolabel="1" widget="statusbar" statusbar_visible="draft,open,done" statusbar_colors='{"pending":"blue"}'/>
                     </header>
                     <sheet>
@@ -133,11 +133,11 @@
                     <field name="duration_planned" widget="float_time"/>
                     <field name="categ_id"/>
                     <field name="state"/>
-                    <button name="case_cancel" string="Cancel" states="draft,open,pending" type="object" icon="gtk-cancel"/>
-                    <button name="case_open" string="Open" states="draft,pending" type="object" icon="gtk-go-forward"/>
-                    <button name="case_pending" string="Pending" states="draft,open" type="object" icon="gtk-media-pause"/>
-                    <button name="case_close" string="Done" states="open,draft,pending" type="object" icon="gtk-close"/>
-                    <button name="case_reset" string="Reset to Draft" states="done,cancel" type="object" icon="gtk-convert"/>
+                    <button name="set_cancel" string="Cancel" states="draft,open,pending" type="object" icon="gtk-cancel"/>
+                    <button name="set_open" string="Open" states="draft,pending" type="object" icon="gtk-go-forward"/>
+                    <button name="set_pending" string="Pending" states="draft,open" type="object" icon="gtk-media-pause"/>
+                    <button name="set_done" string="Done" states="open,draft,pending" type="object" icon="gtk-close"/>
+                    <button name="set_draft" string="Reset to Draft" states="done,cancel" type="object" icon="gtk-convert"/>
                 </tree>
             </field>
         </record>
