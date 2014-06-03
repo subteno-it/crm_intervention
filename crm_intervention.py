@@ -45,7 +45,7 @@ class crm_intervention(Model):
         states={'done': [('readonly', True)]},
         help='Interventions team to which Case belongs to. Define Responsible user and Email account for mail gateway.',
     )
-    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env['res.company']._company_default_get('crm.helpdesk'))
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env['res.company']._company_default_get('crm.helpdesk'))
     date_closed = fields.Datetime(string='Closed on', readonly=True)
     email_from = fields.Char(string='Email', size=128, states={'done': [('readonly', True)]}, help='These people will receive email.')
     priority = fields.Selection(crm.AVAILABLE_PRIORITIES, default='2', states={'done': [('readonly', True)]})
@@ -59,25 +59,25 @@ class crm_intervention(Model):
     date_effective_end = fields.Datetime(string='Effective end date', states={'done': [('readonly', True)]}, help='Indicate the date of end intervention')
     duration_planned = fields.Float(string='Planned duration', states={'done': [('readonly', True)]}, help='Indicate estimated to do the intervention.')
     duration_effective = fields.Float(string='Effective duration', states={'done': [('readonly', True)]}, help='Indicate real time to do the intervention.')
-    partner_id = fields.Many2one('res.partner', string='Customer', domain="[('parent_id', '=', False)]", states={'done': [('readonly', True)]}, change_default=True, select=True)
+    partner_id = fields.Many2one('res.partner', string='Customer', domain="[('parent_id', '=', False)]", required=True, states={'done': [('readonly', True)]}, change_default=True, select=True)
     partner_invoice_id = fields.Many2one(
         'res.partner', string='Invoice Address',
         domain="[('parent_id', '!=', False), ('parent_id', '=', partner_id)]",
-        states={'done': [('readonly', True)]},
+        required=True, states={'done': [('readonly', True)]},
         default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['invoice'])['invoice'],
         help='The name and address for the invoice',
     )
     partner_order_id = fields.Many2one(
         'res.partner', string='Intervention Contact',
         domain="[('parent_id', '!=', False), ('parent_id', '=', partner_id)]",
-        states={'done': [('readonly', True)]},
+        required=True, states={'done': [('readonly', True)]},
         default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['contact'])['contact'],
         help='The name and address of the contact that requested the intervention.',
     )
     partner_shipping_id = fields.Many2one(
         'res.partner', string='Intervention Address',
         domain="[('parent_id', '!=', False)]",
-        states={'done': [('readonly', True)]},
+        required=True, states={'done': [('readonly', True)]},
         default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['delivery'])['delivery'],
     )
     partner_address_phone = fields.Char(string='Phone', states={'done': [('readonly', True)]}, size=64)
