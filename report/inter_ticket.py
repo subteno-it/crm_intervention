@@ -24,7 +24,6 @@ from openerp.report import report_sxw
 from openerp.tools.translate import _
 
 
-
 class inter_ticket(report_sxw.rml_parse):
 
         def upcase(self, name):
@@ -48,10 +47,10 @@ class inter_ticket(report_sxw.rml_parse):
         def __init__(self, cr, uid, name, context):
                 super(inter_ticket, self).__init__(cr, uid, name, context)
                 self.localcontext.update({
-                        'time': time,
-                        'upcase': self.upcase,
-                        'fill': self.fill,
-                        'weekdayname': self.weekdayname,
+                    'time': time,
+                    'upcase': self.upcase,
+                    'fill': self.fill,
+                    'weekdayname': self.weekdayname,
                 })
 #
 # Mettre header=False pour ne pas utiliser le bandeau en haut et en bas
