@@ -114,6 +114,8 @@ class crm_intervention(models.Model):
 
     @api.onchange('date_planned_end')
     def onchange_planned_end_date(self):
+        if not self.date_planned_start or not self.date_planned_end:
+            return
         start_date = fields.Datetime.from_string(self.date_planned_start)
         end_date = fields.Datetime.from_string(self.date_planned_end)
         difference = end_date - start_date
@@ -130,6 +132,8 @@ class crm_intervention(models.Model):
 
     @api.onchange('date_effective_end')
     def onchange_effective_end_date(self):
+        if not self.date_effective_start or not self.date_effective_end:
+            return
         start_date = fields.Datetime.from_string(self.date_effective_start)
         end_date = fields.Datetime.from_string(self.date_effective_end)
         difference = end_date - start_date
