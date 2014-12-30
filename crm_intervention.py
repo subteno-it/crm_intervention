@@ -24,11 +24,11 @@
 ##############################################################################
 
 from openerp.addons.crm import crm
-from openerp import Model, api, fields
+from openerp import models, api, fields
 from datetime import timedelta
 
 
-class crm_intervention(Model):
+class crm_intervention(models.Model):
     _name = 'crm.intervention'
     _description = 'Intervention'
     _order = 'id desc'
