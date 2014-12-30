@@ -38,14 +38,14 @@ class crm_intervention(models.Model):
     date_action_last = fields.Datetime(string='Last Action', readonly=True)
     date_action_next = fields.Datetime(string='Next Action', readonly=True)
     description = fields.Text(states={'done': [('readonly', True)]})
-    user_id = fields.Many2one('res.users', string='Responsible', required=True, default=lambda self: self.env.uid, states={'done': [('readonly', True)]})
+    user_id = fields.Many2one('res.users', string='Responsible', required=True, default=lambda self: self.env.user, states={'done': [('readonly', True)]})
     section_id = fields.Many2one(
         'crm.case.section', string='Interventions Team',
         default=lambda self: self.env['crm.case.section'].search([('code', '=', 'inter')]),
         states={'done': [('readonly', True)]},
         help='Interventions team to which Case belongs to. Define Responsible user and Email account for mail gateway.',
     )
-    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env['res.company']._company_default_get('crm.helpdesk'))
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env['res.company'].browse(self.env['res.company']._company_default_get('crm.helpdesk')))
     date_closed = fields.Datetime(string='Closed on', readonly=True)
     email_from = fields.Char(string='Email', size=128, states={'done': [('readonly', True)]}, help='These people will receive email.')
     priority = fields.Selection(crm.AVAILABLE_PRIORITIES, default='2', states={'done': [('readonly', True)]})
@@ -64,21 +64,21 @@ class crm_intervention(models.Model):
         'res.partner', string='Invoice Address',
         domain="[('parent_id', '!=', False), ('parent_id', '=', partner_id)]",
         required=True, states={'done': [('readonly', True)]},
-        default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['invoice'])['invoice'],
+        # default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['invoice'])['invoice'],
         help='The name and address for the invoice',
     )
     partner_order_id = fields.Many2one(
         'res.partner', string='Intervention Contact',
         domain="[('parent_id', '!=', False), ('parent_id', '=', partner_id)]",
         required=True, states={'done': [('readonly', True)]},
-        default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['contact'])['contact'],
+        # default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['contact'])['contact'],
         help='The name and address of the contact that requested the intervention.',
     )
     partner_shipping_id = fields.Many2one(
         'res.partner', string='Intervention Address',
         domain="[('parent_id', '!=', False)]",
         required=True, states={'done': [('readonly', True)]},
-        default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['delivery'])['delivery'],
+        # default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['delivery'])['delivery'],
     )
     partner_address_phone = fields.Char(string='Phone', states={'done': [('readonly', True)]}, size=64)
     partner_address_mobile = fields.Char(string='Mobile', states={'done': [('readonly', True)]}, size=64)
@@ -90,6 +90,13 @@ class crm_intervention(models.Model):
         When the case is over, the state is set to 'Done'.
         If the case needs to be reviewed then the state is set to 'Pending'.""",
     )
+
+    # FIXME : Change to new API when fixed
+    _defaults = {
+        'partner_invoice_id': lambda self, cr, uid, context=None: context.get('partner_id', False) and self.pool['res.partner'].address_get([context['partner_id']], ['invoice'])['invoice'],
+        'partner_order_id': lambda self, cr, uid, context=None: context.get('partner_id', False) and self.pool['res.partner'].address_get([context['partner_id']], ['contact'])['contact'],
+        'partner_shipping_id': lambda self, cr, uid, context=None: context.get('partner_id', False) and self.pool['res.partner'].address_get([context['partner_id']], ['delivery'])['delivery'],
+    }
 
     @api.onchange('partner_id')
     def onchange_partner_intervention_id(self):
