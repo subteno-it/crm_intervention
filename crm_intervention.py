@@ -71,7 +71,7 @@ class crm_intervention(models.Model):
     partner_order_id = fields.Many2one(
         'res.partner', string='Intervention Contact',
         domain="[('parent_id', '!=', False), ('parent_id', '=', partner_id)]",
-        required=True, states={'done': [('readonly', True)]},
+        required=True, change_default=True, states={'done': [('readonly', True)]},
         # default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['contact'])['contact'],
         help='The name and address of the contact that requested the intervention.',
     )
@@ -108,10 +108,19 @@ class crm_intervention(models.Model):
         self.partner_invoice_id = address['invoice']
         self.partner_order_id = address['contact']
         self.partner_shipping_id = address['delivery']
-        delivery_address = self.env['res.partner'].browse([address['invoice']])
+        delivery_address = self.env['res.partner'].browse([address['contact']])
         self.email_from = delivery_address.email
         self.partner_address_phone = delivery_address.phone
         self.partner_address_mobile = delivery_address.mobile
+
+    @api.onchange('partner_order_id')
+    def onchange_partner_order_id(self):
+        if not self.partner_order_id:
+            return {'value': {'email_from': False, 'partner_address_phone': False, 'partner_address_mobile': False}}
+
+        self.email_from = self.partner_order_id.email
+        self.partner_address_phone = self.partner_order_id.phone
+        self.partner_address_mobile = self.partner_order_id.mobile
 
     @api.onchange('duration_planned')
     def onchange_planned_duration(self):
