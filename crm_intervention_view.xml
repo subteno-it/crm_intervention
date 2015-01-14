@@ -33,11 +33,11 @@
             <field name="arch" type="xml">
                 <form string="Intervention" version="7.0">
                     <header>
-                        <button name="set_cancel" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel"/>
-                        <button name="set_open" states="draft,pending" string="Open" type="object" icon="gtk-go-forward"/>
-                        <button name="set_pending" states="draft,open" string="Pending" type="object" icon="gtk-media-pause"/>
-                        <button name="set_done" states="open,draft,pending" string="Close" type="object" icon="gtk-jump-to"/>
-                        <button name="set_draft" states="done,cancel" string="Reset to Draft" type="object" icon="gtk-convert"/>
+                        <button name="set_cancel" states="draft,open,pending" string="Cancel" type="object"/>
+                        <button name="set_open" states="draft,pending" string="Open" type="object"/>
+                        <button name="set_pending" states="draft,open" string="Pending" type="object"/>
+                        <button name="set_done" states="open,draft,pending" string="Close" type="object"/>
+                        <button name="set_draft" states="done,cancel" string="Reset to Draft" type="object"/>
                         <field name="state" nolabel="1" widget="statusbar" statusbar_visible="draft,open,done" statusbar_colors='{"pending":"blue"}'/>
                     </header>
                     <sheet>
@@ -133,11 +133,11 @@
                     <field name="duration_planned" widget="float_time"/>
                     <field name="categ_id"/>
                     <field name="state"/>
-                    <button name="set_cancel" string="Cancel" states="draft,open,pending" type="object" icon="gtk-cancel"/>
-                    <button name="set_open" string="Open" states="draft,pending" type="object" icon="gtk-go-forward"/>
-                    <button name="set_pending" string="Pending" states="draft,open" type="object" icon="gtk-media-pause"/>
-                    <button name="set_done" string="Done" states="open,draft,pending" type="object" icon="gtk-close"/>
-                    <button name="set_draft" string="Reset to Draft" states="done,cancel" type="object" icon="gtk-convert"/>
+                    <button name="set_cancel" string="Cancel" states="draft,open,pending" type="object"/>
+                    <button name="set_open" string="Open" states="draft,pending" type="object"/>
+                    <button name="set_pending" string="Pending" states="draft,open" type="object"/>
+                    <button name="set_done" string="Done" states="open,draft,pending" type="object"/>
+                    <button name="set_draft" string="Reset to Draft" states="done,cancel" type="object"/>
                 </tree>
             </field>
         </record>
@@ -164,26 +164,26 @@
             <field name="model">crm.intervention</field>
             <field name="arch" type="xml">
                 <search string="Search intervention">
-                    <filter icon="terp-go-today" string="Today" separator="1" domain="[('date_planned_start','=',time.strftime('%%Y-%%m-%%d'))]" help="Todays's intervention Requests"/>
-                    <filter icon="terp-go-week" string="7 Days" separator="1" help="Intervention requests during last 7 days" domain="[('date_planned_start','&lt;', time.strftime('%%Y-%%m-%%d')), ('date_planned_start','&gt;=',(datetime.date.today()-datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
+                    <filter string="Today" separator="1" domain="[('date_planned_start','=',time.strftime('%%Y-%%m-%%d'))]" help="Todays's intervention Requests"/>
+                    <filter string="7 Days" separator="1" help="Intervention requests during last 7 days" domain="[('date_planned_start','&lt;', time.strftime('%%Y-%%m-%%d')), ('date_planned_start','&gt;=',(datetime.date.today()-datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
                     <separator orientation="vertical"/>
                     <field name="name" string="Query"/>
                     <field name="partner_id"/>
                     <field name="user_id" widget="selection"/>
                     <field name="section_id" widget="selection" string="Interventions Team">
-                        <filter icon="terp-personal+" groups="base.group_extended" domain="[('section_id', '=', context.get('section_id'))]" />
+                        <filter groups="base.group_extended" domain="[('section_id', '=', context.get('section_id'))]" />
                     </field>
                     <field name="date_planned_start" widget="date"/>
                     <newline/>
                     <group expand="0" string="Group By...">
-                        <filter string="Partner" icon="terp-partner" domain="[]" help="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter string="Responsible" icon="terp-personal" domain="[]" help="Responsible User" context="{'group_by':'user_id'}"/>
+                        <filter string="Partner" domain="[]" help="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter string="Responsible" domain="[]" help="Responsible User" context="{'group_by':'user_id'}"/>
                         <separator orientation="vertical"/>
-                        <filter string="Priority" icon="terp-rating-rated" domain="[]" context="{'group_by':'priority'}"/>
-                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Priority" domain="[]" context="{'group_by':'priority'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
                         <separator orientation="vertical"/>
-                        <filter string="Date" icon="terp-go-month" domain="[]" help="Request Date" context="{'group_by':'date_planned_start'}"/>
-                        <filter string="Deadline" icon="terp-go-month" domain="[]" context="{'group_by':'date_planned_end'}"/>
+                        <filter string="Date" domain="[]" help="Request Date" context="{'group_by':'date_planned_start'}"/>
+                        <filter string="Deadline" domain="[]" context="{'group_by':'date_planned_end'}"/>
                     </group>
                 </search>
             </field>
