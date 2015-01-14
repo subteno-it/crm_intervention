@@ -100,7 +100,7 @@ class crm_intervention(models.Model):
     }
 
     @api.onchange('partner_id')
-    def onchange_partner_intervention_id(self):
+    def onchange_partner_id(self):
         if not self.partner_id:
             return {'value': {'partner_invoice_id': False, 'partner_shipping_id': False, 'partner_order_id': False, 'email_from': False, 'partner_address_phone': False, 'partner_address_mobile': False}}
 
