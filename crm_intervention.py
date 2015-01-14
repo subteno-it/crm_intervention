@@ -30,6 +30,7 @@ from datetime import timedelta
 
 class crm_intervention(models.Model):
     _name = 'crm.intervention'
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = 'Intervention'
     _order = 'id desc'
 
