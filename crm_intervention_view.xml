@@ -53,24 +53,28 @@
 
                         <notebook colspan="4">
                             <page string="General">
+                                <group colspan="4">
                                 <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="partner_address_phone" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="partner_address_mobile" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="email_from" widget="email" attrs="{'readonly':[('state','=','done')]}"/>
+                                </group>
                                 <separator colspan="4" string="Customer Information"/>
                                 <field name="customer_information" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                             </page>
                             <page string="Before Intervention">
+                                <group colspan="4">
                                 <field name="date_planned_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="date_planned_end" on_change="onchange_planned_end_date(date_planned_end, date_planned_start)" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="duration_planned" on_change="onchange_planned_duration(duration_planned, date_planned_start)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
                                 <field name="intervention_todo" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
+                                </group>
                             </page>
                             <page string="After Intervention">
-                                <group expand="1">
+                                <group colspan="4">
                                     <field name="date_effective_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="duration_effective" on_change="onchange_effective_duration(duration_effective, date_effective_start)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="date_effective_end" on_change="onchange_effective_end_date(date_effective_end, date_effective_start)" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
