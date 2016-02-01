@@ -293,51 +293,22 @@ class crm_intervention(base_state, base_stage, orm.Model):
             'context': ctx,
         }
 
-    def message_new(self, cr, uid, msg, context=None):
-        """
-        Automatically calls when new email message arrives
-
-        :param self: The object pointer
-        :param cr: the current row, from the database cursor,
-        :param uid: the current user’s ID for security checks
-        """
-        mailgate_pool = self.pool.get('email.server.tools')
-
-        subject = msg.get('subject')
-        body = msg.get('body')
-        msg_from = msg.get('from')
-        priority = msg.get('priority')
+    def message_new(self, cr, uid, msg, custom_values=None, context=None):
+        """ Override to updates the document according to the email. """
+        if custom_values is None: custom_values = {}
 
         vals = {
-            'name': subject,
-            'email_from': msg_from,
+            'name': msg.get('subject'),
+            'email_from': msg.get('from'),
             'email_cc': msg.get('cc'),
-            'description': body,
+            'description': msg.get('body'),
             'user_id': False,
         }
         if msg.get('priority', False):
-            vals['priority'] = priority
+            vals['priority'] = msg.get('priority')
 
-        res = mailgate_pool.get_partner(cr, uid, msg.get('from') or
-                                        msg.get_unixfrom())
-        if res:
-            vals.update(res)
-
-        res = self.create(cr, uid, vals, context)
-        attachents = msg.get('attachments', [])
-        for attactment in attachents or []:
-            # TODO: Add missing context information
-            data_attach = {
-                'name': attactment,
-                'datas': binascii.b2a_base64(str(attachents.get(attactment))),
-                'datas_fname': attactment,
-                'description': 'Mail attachment',
-                'res_model': self._name,
-                'res_id': res,
-            }
-            self.pool.get('ir.attachment').create(cr, uid, data_attach)
-
-        return res
+        vals.update(custom_values)
+        return super(crm_intervention, self).message_new(cr, uid, msg, custom_values=vals, context=context)
 
     def message_update(self, cr, uid, ids, vals={}, msg="",
                        default_act='pending', context=None):
