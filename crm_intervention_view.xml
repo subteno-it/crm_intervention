@@ -82,12 +82,12 @@
                                     <field name="description" string="Customer" colspan="4" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 </group>
                             </page>
-                            <page string="Communication &amp; History" groups="base.group_extended">
+                            <page string="Communication &amp; History" groups="base.group_crm_intervention_manager">
                                 <group colspan="4">
                                     <field colspan="4" name="email_cc" string="Global CC" widget="char"/>
                                 </group>
                             </page>
-                            <page string="Extra Info" groups="base.group_extended">
+                            <page string="Extra Info" groups="base.group_crm_intervention_manager">
                                 <group colspan="2" col="2">
                                     <separator colspan="4" string="Dates"/>
                                     <field name="create_date"/>
