@@ -33,6 +33,8 @@
             <field name="arch" type="xml">
                 <form string="Intervention" version="7.0">
                     <header>
+                        <button name="action_email_send" string="Send by Email" type="object"
+                            states="open,pending" class="oe_highlight"/>
                         <button name="case_cancel" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel"/>
                         <button name="case_open" states="draft,pending" string="Open" type="object" icon="gtk-go-forward"/>
                         <button name="case_pending" states="draft,open" string="Pending" type="object" icon="gtk-media-pause"/>
