@@ -49,14 +49,12 @@
                             <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="user_id" string="Planned for" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                         </group>
-
-
                         <notebook colspan="4">
                             <page string="General">
                                 <group colspan="4" col="8">
                                     <group>
-                                        <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                        <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                        <field domain="[('parent_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                        <field domain="[('parent_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                                         <field name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                                     </group>
                                     <group>
