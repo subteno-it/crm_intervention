@@ -53,24 +53,28 @@
 
                         <notebook colspan="4">
                             <page string="General">
-                                <group colspan="4">
-                                <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="partner_address_phone" required="0" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="partner_address_mobile" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="email_from" widget="email" attrs="{'readonly':[('state','=','done')]}"/>
+                                <group colspan="4" col="8">
+                                    <group>
+                                        <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                        <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                        <field name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="partner_address_phone" required="0" attrs="{'readonly':[('state','=','done')]}"/>
+                                        <field name="partner_address_mobile" attrs="{'readonly':[('state','=','done')]}"/>
+                                        <field name="email_from" widget="email" attrs="{'readonly':[('state','=','done')]}"/>
+                                    </group>
                                 </group>
                                 <separator colspan="4" string="Customer Information"/>
                                 <field name="customer_information" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                             </page>
                             <page string="Before Intervention">
                                 <group colspan="4">
-                                <field name="date_planned_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="date_planned_end" on_change="onchange_planned_end_date(date_planned_end, date_planned_start)" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="duration_planned" on_change="onchange_planned_duration(duration_planned, date_planned_start)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
-                                <field name="intervention_todo" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="date_planned_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="date_planned_end" on_change="onchange_planned_end_date(date_planned_end, date_planned_start)" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="duration_planned" on_change="onchange_planned_duration(duration_planned, date_planned_start)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="intervention_todo" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                                 </group>
                             </page>
                             <page string="After Intervention">
@@ -195,15 +199,15 @@
             <field name="context">{"search_default_user_id":uid,}</field>
             <field name="search_view_id" ref="view_crm_case_intervention_filter"/>
             <field name="help" type="html">
-              <p class="oe_view_nocontent_create">
-                Click to create a new intervention.
-              </p><p>
-                Intervention allow you to track your interventions. 
-                Select a customer, add notes and categorize interventions with partners if necessary. 
-                You can also assign a priority level. Use the OpenERP Issues system to manage your support activities. 
-                Issues can be connected to the email gateway: new emails may create issues, 
-                each of them automatically gets the history of the conversation with the customer.
-              </p>
+                <p class="oe_view_nocontent_create">
+                    Click to create a new intervention.
+                    </p><p>
+                    Intervention allow you to track your interventions. 
+                    Select a customer, add notes and categorize interventions with partners if necessary. 
+                    You can also assign a priority level. Use the OpenERP Issues system to manage your support activities. 
+                    Issues can be connected to the email gateway: new emails may create issues, 
+                    each of them automatically gets the history of the conversation with the customer.
+                </p>
             </field>
         </record>
 
