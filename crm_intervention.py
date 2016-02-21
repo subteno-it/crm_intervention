@@ -29,7 +29,6 @@ from openerp.osv import orm
 from openerp.osv import fields
 import time
 import datetime
-import binascii
 import openerp.tools as tools
 
 CRM_INTERVENTION_STATES = (
