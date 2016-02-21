@@ -43,8 +43,15 @@
                         <field name="state" nolabel="1" widget="statusbar" statusbar_visible="draft,open,done" statusbar_colors='{"pending":"blue"}'/>
                     </header>
                     <sheet>
+                        <div class="oe_title">
+                            <div class="oe_edit_only">
+                                <label for="name" string="Subject"/>
+                            </div>
+                            <h1>
+                                <field name="name" string="Subject" attrs="{'readonly':[('state','=','done')]}"/>
+                            </h1>
+                        </div>
                         <group colspan="4" col="7" class="oe_header">
-                            <field name="name" string="Subject" colspan="2" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="number_request" required="1" string="Reference" colspan="1" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="section_id" colspan="1" widget="selection"/>
                             <newline/>
@@ -66,7 +73,8 @@
                                     </group>
                                 </group>
                                 <separator colspan="4" string="Customer Information"/>
-                                <field name="customer_information" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
+                                <field name="customer_information" nolabel="1" colspan="4" required="0" 
+                                    attrs="{'readonly':[('state','=','done')]}"/>
                             </page>
                             <page string="Before Intervention">
                                 <group colspan="4">
