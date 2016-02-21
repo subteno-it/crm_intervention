@@ -151,6 +151,9 @@ class crm_intervention(base_state, base_stage, orm.Model):
                                        help='Select analytic account to generate line on this contract'),
         'analytic_line_id': fields.many2one('account.analytic.line', 'Analytic line',
                                             help='Analytic line'),
+        'product_id': fields.many2one('product.product', 'Prestation',
+                                      domain=[('type', '=', 'service')],
+                                      help='Product service relate with this intervention'),
         'message_ids': fields.one2many(
             'mail.message', 'res_id', 'Messages',
             domain=[('model', '=', _name)]),

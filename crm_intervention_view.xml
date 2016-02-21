@@ -57,6 +57,8 @@
                             <newline/>
                             <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="user_id" string="Planned for" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <newline/>
+                            <field name="product_id"/>
                         </group>
                         <notebook colspan="4">
                             <page string="General">
