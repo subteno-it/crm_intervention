@@ -138,6 +138,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
         'duration_effective': fields.float(
             'Effective duration',
             help='Indicate real time to do the intervention.'),
+        'alldays_planned': fields.boolean('All day planned', help='All-day intervention planned'),
+        'alldays_effective': fields.boolean('All day effective', help='All-day intervention effective'),
         'partner_id': fields.many2one(
             'res.partner', 'Customer',
             change_default=True, select=True),
@@ -195,6 +197,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
         c: s.pool.get('res.company')._company_default_get(
             cr, uid, 'crm.helpdesk', context=c),
         'priority': lambda *a: crm.AVAILABLE_PRIORITIES[2][0],
+        'alldays_planned': False,
+        'alldays_effective': False,
     }
 
     def onchange_partner_intervention_id(self, cr, uid, ids, part):
@@ -394,6 +398,9 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 raise orm.except_orm(_('Error'), _('Product to invoice is necessary'))
             if not inter.contract_id:
                 raise orm.except_orm(_('Error'), _('Contract is necessary'))
+            if inter.product_id.standard_price < 0.1:
+                raise orm.except_orm(_('Error'),
+                                     _('Please define a cost price for the product %s') % inter.product_id.name)
 
             # Find the analytic journal from the employe
             emp_obj = self.pool['hr.employee']
@@ -403,7 +410,21 @@ class crm_intervention(base_state, base_stage, orm.Model):
 
             emp = emp_obj.browse(cr, uid, emp_ids[0], context=context)
 
-            # TODO invoice journee
+            if inter.alldays_effective:
+                q = self.pool['product.uom']._compute_price(
+                    cr, uid, inter.product_id.uom_id.id, inter.product_id.standard_price,
+                    inter.section_id.unit_day_id.id)
+                amount = q * -1
+                unit_amount = 1.0
+                unit = inter.section_id.unit_day_id.id
+            else:
+                q = self.pool['product.uom']._compute_price(
+                    cr, uid, inter.product_id.uom_id.id, inter.product_id.standard_price,
+                    inter.section_id.unit_hour_id.id)
+                amount = (q * inter.duration_effective) * -1
+                unit_amount = inter.duration_effective
+                unit = inter.section_id.unit_hour_id.id
+
             vals = {
                 'name': _('BI Num %s') % inter.number_request,
                 'account_id': inter.contract_id.id,
@@ -413,14 +434,14 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 'ref': inter.name[:64],
                 'to_invoice': inter.contract_id.to_invoice.id,
                 'product_id': inter.product_id.id,
-                'unit_amount': inter.duration_effective,
-                'product_uom_id': inter.section_id.unit_hour_id.id,
-                'amount': inter.product_id.standard_price,
+                'unit_amount': unit_amount,
+                'product_uom_id': unit,
+                'amount': amount,
                 'general_account_id': inter.product_id.property_account_income.id,
             }
 
             line_id = self.pool['account.analytic.line'].create(cr, uid, vals, context=context)
-            inter.write({'analytic_line_id': line_id}, context=context)
+            inter.write({'analytic_line_id': line_id, 'state': 'done'}, context=context)
 
         return True
 

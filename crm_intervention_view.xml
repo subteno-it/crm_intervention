@@ -58,7 +58,8 @@
                             <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="user_id" string="Planned for" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                             <newline/>
-                            <field name="product_id"/>
+                            <field name="product_id" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
                         </group>
                         <notebook colspan="4">
                             <page string="General">
@@ -81,19 +82,24 @@
                                     attrs="{'readonly':[('state','=','done')]}"/>
                             </page>
                             <page string="Before Intervention">
-                                <group colspan="4">
+                                <group colspan="4" col="4">
                                     <field name="date_planned_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                    <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
-                                    <field name="date_planned_end" on_change="onchange_planned_end_date(date_planned_end, date_planned_start)" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                    <field name="duration_planned" on_change="onchange_planned_duration(duration_planned, date_planned_start)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="alldays_planned" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="duration_planned" on_change="onchange_planned_duration(duration_planned, date_planned_start)" widget="float_time" 
+                                        attrs="{'readonly':['|', ('state','=','done'),('alldays_planned','=',True)]}"/>
+                                    <field name="date_planned_end" on_change="onchange_planned_end_date(date_planned_end, date_planned_start)" colspan="1" 
+                                        attrs="{'readonly':['|', ('state','=','done'),('alldays_planned','=',True)]}"/>
                                     <field name="intervention_todo" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                                 </group>
                             </page>
                             <page string="After Intervention">
-                                <group colspan="4">
+                                <group colspan="4" col="4">
                                     <field name="date_effective_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                    <field name="duration_effective" on_change="onchange_effective_duration(duration_effective, date_effective_start)" widget="float_time" attrs="{'readonly':[('state','=','done')]}"/>
-                                    <field name="date_effective_end" on_change="onchange_effective_end_date(date_effective_end, date_effective_start)" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="alldays_effective" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="duration_effective" on_change="onchange_effective_duration(duration_effective, date_effective_start)" widget="float_time" 
+                                        attrs="{'readonly':['|',('state','=','done'),('alldays_effective','=',True)]}"/>
+                                    <field name="date_effective_end" on_change="onchange_effective_end_date(date_effective_end, date_effective_start)" colspan="1" 
+                                        attrs="{'readonly':['|',('state','=','done'),('alldays_effective','=',True)]}"/>
                                     <field name="categ_id" context="{'object_id':'crm.intervention'}" attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="description" string="Customer" colspan="4" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 </group>
