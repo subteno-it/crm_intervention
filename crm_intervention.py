@@ -38,6 +38,17 @@ CRM_INTERVENTION_STATES = (
 )
 
 
+class crm_case_section(orm.Model):
+    _inherit = 'crm.case.section'
+
+    _columns = {
+        'unit_hour_id': fields.many2one('product.uom', 'Hour unit',
+                                        help='Select unit represent hour'),
+        'unit_day_id': fields.many2one('product.uom', 'Day unit',
+                                      help='Select unit represent days'),
+    }
+
+
 class crm_intervention(base_state, base_stage, orm.Model):
     _name = 'crm.intervention'
     _description = 'Intervention'

@@ -248,5 +248,22 @@
 
         <menuitem name="Interventions" id="menu_intersupport_main" groups="base.group_crm_intervention_user" parent="base.menu_sales" action="crm_case_intervention_act111" sequence="3"/>
 
+        <record id="view_crm_case_section_form" model="ir.ui.view">
+            <field name="name">crm.case.section.form - intervention</field>
+            <field name="model">crm.case.section</field>
+            <field name="inherit_id" ref="crm.crm_case_section_view_form"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Intervention">
+                        <group colspan="4" name="intervention">
+                            <field name="unit_hour_id"/>
+                            <field name="unit_day_id"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>
