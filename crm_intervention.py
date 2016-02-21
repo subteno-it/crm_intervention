@@ -27,6 +27,7 @@ from openerp.addons.base_status.base_stage import base_stage
 from openerp.addons.crm import crm
 from openerp.osv import orm
 from openerp.osv import fields
+from openerp.tools.translate import _
 import time
 import datetime
 import openerp.tools as tools
@@ -381,5 +382,46 @@ class crm_intervention(base_state, base_stage, orm.Model):
 
         return super(crm_intervention, self).copy(
             cr, uid, id, default, context=context)
+
+    def generate_analytic_line(self, cr, uid, ids, context=None):
+        """
+        Generate an analytic line in the contract specified, base on product
+        """
+        for inter in self.browse(cr, uid, ids, context=context):
+            if inter.analytic_line_id:
+                raise orm.except_orm(_('Error'), _('This intervention already pre-invoiced'))
+            if not inter.product_id:
+                raise orm.except_orm(_('Error'), _('Product to invoice is necessary'))
+            if not inter.contract_id:
+                raise orm.except_orm(_('Error'), _('Contract is necessary'))
+
+            # Find the analytic journal from the employe
+            emp_obj = self.pool['hr.employee']
+            emp_ids = emp_obj.search(cr, uid, [('user_id', '=', uid)], context=context)
+            if not emp_ids:
+                raise orm.except_orm(_('Error'), _('Employee not found'))
+
+            emp = emp_obj.browse(cr, uid, emp_ids[0], context=context)
+
+            # TODO invoice journee
+            vals = {
+                'name': _('BI Num %s') % inter.number_request,
+                'account_id': inter.contract_id.id,
+                'journal_id': emp.journal_id.id,
+                'user_id': inter.user_id.id,
+                'date': inter.date_effective_start[:10],
+                'ref': inter.name[:64],
+                'to_invoice': inter.contract_id.to_invoice.id,
+                'product_id': inter.product_id.id,
+                'unit_amount': inter.duration_effective,
+                'product_uom_id': inter.section_id.unit_hour_id.id,
+                'amount': inter.product_id.standard_price,
+                'general_account_id': inter.product_id.property_account_income.id,
+            }
+
+            line_id = self.pool['account.analytic.line'].create(cr, uid, vals, context=context)
+            inter.write({'analytic_line_id': line_id}, context=context)
+
+        return True
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -102,7 +102,11 @@
                                 <group colspan="4">
                                     <field colspan="4" name="email_cc" string="Global CC" widget="char"/>
                                     <separator string="Invoicing" colspan="4"/>
-                                    <field name="analytic_line_id" domain="[('account_id','=',contract_id)]"/>
+                                    <div groups="base.group_crm_intervention_manager">
+                                        <field name="analytic_line_id" domain="[('account_id','=',contract_id)]" class="oe_inline"/>
+                                        <button name="generate_analytic_line" states="pending,done"
+                                            string="pre-invoicing" type="object" class="oe_link"/>
+                                    </div>
                                 </group>
                             </page>
                             <page string="Extra Info" groups="base.group_crm_intervention_manager">
