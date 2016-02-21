@@ -52,14 +52,11 @@ class crm_intervention(base_state, base_stage, orm.Model):
         :param uid: the current user’s ID for security checks,
         :param context: A standard dictionary for contextual values
         """
-        # TODO: Replace with XMLID
-        section_obj = self.pool.get('crm.case.section')
-        section_ids = section_obj.search(
-            cr, uid, [('code', '=', 'inter')], offset=0, limit=None,
-            order=None, context=context)
-        if not section_ids:
-            return False
-        return section_ids[0]
+        mod, res_id = self.pool.get('ir.model.data').get_object_reference(
+            cr, uid, 'crm_intervention', 'section_interventions_department')
+        if res_id:
+            return res_id
+        return False
 
     def _get_default_email_cc(self, cr, uid, context=None):
         """Gives default email address for intervention section
@@ -68,15 +65,12 @@ class crm_intervention(base_state, base_stage, orm.Model):
         :param uid: the current user’s ID for security checks,
         :param context: A standard dictionary for contextual values
         """
-        # TODO: Replace with XMLID
-        section_obj = self.pool.get('crm.case.section')
-        section_ids = section_obj.search(
-            cr, uid, [('code', '=', 'inter')], offset=0, limit=None,
-            order=None, context=context)
-        if not section_ids:
-            return False
-        return section_obj.browse(
-            cr, uid, section_ids[0], context=context).reply_to
+        mod, res_id = self.pool.get('ir.model.data').get_object_reference(
+            cr, uid, 'crm_intervention', 'section_interventions_department')
+        if res_id:
+            return self.pool['crm.case.section'].browse(
+                cr, uid, res_id, context=context).reply_to
+        return False
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
