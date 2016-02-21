@@ -1,18 +1,21 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
 # * crm_intervention
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-18 13:36+0000\n"
-"PO-Revision-Date: 2013-11-18 15:52+0100\n"
+"POT-Creation-Date: 2016-02-21 19:59+0000\n"
+"PO-Revision-Date: 2016-02-21 21:10+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
-"Language-Team: \n"
+"Language-Team: Mirounga\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.5.3\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -61,16 +64,15 @@ msgstr "Courriel en copie"
 
 #. module: crm_intervention
 #: code:addons/crm_intervention/report/inter_report.py:41
-#: code:addons/crm_intervention/report/inter_ticket.py:42
+#: code:addons/crm_intervention/report/inter_ticket.py:41
 #, python-format
 msgid "thursday"
 msgstr "Jeudi"
 
 #. module: crm_intervention
-#: report:crm_intervention.inter_report:0
-#: report:crm_intervention.inter_ticket:0
-msgid "to"
-msgstr "à"
+#: view:crm.intervention:0
+msgid "Choose line not invoiced yet"
+msgstr "Choisir les lignes à facturer"
 
 #. module: crm_intervention
 #: field:crm.intervention,partner_shipping_id:0
@@ -89,24 +91,14 @@ msgid "Invoice address :"
 msgstr "Adresse de facturation :"
 
 #. module: crm_intervention
+#: field:crm.intervention,product_id:0
+msgid "Prestation"
+msgstr "Prestation associée"
+
+#. module: crm_intervention
 #: view:crm.intervention:0
 msgid "intervention Supports"
 msgstr "Interventions"
-
-#. module: crm_intervention
-#: model:ir.actions.act_window,help:crm_intervention.crm_case_intervention_act111
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new intervention.\n"
-"              </p><p>\n"
-"                Intervention allow you to track your interventions. \n"
-"                Select a customer, add notes and categorize interventions with partners if necessary. \n"
-"                You can also assign a priority level. Use the OpenERP Issues system to manage your support activities. \n"
-"                Issues can be connected to the email gateway: new emails may create issues, \n"
-"                each of them automatically gets the history of the conversation with the customer.\n"
-"              </p>\n"
-"            "
-msgstr ""
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -114,19 +106,30 @@ msgid "Search intervention"
 msgstr "Rechercher une intervention"
 
 #. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+#: report:crm_intervention.inter_ticket:0
+msgid "to"
+msgstr "à"
+
+#. module: crm_intervention
 #: field:crm.intervention,partner_address_mobile:0
 msgid "Mobile"
 msgstr "Portable"
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Intervention Tree"
-msgstr "Liste des interventions"
-
-#. module: crm_intervention
 #: field:crm.intervention,message_ids:0
 msgid "Messages"
 msgstr "Messages"
+
+#. module: crm_intervention
+#: field:crm.intervention,partner_invoice_id:0
+msgid "Invoice Address"
+msgstr "Adresse de facturation"
+
+#. module: crm_intervention
+#: help:crm.intervention,alldays_planned:0
+msgid "All-day intervention planned"
+msgstr "Toute la journée prévue"
 
 #. module: crm_intervention
 #: selection:crm.intervention,state:0
@@ -145,9 +148,10 @@ msgid "If checked new messages require your attention."
 msgstr "Si coché les nouveaux messages requièrent votre attention."
 
 #. module: crm_intervention
-#: field:crm.intervention,partner_invoice_id:0
-msgid "Invoice Address"
-msgstr "Adresse de facturation"
+#: code:addons/crm_intervention/crm_intervention.py:400
+#, python-format
+msgid "Contract is necessary"
+msgstr "Le contract est nécéssaire"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -156,13 +160,18 @@ msgid "Reference"
 msgstr "Référence"
 
 #. module: crm_intervention
+#: help:crm.case.section,unit_day_id:0
+msgid "Select unit represent days"
+msgstr "Sélectionner l'unité représentant la journée"
+
+#. module: crm_intervention
 #: field:crm.intervention,partner_order_id:0
 msgid "Intervention Contact"
 msgstr "Nom du contact"
 
 #. module: crm_intervention
 #: code:addons/crm_intervention/report/inter_report.py:40
-#: code:addons/crm_intervention/report/inter_ticket.py:41
+#: code:addons/crm_intervention/report/inter_ticket.py:40
 #, python-format
 msgid "wednesday"
 msgstr "mercredi"
@@ -193,6 +202,11 @@ msgid "Extra Info"
 msgstr "Info supplémentaires"
 
 #. module: crm_intervention
+#: field:crm.intervention,alldays_effective:0
+msgid "All day effective"
+msgstr "Toute la journée (effectif)"
+
+#. module: crm_intervention
 #: view:crm.intervention:0
 msgid "Partner"
 msgstr "Client"
@@ -213,10 +227,14 @@ msgid "Maintenance"
 msgstr "Suivi à envisager"
 
 #. module: crm_intervention
-#: report:crm_intervention.inter_report:0
-#: report:crm_intervention.inter_ticket:0
-msgid "Mobile :"
-msgstr "Portable :"
+#: view:crm.intervention:0
+msgid "Misc"
+msgstr "Divers"
+
+#. module: crm_intervention
+#: help:crm.intervention,contract_id:0
+msgid "Select analytic account to generate line on this contract"
+msgstr "Sélectionner le compte analytique pour générer les lignes de ce contrat"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -251,9 +269,9 @@ msgid "Email"
 msgstr "Courriel"
 
 #. module: crm_intervention
-#: selection:crm.intervention,priority:0
-msgid "Lowest"
-msgstr "La plus basse"
+#: field:crm.case.section,unit_day_id:0
+msgid "Day unit"
+msgstr "Unité du jour"
 
 #. module: crm_intervention
 #: report:crm_intervention.inter_report:0
@@ -270,6 +288,11 @@ msgstr "Prévue pour"
 #: field:crm.intervention,create_date:0
 msgid "Creation Date"
 msgstr "Date de création"
+
+#. module: crm_intervention
+#: help:crm.intervention,alldays_effective:0
+msgid "All-day intervention effective"
+msgstr "Toute la journée effectuée"
 
 #. module: crm_intervention
 #: field:crm.intervention,date_planned_start:0
@@ -298,6 +321,11 @@ msgid "Intervention requests during last 7 days"
 msgstr "Intervention demandées durant les 7 derniers jours"
 
 #. module: crm_intervention
+#: help:crm.intervention,product_id:0
+msgid "Product service relate with this intervention"
+msgstr "Produit de type service lié à cette intervention"
+
+#. module: crm_intervention
 #: report:crm_intervention.inter_ticket:0
 msgid "Beguinning of the intervention : _____ h _____ min."
 msgstr "Début de l'intervention à : _____ h _____ min."
@@ -313,13 +341,29 @@ msgid "Dates"
 msgstr "Dates"
 
 #. module: crm_intervention
+#: view:crm.intervention:0
+msgid "Send by Email"
+msgstr "Envoyer par courriel"
+
+#. module: crm_intervention
 #: report:crm_intervention.inter_report:0
 msgid "Description of intervention"
 msgstr "Description de l'intervention"
 
 #. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:396
+#, python-format
+msgid "This intervention already pre-invoiced"
+msgstr "Cette intervention à déjà été pré-facturée"
+
+#. module: crm_intervention
+#: model:ir.model,name:crm_intervention.model_crm_case_section
+msgid "Sales Teams"
+msgstr "Équipe de vente"
+
+#. module: crm_intervention
 #: code:addons/crm_intervention/report/inter_report.py:42
-#: code:addons/crm_intervention/report/inter_ticket.py:43
+#: code:addons/crm_intervention/report/inter_ticket.py:42
 #, python-format
 msgid "friday"
 msgstr "vendredi"
@@ -335,14 +379,170 @@ msgid "Custmer signature and stamp :"
 msgstr "Signature et cachet du client bénéficiaire :"
 
 #. module: crm_intervention
-#: report:crm_intervention.inter_report:0
-msgid "by"
-msgstr "par"
+#: view:crm.intervention:0
+msgid "Close"
+msgstr "Fermer"
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
+msgid "Works done during intervention :"
+msgstr "Action(s) réalisée(s) pendant l'intervention :"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
 msgid "Before Intervention"
 msgstr "Avant l'intervention"
+
+#. module: crm_intervention
+#: model:email.template,body_html:crm_intervention.email_template_intervention
+msgid "\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Hello ${object.partner_order_id.name},</p>\n"
+"\n"
+"    <p>Here is your intervention from ${object.company_id.name}: </p>\n"
+"\n"
+"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
+"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
+"       &nbsp;&nbsp;Intervention number: <strong>${object.number_request}</strong><br />\n"
+"       &nbsp;&nbsp;Subject: <strong>${object.name}</strong><br/>\n"
+"       &nbsp;&nbsp;Date start: ${object.date_planned_start}<br />\n"
+"       &nbsp;&nbsp;Date ended: ${object.date_planned_end}<br />\n"
+"       % if object.user_id:\n"
+"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.user_id.email or ''}?subject=Intervention%20${object.number_request}\">${object.user_id.name}</a>\n"
+"       % endif\n"
+"    </p>\n"
+"\n"
+"    <br/>\n"
+"    <p>If you have any question, do not hesitate to contact us.</p>\n"
+"    <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;\">\n"
+"            <strong style=\"text-transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if object.company_id.street:\n"
+"            ${object.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.street2:\n"
+"            ${object.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.city or object.company_id.zip:\n"
+"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.country_id:\n"
+"            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if object.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${object.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if object.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Bonjour ${object.partner_order_id.name},</p>\n"
+"\n"
+"    <p>Voici l'intervention de la société ${object.company_id.name}: </p>\n"
+"\n"
+"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
+"       &nbsp;&nbsp;<strong>RÉFÉRENCES</strong><br />\n"
+"       &nbsp;&nbsp;Numéro d'intervention: "
+"<strong>${object.number_request}</strong><br />\n"
+"       &nbsp;&nbsp;Objet de la demande: <strong>${object.name}</strong><br/>\n"
+"       &nbsp;&nbsp;Date de début: ${object.date_planned_start}<br />\n"
+"       &nbsp;&nbsp;Date de fin: ${object.date_planned_end}<br />\n"
+"       % if object.user_id:\n"
+"       &nbsp;&nbsp;Votre contact: <a href=\"mailto:${object.user_id.email or "
+"''}?subject=Intervention%"
+"20${object.number_request}\">${object.user_id.name}</a>\n"
+"       % endif\n"
+"    </p>\n"
+"\n"
+"    <br/>\n"
+"    <p>Si vous avez des question, n'hésiter pas à nous contacter.</p>\n"
+"    <p>Merci d'avoir choisi ${object.company_id.name or 'us'}!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
+"#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; "
+"background-repeat: repeat no-repeat;\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: "
+"#DDD;\">\n"
+"            <strong style=\"text-"
+"transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
+"16px; background-color: #F2F2F2;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if object.company_id.street:\n"
+"            ${object.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.street2:\n"
+"            ${object.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.city or object.company_id.zip:\n"
+"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.country_id:\n"
+"            ${object.company_id.state_id and ('%s, ' % "
+"object.company_id.state_id.name) or ''} ${object.company_id.country_id.name "
+"or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if object.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
+"0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
+"0px; padding-left: 0px; \">\n"
+"                Téléphone:&nbsp; ${object.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if object.company_id.website:\n"
+"            <div>\n"
+"                Site web :&nbsp;<a "
+"href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>"
+
+#. module: crm_intervention
+#: help:crm.intervention,state:0
+msgid "The state is set to 'Draft', when a case is created.\n"
+"If the case is in progress the state is set to 'Open'.\n"
+"When the case is over, the state is set to 'Done'.\n"
+"If the case needs to be reviewed then the state is set to'Pending'."
+msgstr ""
+
+#. module: crm_intervention
+#: model:ir.actions.act_window,help:crm_intervention.crm_case_intervention_act111
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                    Click to create a new intervention.\n"
+"                    </p><p>\n"
+"                    Intervention allow you to track your interventions. \n"
+"                    Select a customer, add notes and categorize interventions with partners if necessary. \n"
+"                    You can also assign a priority level. Use the OpenERP Issues system to manage your support activities. \n"
+"                    Issues can be connected to the email gateway: new emails may create issues, \n"
+"                    each of them automatically gets the history of the conversation with the customer.\n"
+"                </p>\n"
+"            "
+msgstr ""
 
 #. module: crm_intervention
 #: model:crm.case.categ,name:crm_intervention.categ_inter1
@@ -365,27 +565,24 @@ msgid "Query"
 msgstr "Requête"
 
 #. module: crm_intervention
+#: help:crm.intervention,section_id:0
+msgid "Interventions team to which Case belongs to.Define Responsible user and Email account for mail gateway."
+msgstr ""
+
+#. module: crm_intervention
 #: field:crm.intervention,ref2:0
 msgid "Reference 2"
 msgstr "Référence 2"
 
 #. module: crm_intervention
+#: view:crm.intervention:0
+msgid "To be invoiced"
+msgstr "À facturer"
+
+#. module: crm_intervention
 #: field:crm.intervention,categ_id:0
 msgid "Category"
 msgstr "Satisfaction"
-
-#. module: crm_intervention
-#: help:crm.intervention,state:0
-msgid ""
-"The state is set to 'Draft', when a case is created.                              \n"
-"If the case is in progress the state is set to 'Open'.                              \n"
-"When the case is over, the state is set to 'Done'.                              \n"
-"If the case needs to be reviewed then the state is set to 'Pending'."
-msgstr ""
-"The state is set to 'Draft', when a case is created.                              \n"
-"If the case is in progress the state is set to 'Open'.                              \n"
-"When the case is over, the state is set to 'Done'.                              \n"
-"If the case needs to be reviewed then the state is set to 'Pending'."
 
 #. module: crm_intervention
 #: report:crm_intervention.inter_ticket:0
@@ -404,7 +601,7 @@ msgstr "Rapport d'intervention du"
 
 #. module: crm_intervention
 #: code:addons/crm_intervention/report/inter_report.py:39
-#: code:addons/crm_intervention/report/inter_ticket.py:40
+#: code:addons/crm_intervention/report/inter_ticket.py:39
 #, python-format
 msgid "tuesday"
 msgstr "mardi"
@@ -417,7 +614,10 @@ msgstr "Peu satisfait"
 #. module: crm_intervention
 #: help:crm.intervention,email_cc:0
 msgid "These email addresses will be added to the CC field of all inbound and outbound emails for this record before being sent. Separate multiple email addresses with a comma"
-msgstr "These email addresses will be added to the CC field of all inbound and outbound emails for this record before being sent. Separate multiple email addresses with a comma"
+msgstr ""
+"These email addresses will be added to the CC field of all inbound and "
+"outbound emails for this record before being sent. Separate multiple email "
+"addresses with a comma"
 
 #. module: crm_intervention
 #: selection:crm.intervention,priority:0
@@ -467,6 +667,11 @@ msgid "Number Request"
 msgstr "Référence"
 
 #. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+msgid "by"
+msgstr "par"
+
+#. module: crm_intervention
 #: field:crm.intervention,partner_address_phone:0
 msgid "Phone"
 msgstr "Tél."
@@ -477,9 +682,9 @@ msgid "Is a Follower"
 msgstr "Est un partisant"
 
 #. module: crm_intervention
-#: field:crm.intervention,active:0
-msgid "Active"
-msgstr "Actif"
+#: view:crm.intervention:0
+msgid "Date"
+msgstr "Date"
 
 #. module: crm_intervention
 #: report:crm_intervention.inter_ticket:0
@@ -512,6 +717,12 @@ msgid "Interlocuteur name and permission :"
 msgstr "Nom et visa de l'interlocuteur :"
 
 #. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:409
+#, python-format
+msgid "Employee not found"
+msgstr "Employé non trouvé"
+
+#. module: crm_intervention
 #: field:crm.intervention,duration_planned:0
 msgid "Planned duration"
 msgstr "Durée estimée"
@@ -522,14 +733,35 @@ msgid "These people will receive email."
 msgstr "Ces personnes recevront un couriel."
 
 #. module: crm_intervention
+#: field:crm.intervention,contract_id:0
+msgid "Contract"
+msgstr "Contrat"
+
+#. module: crm_intervention
 #: field:crm.intervention,message_summary:0
 msgid "Summary"
 msgstr "Sommaire"
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Date"
-msgstr "Date"
+#: field:crm.intervention,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:396
+#: code:addons/crm_intervention/crm_intervention.py:398
+#: code:addons/crm_intervention/crm_intervention.py:400
+#: code:addons/crm_intervention/crm_intervention.py:402
+#: code:addons/crm_intervention/crm_intervention.py:409
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:398
+#, python-format
+msgid "Product to invoice is necessary"
+msgstr "Le produit à facturer est nécéssaire"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -539,8 +771,8 @@ msgstr "Interventions"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
-msgid "Misc"
-msgstr "Divers"
+msgid "Intervention Tree"
+msgstr "Liste des interventions"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -563,14 +795,14 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Close"
-msgstr "Fermer"
+#: help:crm.intervention,duration_effective:0
+msgid "Indicate real time to do the intervention."
+msgstr "Indiquer la durée réelle de l'intervention."
 
 #. module: crm_intervention
-#: report:crm_intervention.inter_ticket:0
-msgid "Works done during intervention :"
-msgstr "Action(s) réalisée(s) pendant l'intervention :"
+#: help:crm.case.section,unit_hour_id:0
+msgid "Select unit represent hour"
+msgstr "Sélectionner l'unité representant les heures"
 
 #. module: crm_intervention
 #: report:crm_intervention.inter_ticket:0
@@ -588,6 +820,7 @@ msgid "yes, precise ->"
 msgstr "Oui, précisez lequel ->"
 
 #. module: crm_intervention
+#: view:crm.case.section:0
 #: view:crm.intervention:0
 #: model:ir.model,name:crm_intervention.model_crm_intervention
 msgid "Intervention"
@@ -595,7 +828,7 @@ msgstr "Intervention"
 
 #. module: crm_intervention
 #: code:addons/crm_intervention/report/inter_report.py:43
-#: code:addons/crm_intervention/report/inter_ticket.py:44
+#: code:addons/crm_intervention/report/inter_ticket.py:43
 #, python-format
 msgid "saturday"
 msgstr "samedi"
@@ -622,9 +855,10 @@ msgid "Effective duration"
 msgstr "Durée réalisée"
 
 #. module: crm_intervention
-#: help:crm.intervention,duration_effective:0
-msgid "Indicate real time to do the intervention."
-msgstr "Indiquer la durée réelle de l'intervention."
+#: code:addons/crm_intervention/crm_intervention.py:429
+#, python-format
+msgid "BI Num %s"
+msgstr "BI N° %s"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -648,6 +882,11 @@ msgid "Badly"
 msgstr "Pas satisfait"
 
 #. module: crm_intervention
+#: model:email.template,subject:crm_intervention.email_template_intervention
+msgid "[${object.company_id.name}] ${object.name or 'n/a'} (Ref: ${object.number_request})"
+msgstr ""
+
+#. module: crm_intervention
 #: field:crm.intervention,description:0
 msgid "Description"
 msgstr "Description"
@@ -665,7 +904,7 @@ msgstr "Tél. :"
 
 #. module: crm_intervention
 #: code:addons/crm_intervention/report/inter_report.py:37
-#: code:addons/crm_intervention/report/inter_ticket.py:38
+#: code:addons/crm_intervention/report/inter_ticket.py:37
 #, python-format
 msgid "sunday"
 msgstr "dimanche"
@@ -676,15 +915,31 @@ msgid "The name and address for the invoice"
 msgstr "Le nom et l'adresse pour la facture"
 
 #. module: crm_intervention
+#: field:crm.intervention,date_action_last:0
+msgid "Last Action"
+msgstr "Dernière action"
+
+#. module: crm_intervention
 #: view:crm.intervention:0
 #: field:crm.intervention,partner_id:0
 msgid "Customer"
 msgstr "Client"
 
 #. module: crm_intervention
+#: selection:crm.intervention,priority:0
+msgid "Lowest"
+msgstr "La plus basse"
+
+#. module: crm_intervention
 #: report:crm_intervention.inter_report:0
 msgid "Intervention ticket N°"
 msgstr "Bon d'intervention N°"
+
+#. module: crm_intervention
+#: field:crm.intervention,analytic_line_id:0
+#: help:crm.intervention,analytic_line_id:0
+msgid "Analytic line"
+msgstr "Ligne analytique"
 
 #. module: crm_intervention
 #: field:crm.intervention,name:0
@@ -693,7 +948,7 @@ msgstr "Sujet"
 
 #. module: crm_intervention
 #: code:addons/crm_intervention/report/inter_report.py:38
-#: code:addons/crm_intervention/report/inter_ticket.py:39
+#: code:addons/crm_intervention/report/inter_ticket.py:38
 #, python-format
 msgid "monday"
 msgstr "lundi"
@@ -704,9 +959,9 @@ msgid "Intervenant"
 msgstr "Intervenant"
 
 #. module: crm_intervention
-#: help:crm.intervention,section_id:0
-msgid "Interventions team to which Case belongs to.                             Define Responsible user and Email account for mail gateway."
-msgstr "Interventions team to which Case belongs to.                             Define Responsible user and Email account for mail gateway."
+#: field:crm.intervention,alldays_planned:0
+msgid "All day planned"
+msgstr "Toute la journée (planifié)"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -722,6 +977,11 @@ msgstr "Pas du tout satisfait"
 #: field:crm.intervention,id:0
 msgid "ID"
 msgstr "ID"
+
+#. module: crm_intervention
+#: view:crm.intervention:0
+msgid "Invoicing"
+msgstr "Facturation"
 
 #. module: crm_intervention
 #: field:crm.intervention,customer_information:0
@@ -764,33 +1024,72 @@ msgid "Ideas and comments :"
 msgstr "Vos commentaires et idées d'amélioration :"
 
 #. module: crm_intervention
-#: field:crm.intervention,date_action_last:0
-msgid "Last Action"
-msgstr "Dernière action"
+#: field:crm.case.section,unit_hour_id:0
+msgid "Hour unit"
+msgstr "Unité des heures"
 
 #. module: crm_intervention
 #: report:crm_intervention.inter_ticket:0
 msgid "End of the intervention : _____ h _____ min."
 msgstr "Fin d'intervention à : _____ h _____ min."
 
+#. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:403
+#, python-format
+msgid "Please define a cost price for the product %s"
+msgstr "Veuillez définir un coût pour le produit %s"
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+#: report:crm_intervention.inter_ticket:0
+msgid "Mobile :"
+msgstr "Portable :"
+
+#. module: crm_intervention
+#: view:crm.intervention:0
+msgid "pre-invoicing"
+msgstr "pré-facturation"
+
+#~ msgid ""
+#~ "The state is set to 'Draft', when a case is created.                              \n"
+#~ "If the case is in progress the state is set to 'Open'.                              \n"
+#~ "When the case is over, the state is set to 'Done'.                              \n"
+#~ "If the case needs to be reviewed then the state is set to 'Pending'."
+#~ msgstr ""
+#~ "The state is set to 'Draft', when a case is created.                              \n"
+#~ "If the case is in progress the state is set to 'Open'.                              \n"
+#~ "When the case is over, the state is set to 'Done'.                              \n"
+#~ "If the case needs to be reviewed then the state is set to 'Pending'."
+
+#~ msgid "Interventions team to which Case belongs to.                             Define Responsible user and Email account for mail gateway."
+#~ msgstr "Interventions team to which Case belongs to.                             Define Responsible user and Email account for mail gateway."
+
 #~ msgid "CRM Intervention"
 #~ msgstr "CRM Intervention"
+
 #~ msgid "Add Internal Note"
 #~ msgstr "Ajouter note interne"
+
 #~ msgid "Send New Email"
 #~ msgstr "Envoyer un nouveau courriel"
+
 #~ msgid "Reply"
 #~ msgstr "Répondre"
+
 #~ msgid "History Information"
 #~ msgstr "History Information"
+
 #~ msgid "Draft"
 #~ msgstr "Brouillon"
+
 #~ msgid "History"
 #~ msgstr "Historique"
+
 #~ msgid "Attachments"
 #~ msgstr "Attachements"
+
 #~ msgid "Details"
 #~ msgstr "Details"
+
 #~ msgid "Intervention Management"
 #~ msgstr "Intervention Management"
-
