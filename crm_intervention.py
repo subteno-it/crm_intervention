@@ -147,6 +147,10 @@ class crm_intervention(base_state, base_stage, orm.Model):
             "\nWhen the case is over, the state is set to \'Done\'."
             "\nIf the case needs to be reviewed then the state is set to"
             "'Pending'."),
+        'contract_id': fields.many2one('account.analytic.account', 'Contract',
+                                       help='Select analytic account to generate line on this contract'),
+        'analytic_line_id': fields.many2one('account.analytic.line', 'Analytic line',
+                                            help='Analytic line'),
         'message_ids': fields.one2many(
             'mail.message', 'res_id', 'Messages',
             domain=[('model', '=', _name)]),

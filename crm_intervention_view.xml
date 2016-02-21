@@ -65,6 +65,8 @@
                                         <field domain="[('parent_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                                         <field domain="[('parent_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                                         <field name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                        <field name="contract_id" domain="[('type','=',
+                                            'contract'),('partner_id', '=', partner_id)]"/>
                                     </group>
                                     <group>
                                         <field name="partner_address_phone" required="0" attrs="{'readonly':[('state','=','done')]}"/>
@@ -97,6 +99,8 @@
                             <page string="Communication &amp; History" groups="base.group_crm_intervention_manager">
                                 <group colspan="4">
                                     <field colspan="4" name="email_cc" string="Global CC" widget="char"/>
+                                    <separator string="Invoicing" colspan="4"/>
+                                    <field name="analytic_line_id" domain="[('account_id','=',contract_id)]"/>
                                 </group>
                             </page>
                             <page string="Extra Info" groups="base.group_crm_intervention_manager">

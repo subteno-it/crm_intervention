@@ -32,6 +32,7 @@
     'website': 'http://www.Syleam.fr/',
     'depends': [
         'crm',
+        'account',
     ],
     'data': [
         'security/crm_security.xml',
