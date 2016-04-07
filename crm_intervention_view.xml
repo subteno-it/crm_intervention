@@ -202,8 +202,8 @@
             <field name="model">crm.intervention</field>
             <field name="arch" type="xml">
                 <search string="Search intervention">
-                    <filter icon="terp-go-today" string="Today" separator="1" domain="[('date_planned_start','=',time.strftime('%%Y-%%m-%%d'))]" help="Todays's intervention Requests"/>
-                    <filter icon="terp-go-week" string="7 Days" separator="1" help="Intervention requests during last 7 days" domain="[('date_planned_start','&lt;', time.strftime('%%Y-%%m-%%d')), ('date_planned_start','&gt;=',(datetime.date.today()-datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
+                    <filter icon="terp-go-today" string="Today" domain="[('date_planned_start','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Todays's intervention Requests"/>
+                    <filter icon="terp-go-week" string="7 Days" help="Intervention requests during last 7 days" domain="[('date_planned_start','&lt;', time.strftime('%%Y-%%m-%%d 23:59:59')), ('date_planned_start','&gt;=',(datetime.date.today()-datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d 00:00:00'))]"/>
                     <filter string="To be invoiced" domain="[('analytic_line_id','=', False)]" help="Choose line not invoiced yet"/>
                     <separator orientation="vertical"/>
                     <field name="name" string="Query"/>
