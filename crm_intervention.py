@@ -53,7 +53,7 @@ class crm_case_section(orm.Model):
 class crm_intervention(base_state, base_stage, orm.Model):
     _name = 'crm.intervention'
     _description = 'Intervention'
-    _order = "id desc"
+    _order = "date_planned_start desc"
     _inherit = ['mail.thread']
 
     def _get_default_section_intervention(self, cr, uid, context=None):
