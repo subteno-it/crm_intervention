@@ -184,6 +184,17 @@
             </field>
         </record>
 
+        <!--  intervention Support Gantt View -->
+
+        <record id="crm_intervention_gantt_view" model="ir.ui.view">
+            <field name="name">CRM - Intervention Gantt</field>
+            <field name="model">crm.intervention</field>
+            <field name="arch" type="xml">
+                <gantt date_stop="date_planned_end" date_start="date_planned_start" 
+                    string="Interventions" default_group_by="user_id"/>
+            </field>
+        </record>
+
         <!-- intervention Support Search View  -->
 
         <record id="view_crm_case_intervention_filter" model="ir.ui.view">
@@ -220,7 +231,7 @@
         <record model="ir.actions.act_window" id="crm_case_intervention_act111">
             <field name="name">Intervention Requests</field>
             <field name="res_model">crm.intervention</field>
-            <field name="view_mode">tree,calendar,form</field>
+            <field name="view_mode">tree,calendar,gantt,form</field>
             <field name="view_id" ref="crm_case_tree_view_intervention"/>
             <field name="context">{"search_default_user_id":uid,}</field>
             <field name="search_view_id" ref="view_crm_case_intervention_filter"/>
@@ -248,6 +259,13 @@
             <field name="sequence" eval="2"/>
             <field name="view_mode">calendar</field>
             <field name="view_id" ref="crm_case_intervention_calendar_view"/>
+            <field name="act_window_id" ref="crm_case_intervention_act111"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_sec_gantt_view_act111">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">gantt</field>
+            <field name="view_id" ref="crm_intervention_gantt_view"/>
             <field name="act_window_id" ref="crm_case_intervention_act111"/>
         </record>
 
