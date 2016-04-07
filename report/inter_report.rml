@@ -115,7 +115,7 @@
         <illustration width="528" height="12">
             <rect x="0" y="0" width="508" height="36" fill="no" stroke="yes" round="0.15 in"/>
             <setFont name="Helvetica-Bold" size="15"/>
-            <drawCentredString x="254" y="13">Intervention report on [[time.strftime("%d/%m/%Y",time.localtime())]]</drawCentredString>
+            <drawCentredString x="254" y="13">Intervention report on [[ time.strftime("%d/%m/%Y",time.strptime(o.create_date, '%Y-%m-%d %H:%M:%S')) ]]</drawCentredString>
         </illustration>
         <spacer length="5"/>
         <illustration>
