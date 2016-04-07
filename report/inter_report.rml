@@ -99,7 +99,7 @@
                 </td>
                 <td>
                     <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
-                    <para style="terp_default_9">[[ o.partner_order_id.title and o.partner_order_id.title.shortcut or '' ]] [[ o.partner_order_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_order_id.title and o.partner_order_id.title.shortcut or '' ]] [[ o.partner_id.name == o.partner_order_id.name and removeParentNode('para') or o.partner_order_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.street ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.street2 or '' ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.zip or '' ]] [[ o.partner_order_id.city or '' ]]</para>
@@ -120,7 +120,7 @@
         <spacer length="5"/>
         <illustration>
             <stroke color="#8C8C8C"/>
-            <rect x="0" y="-480" width="508" height="480" fill="no" stroke="yes" round="0.15 in"/>
+            <rect x="0" y="-455" width="508" height="455" fill="no" stroke="yes" round="0.15 in"/>
         </illustration>
         <blockTable colWidths="10,244,9.5,122,122,20" style="Table2">
             <tr>
