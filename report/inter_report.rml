@@ -99,9 +99,9 @@
                 </td>
                 <td>
                     <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
-                    <para style="terp_default_9">[[ o.partner_order_id.title and o.partner_order_id.title.shortcut or '' ]] [[ o.partner_id.name == o.partner_order_id.name and removeParentNode('para') or o.partner_order_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_id.name == o.partner_order_id.name and removeParentNode('para') or (o.partner_id.title and o.partner_id.title.shortcut or '') + o.partner_order_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.street ]]</para>
-                    <para style="terp_default_9">[[ o.partner_order_id.street2 or '' ]]</para>
+                    <para style="terp_default_9">[[ o.partner_order_id.street2 or removeParentNode('para') ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.zip or '' ]] [[ o.partner_order_id.city or '' ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.state_id and o.partner_order_id.state_id.name or '' ]] [[ o.partner_order_id.country_id and o.partner_order_id.country_id.name or '' ]]</para>
                     <spacer length="7"/>
@@ -115,7 +115,7 @@
         <illustration width="528" height="12">
             <rect x="0" y="0" width="508" height="36" fill="no" stroke="yes" round="0.15 in"/>
             <setFont name="Helvetica-Bold" size="15"/>
-            <drawCentredString x="254" y="13">Intervention report on [[ time.strftime("%d/%m/%Y",time.strptime(o.create_date, '%Y-%m-%d %H:%M:%S')) ]]</drawCentredString>
+            <drawCentredString x="254" y="13">Intervention report on [[ time.strftime("%d/%m/%Y",time.strptime(o.date_effective_start, '%Y-%m-%d %H:%M:%S')) ]]</drawCentredString>
         </illustration>
         <spacer length="5"/>
         <illustration>
@@ -157,19 +157,23 @@
                 </td>
                 <td>
                     <spacer length="10"/>
-                    <para style="terp_default_8">from [[ time.strftime('%H:%M',time.strptime(o.date_effective_start, '%Y-%m-%d %H:%M:%S')) ]]</para>
+                    <para style="terp_default_8">from [[ o.alldays_effective and removeParentNode('para') or time.strftime('%H:%M',time.strptime(o.date_effective_start, '%Y-%m-%d %H:%M:%S')) ]]</para>
+                    <para style="terp_default_8">All days [[ o.alldays_effective and ' ' or removeParentNode('para') ]]</para>
                 </td>
                 <td>
                     <spacer length="10"/>
-                    <para style="terp_default_8">to [[ time.strftime('%H:%M',time.strptime(o.date_effective_end, '%Y-%m-%d %H:%M:%S')) ]]</para>
+                    <para style="terp_default_8">to [[ o.alldays_effective and removeParentNode('para') or time.strftime('%H:%M',time.strptime(o.date_effective_end, '%Y-%m-%d %H:%M:%S')) ]]</para>
+                    <para style="terp_default_8">[[ o.alldays_effective and ' ' or removeParentNode('para') ]]</para>
                 </td>
                 <td>
                     <spacer length="10"/>
-                    <para style="terp_default_8">for a duration of</para>
+                    <para style="terp_default_8">for a duration of [[ o.alldays_effective and removeParentNode('para') or ' ' ]]</para>
+                    <para style="terp_default_8">[[ o.alldays_effective and ' ' or removeParentNode('para') ]]</para>
                 </td>
                 <td>
                     <spacer length="10"/>
-                    <para style="terp_default_8">[[ fill(o.duration_effective,2) ]]</para>
+                    <para style="terp_default_8">[[ o.alldays_effective and removeParentNode('para') or fill(o.duration_effective,2) ]]</para>
+                    <para style="terp_default_8">[[ o.alldays_effective and ' ' or removeParentNode('para') ]]</para>
                 </td>
                 <td>
                 </td>
