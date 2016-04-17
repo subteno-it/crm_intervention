@@ -228,7 +228,7 @@
             <field name="act_window_id" ref="crm_case_intervention_act111"/>
         </record>
 
-        <menuitem name="Interventions" id="menu_intersupport_main" groups="base.group_crm_intervention_user" parent="base.menu_sales" action="crm_case_intervention_act111" sequence="3"/>
+        <menuitem name="Interventions" id="menu_intersupport_main" groups="base.group_crm_intervention_user" parent="base.menu_base_partner" action="crm_case_intervention_act111" sequence="3"/>
 
     </data>
 </openerp>

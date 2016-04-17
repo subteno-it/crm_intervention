@@ -23,7 +23,7 @@
 #
 ##############################################################################
 
-from openerp.addons.crm import crm
+from openerp.addons.crm import crm_stage
 from openerp import models, api, fields
 from datetime import timedelta
 
@@ -41,17 +41,17 @@ class crm_intervention(models.Model):
     description = fields.Text(states={'done': [('readonly', True)]})
     user_id = fields.Many2one('res.users', string='Responsible', required=True, default=lambda self: self.env.user, states={'done': [('readonly', True)]})
     section_id = fields.Many2one(
-        'crm.case.section', string='Interventions Team',
-        default=lambda self: self.env['crm.case.section'].search([('code', '=', 'inter')]),
+        'crm.team', string='Interventions Team',
+        default=lambda self: self.env['crm.team'].search([('code', '=', 'inter')]),
         states={'done': [('readonly', True)]},
         help='Interventions team to which Case belongs to. Define Responsible user and Email account for mail gateway.',
     )
-    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env['res.company'].browse(self.env['res.company']._company_default_get('crm.helpdesk')))
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env['res.company']._company_default_get('crm.intervention'))
     date_closed = fields.Datetime(string='Closed on', readonly=True)
     email_from = fields.Char(string='Email', size=128, states={'done': [('readonly', True)]}, help='These people will receive email.')
-    priority = fields.Selection(crm.AVAILABLE_PRIORITIES, default='2', states={'done': [('readonly', True)]})
-    categ_id = fields.Many2one('crm.case.categ', string='Category', domain="[('section_id', '=', section_id), ('object_id.model', '=', 'crm.intervention')]", states={'done': [('readonly', True)]})
-    number_request = fields.Char(string='Number Request', size=64, default=lambda self: self.env['ir.sequence'].get('intervention'), states={'done': [('readonly', True)]})
+    priority = fields.Selection(crm_stage.AVAILABLE_PRIORITIES, default='2', states={'done': [('readonly', True)]})
+    categ_id = fields.Many2one('crm.lead.tag', string='Category', domain="[('section_id', '=', section_id), ('object_id.model', '=', 'crm.intervention')]", states={'done': [('readonly', True)]})
+    number_request = fields.Char(string='Number Request', size=64, default=lambda self: self.env['ir.sequence'].next_by_code('crm.intervention'), states={'done': [('readonly', True)]})
     customer_information = fields.Text(string='Customer_information', states={'done': [('readonly', True)]})
     intervention_todo = fields.Text(string='Intervention to do', states={'done': [('readonly', True)]}, help='Indicate the description of this intervention to do')
     date_planned_start = fields.Datetime(string='Planned Start Date', states={'done': [('readonly', True)]}, help='Indicate the date of begin intervention planned')
@@ -60,7 +60,7 @@ class crm_intervention(models.Model):
     date_effective_end = fields.Datetime(string='Effective end date', states={'done': [('readonly', True)]}, help='Indicate the date of end intervention')
     duration_planned = fields.Float(string='Planned duration', states={'done': [('readonly', True)]}, help='Indicate estimated to do the intervention.')
     duration_effective = fields.Float(string='Effective duration', states={'done': [('readonly', True)]}, help='Indicate real time to do the intervention.')
-    partner_id = fields.Many2one('res.partner', string='Customer', domain="[('parent_id', '=', False)]", required=True, states={'done': [('readonly', True)]}, change_default=True, select=True)
+    partner_id = fields.Many2one('res.partner', string='Customer', domain="[('parent_id', '=', False)]", required=True, states={'done': [('readonly', True)]}, change_default=True, index=True)
     partner_invoice_id = fields.Many2one(
         'res.partner', string='Invoice Address',
         domain="[('parent_id', '!=', False), ('parent_id', '=', partner_id)]",
@@ -77,7 +77,6 @@ class crm_intervention(models.Model):
     )
     partner_shipping_id = fields.Many2one(
         'res.partner', string='Intervention Address',
-        domain="[('parent_id', '!=', False)]",
         required=True, states={'done': [('readonly', True)]},
         # default=lambda self: self.env.context.get('partner_id', False) and self.env['res.partner'].address_get([self.env.context['partner_id']], ['delivery'])['delivery'],
     )

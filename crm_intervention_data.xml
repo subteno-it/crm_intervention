@@ -28,7 +28,7 @@
         #
         # New section for intervntions
         #
-        <record model="crm.case.section" id="section_interventions_department">
+        <record model="crm.team" id="section_interventions_department">
             <field name="name">Interventions Department</field>
             <field name="code">inter</field>
         </record>
@@ -36,42 +36,33 @@
         #
         # Categories for intervention, the customer is happy or not
         #
-        <record model="crm.case.categ" id="categ_inter1">
+        <record model="crm.lead.tag" id="categ_inter1">
             <field name="name">Very Happy</field>
-            <field name="section_id" ref="section_interventions_department"/>
-            <field name="object_id" search="[('model','=','crm.intervention')]" model="ir.model"/>
+            <field name="team_id" ref="section_interventions_department"/>
         </record>
-        <record model="crm.case.categ" id="categ_inter2">
+        <record model="crm.lead.tag" id="categ_inter2">
             <field name="name">Happy</field>
-            <field name="section_id" ref="section_interventions_department"/>
-            <field name="object_id" search="[('model','=','crm.intervention')]" model="ir.model"/>
+            <field name="team_id" ref="section_interventions_department"/>
         </record>
-        <record model="crm.case.categ" id="categ_inter3">
+        <record model="crm.lead.tag" id="categ_inter3">
             <field name="name">Unhappy</field>
-            <field name="section_id" ref="section_interventions_department"/>
-            <field name="object_id" search="[('model','=','crm.intervention')]" model="ir.model"/>
+            <field name="team_id" ref="section_interventions_department"/>
         </record>
-        <record model="crm.case.categ" id="categ_inter4">
+        <record model="crm.lead.tag" id="categ_inter4">
             <field name="name">Badly</field>
-            <field name="section_id" ref="section_interventions_department"/>
-            <field name="object_id" search="[('model','=','crm.intervention')]" model="ir.model"/>
+            <field name="team_id" ref="section_interventions_department"/>
         </record>
-        <record model="crm.case.categ" id="categ_inter5">
+        <record model="crm.lead.tag" id="categ_inter5">
             <field name="name">Furious</field>
-            <field name="section_id" ref="section_interventions_department"/>
-            <field name="object_id" search="[('model','=','crm.intervention')]" model="ir.model"/>
+            <field name="team_id" ref="section_interventions_department"/>
         </record>
 
         #
         # Sequence for number of intervention
         #
-        <record id="seq_type_crm_intervention" model="ir.sequence.type">
-            <field name="name">CRM - Intervention</field>
-            <field name="code">intervention</field>
-        </record>
         <record id="seq_crm_intervention" model="ir.sequence">
             <field name="name">CRM Intervention </field>
-            <field name="code">intervention</field>
+            <field name="code">crm.intervention</field>
             <field name="prefix">I%(y)s%(woy)s%(weekday)s%(h24)s%(min)s</field>
             <field name="padding">0</field>
             <field name="number_next">1</field>
