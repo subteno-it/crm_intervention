@@ -38,7 +38,7 @@ class crm_intervention(models.Model):
     active = fields.Boolean(default=True)
     date_action_last = fields.Datetime(string='Last Action', readonly=True)
     date_action_next = fields.Datetime(string='Next Action', readonly=True)
-    description = fields.Text(states={'done': [('readonly', True)]})
+    description = fields.Text(states={'done': [('readonly', True)]}, copy='')
     user_id = fields.Many2one('res.users', string='Responsible', required=True, default=lambda self: self.env.user, states={'done': [('readonly', True)]})
     section_id = fields.Many2one(
         'crm.team', string='Interventions Team',
@@ -50,16 +50,16 @@ class crm_intervention(models.Model):
     date_closed = fields.Datetime(string='Closed on', readonly=True)
     email_from = fields.Char(string='Email', size=128, states={'done': [('readonly', True)]}, help='These people will receive email.')
     priority = fields.Selection(crm_stage.AVAILABLE_PRIORITIES, default='2', states={'done': [('readonly', True)]})
-    categ_id = fields.Many2one('crm.lead.tag', string='Category', domain="[('section_id', '=', section_id), ('object_id.model', '=', 'crm.intervention')]", states={'done': [('readonly', True)]})
-    number_request = fields.Char(string='Number Request', size=64, default=lambda self: self.env['ir.sequence'].next_by_code('crm.intervention'), states={'done': [('readonly', True)]})
+    categ_id = fields.Many2one('crm.lead.tag', string='Category', copy=False, domain="[('section_id', '=', section_id), ('object_id.model', '=', 'crm.intervention')]", states={'done': [('readonly', True)]})
+    number_request = fields.Char(string='Number Request', size=64, default=lambda self: self.env['ir.sequence'].next_by_code('crm.intervention'), states={'done': [('readonly', True)]}, copy=lambda self: self.env['ir.sequence'].next_by_code('crm.intervention'))
     customer_information = fields.Text(string='Customer_information', states={'done': [('readonly', True)]})
     intervention_todo = fields.Text(string='Intervention to do', states={'done': [('readonly', True)]}, help='Indicate the description of this intervention to do')
     date_planned_start = fields.Datetime(string='Planned Start Date', states={'done': [('readonly', True)]}, help='Indicate the date of begin intervention planned')
     date_planned_end = fields.Datetime(string='Planned End Date', states={'done': [('readonly', True)]}, help='Indicate the date of end intervention planned')
-    date_effective_start = fields.Datetime(string='Effective start date', states={'done': [('readonly', True)]}, help='Indicate the date of begin intervention')
-    date_effective_end = fields.Datetime(string='Effective end date', states={'done': [('readonly', True)]}, help='Indicate the date of end intervention')
+    date_effective_start = fields.Datetime(string='Effective start date', copy=False, states={'done': [('readonly', True)]}, help='Indicate the date of begin intervention')
+    date_effective_end = fields.Datetime(string='Effective end date', copy=False, states={'done': [('readonly', True)]}, help='Indicate the date of end intervention')
     duration_planned = fields.Float(string='Planned duration', states={'done': [('readonly', True)]}, help='Indicate estimated to do the intervention.')
-    duration_effective = fields.Float(string='Effective duration', states={'done': [('readonly', True)]}, help='Indicate real time to do the intervention.')
+    duration_effective = fields.Float(string='Effective duration', copy=0.0, states={'done': [('readonly', True)]}, help='Indicate real time to do the intervention.')
     partner_id = fields.Many2one('res.partner', string='Customer', domain="[('parent_id', '=', False)]", required=True, states={'done': [('readonly', True)]}, change_default=True, index=True)
     partner_invoice_id = fields.Many2one(
         'res.partner', string='Invoice Address',
@@ -156,21 +156,6 @@ class crm_intervention(models.Model):
         minutes, secondes = divmod(difference.seconds, 60)
         hours, minutes = divmod(minutes, 60)
         self.duration_effective = float(difference.days * 24) + float(hours) + float(minutes) / float(60)
-
-    @api.one
-    def copy(self, default=None):
-        if default is None:
-            default = {}
-
-        default['number_request'] = self.env['ir.sequence'].get('intervention')
-        default['date_effective_start'] = False
-        default['date_effective_end'] = False
-        default['duration_effective'] = 0.0
-        default['categ_id'] = False
-        default['description'] = False
-        default['timesheet_ids'] = False
-
-        return super(crm_intervention, self).copy(default)
 
     @api.one
     def set_cancel(self):
