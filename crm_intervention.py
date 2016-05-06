@@ -383,6 +383,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
         default['categ_id'] = False
         default['description'] = False
         default['timesheet_ids'] = False
+        default['analytic_line_id'] = False
 
         return super(crm_intervention, self).copy(
             cr, uid, id, default, context=context)
