@@ -51,7 +51,7 @@ class crm_intervention(models.Model):
     email_from = fields.Char(string='Email', size=128, states={'done': [('readonly', True)]}, help='These people will receive email.')
     priority = fields.Selection(crm_stage.AVAILABLE_PRIORITIES, default='2', states={'done': [('readonly', True)]})
     categ_id = fields.Many2one('crm.lead.tag', string='Category', copy=False, domain="[('team_id', '=', section_id)]", states={'done': [('readonly', True)]})
-    number_request = fields.Char(string='Number Request', size=64, default=lambda self: self.env['ir.sequence'].next_by_code('crm.intervention'), states={'done': [('readonly', True)]}, copy=lambda self: self.env['ir.sequence'].next_by_code('crm.intervention'))
+    number_request = fields.Char(string='Number Request', size=64, default=lambda self: self.env['ir.sequence'].next_by_code('crm.intervention'), states={'done': [('readonly', True)]}, copy=False)
     customer_information = fields.Text(string='Customer_information', states={'done': [('readonly', True)]})
     intervention_todo = fields.Text(string='Intervention to do', states={'done': [('readonly', True)]}, help='Indicate the description of this intervention to do')
     date_planned_start = fields.Datetime(string='Planned Start Date', states={'done': [('readonly', True)]}, help='Indicate the date of begin intervention planned')
