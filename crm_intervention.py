@@ -201,6 +201,36 @@ class crm_intervention(base_state, base_stage, orm.Model):
         'alldays_effective': False,
     }
 
+    def write(self, cr, uid, ids, values, context=None):
+        """
+        Before changing state, check if date is filled
+        """
+        if context is None:
+            context = {}
+
+        res = super(crm_intervention, self).write(cr, uid, ids, values, context=context)
+
+        for inter in self.browse(cr, uid, ids, context=context):
+            if inter.state == 'open':
+                if not inter.date_planned_start:
+                    raise orm.except_orm(
+                        _('Error'),
+                        _('Date planned start is required before open the intervention')
+                    )
+            if inter.state == 'pending':
+                if not inter.date_effective_start:
+                    raise orm.except_orm(
+                        _('Error'),
+                        _('Date effective start is required before to pending the intervention')
+                    )
+                if not (inter.date_effective_end or inter.alldays_effective):
+                    raise orm.except_orm(
+                        _('Error'),
+                        _('Date effective end or all days is required before to pending the intervention')
+                    )
+        return res
+
+
     def onchange_partner_intervention_id(self, cr, uid, ids, part):
         if not part:
             return {
