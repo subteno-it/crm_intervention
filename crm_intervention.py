@@ -263,14 +263,18 @@ class crm_intervention(base_state, base_stage, orm.Model):
                                     effective_start_date):
         start_date = datetime.datetime.fromtimestamp(time.mktime(
             time.strptime(effective_start_date, "%Y-%m-%d %H:%M:%S")))
-        end_date = datetime.datetime.fromtimestamp(time.mktime(
-            time.strptime(effective_end_date, "%Y-%m-%d %H:%M:%S")))
-        difference = end_date - start_date
-        minutes, secondes = divmod(difference.seconds, 60)
-        hours, minutes = divmod(minutes, 60)
+        if effective_end_date:
+            end_date = datetime.datetime.fromtimestamp(time.mktime(
+                time.strptime(effective_end_date, "%Y-%m-%d %H:%M:%S")))
+            difference = end_date - start_date
+            minutes, secondes = divmod(difference.seconds, 60)
+            hours, minutes = divmod(minutes, 60)
+            return {'value': {
+                'duration_effective': (float(difference.days * 24) +
+                                       float(hours) + float(minutes) / float(60))}}
         return {'value': {
-            'duration_effective': (float(difference.days * 24) +
-                                   float(hours) + float(minutes) / float(60))}}
+                'duration_effective': 0.0 }}
+
 
     def action_email_send(self, cr, uid, ids, context=None):
         """
