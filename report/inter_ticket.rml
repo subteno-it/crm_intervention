@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<document filename="test.pdf">
-    <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+<document filename="intervention.pdf">
+    <template pageSize="(595.0,842.0)" title="Intervention" author="Christophe CHAUVET" allowSplitting="20">
         <pageTemplate id="first">
             <frame id="first" x1="35.0" y1="42.0" width="539" height="758"/>
         </pageTemplate>
@@ -62,7 +62,7 @@
                 <td>
                     <para style="terp_default_Bold_9">Shipping address :</para>
                     <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
-                    <para style="terp_default_9">[[ o.partner_shipping_id.title and o.partner_shipping_id.title.shortcut or '' ]] [[ o.partner_shipping_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_id.id == o.partner_shipping_id.id and removeParentNode('para') ]] [[ o.partner_shipping_id.title and o.partner_shipping_id.title.shortcut or '' ]] [[ o.partner_shipping_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_shipping_id.street ]]</para>
                     <para style="terp_default_9">[[ o.partner_shipping_id.street2 or '' ]]</para>
                     <para style="terp_default_9">[[ o.partner_shipping_id.city or '' ]] [[ o.partner_shipping_id.zip or '' ]]</para>
@@ -76,7 +76,7 @@
                 </td>
                 <td>
                     <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
-                    <para style="terp_default_9">[[ o.partner_order_id.title and o.partner_order_id.title.shortcut or '' ]] [[ o.partner_order_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_id.id == o.partner_shipping_id.id and removeParentNode('para') ]] [[ o.partner_order_id.title and o.partner_order_id.title.shortcut or '' ]] [[ o.partner_order_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.street ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.street2 or '' ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.zip or '' ]] [[ o.partner_order_id.city or '' ]]</para>
@@ -99,7 +99,8 @@
             <tr>
                 <td>
                     <para style="terp_default_Bold_8">for [[o.user_id.name]]</para>
-                    <para style="terp_default_8">[[ translate(weekdayname(time.strftime("%w",time.strptime(o.date_planned_start, '%Y-%m-%d %H:%M:%S')))) ]] [[time.strftime("%d/%m/%Y",time.strptime(o.date_planned_start, '%Y-%m-%d %H:%M:%S'))]] from [[time.strftime('%H:%M',time.strptime(o.date_planned_start, '%Y-%m-%d %H:%M:%S'))]] to [[time.strftime('%H:%M',time.strptime(o.date_planned_end, '%Y-%m-%d %H:%M:%S'))]]</para>
+                    <para style="terp_default_8">From [[ formatLang(o.date_planned_start, date_time = True)]]</para>
+                    <para style="terp_default_8">To [[formatLang(o.date_planned_end, date_time = True) or removeParentNode('para') ]]</para>
                 </td>
                 <td>
                 </td>
