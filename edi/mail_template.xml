@@ -49,7 +49,7 @@
        &nbsp;&nbsp;Intervention number: <strong>${object.number_request}</strong><br />
        &nbsp;&nbsp;Subject: <strong>${object.name}</strong><br/>
        &nbsp;&nbsp;Date start: ${object.date_planned_start}<br />
-       &nbsp;&nbsp;Date ended: ${object.date_planned_end}<br />
+       &nbsp;&nbsp;Date ended: ${object.date_planned_end or 'n/a'}<br />
        % if object.user_id:
        &nbsp;&nbsp;Your contact: <a href="mailto:${object.user_id.email or ''}?subject=Intervention%20${object.number_request}">${object.user_id.name}</a>
        % endif
