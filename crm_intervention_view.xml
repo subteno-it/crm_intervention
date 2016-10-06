@@ -104,7 +104,7 @@
                                     <field name="description" string="Customer" colspan="4" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/>
                                 </group>
                             </page>
-                            <page string="Communication &amp; History" groups="base.group_crm_intervention_manager" attrs="{'invisible': [('state','=', 'draft')]}">
+                            <page string="Extra Info" groups="base.group_crm_intervention_manager" attrs="{'invisible': [('state','=', 'draft')]}">
                                 <group colspan="4">
                                     <field colspan="4" name="email_cc" string="Global CC" widget="char"/>
                                     <separator string="Invoicing" colspan="4"/>
@@ -114,17 +114,17 @@
                                             string="pre-invoicing" type="object" class="oe_link"/>
                                     </div>
                                 </group>
-                            </page>
-                            <page string="Extra Info" groups="base.group_crm_intervention_manager" attrs="{'invisible': [('state','=', 'draft')]}">
-                                <group colspan="2" col="2">
-                                    <separator colspan="4" string="Dates"/>
-                                    <field name="create_date"/>
-                                    <field name="date_closed"/>
-                                </group>
-                                <group colspan="2" col="2">
-                                    <separator colspan="4" string="Misc"/>
-                                    <field name="id"/>
-                                    <field name="active"/>
+                                <group colspan="4">
+                                    <group>
+                                        <separator colspan="4" string="Dates"/>
+                                        <field name="create_date"/>
+                                        <field name="date_closed"/>
+                                    </group>
+                                    <group>
+                                        <separator colspan="4" string="Misc"/>
+                                        <field name="id"/>
+                                        <field name="active"/>
+                                    </group>
                                 </group>
                                 <newline/>
                                 <group colspan="4" col="2">
