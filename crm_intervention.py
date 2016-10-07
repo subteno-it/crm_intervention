@@ -240,9 +240,10 @@ class crm_intervention(base_state, base_stage, orm.Model):
             return {
                 'value': {
                     'partner_invoice_id': False, 'partner_shipping_id': False,
-                    'partner_order_id': False, 'email_from':
-                    False, 'partner_address_phone': False,
-                    'partner_address_mobile': False}}
+                    'partner_order_id': False, 'email_from': False,
+                    'partner_address_phone': False, 'partner_address_mobile': False,
+                    'contract_id': False,
+                }}
         addr = self.pool.get('res.partner').address_get(
             cr, uid, [part], ['default', 'delivery', 'invoice', 'contact'])
         part = self.pool.get('res.partner').browse(cr, uid, part)
@@ -257,6 +258,16 @@ class crm_intervention(base_state, base_stage, orm.Model):
             cr, uid, addr['delivery']).phone
         val['partner_address_mobile'] = self.pool.get('res.partner').browse(
             cr, uid, addr['delivery']).mobile
+
+        # retrieve contract if only one
+        ctr_ids = self.pool['account.analytic.account'].search(cr, uid, [
+            ('partner_id', '=', part.id),
+            ('type','=','contract'),
+            ('use_inter', '=', True),
+        ])
+        if len(ctr_ids) == 1:
+            val['contract_id'] = ctr_ids[0]
+
         return {'value': val}
 
     def onchange_planned_duration(self, cr, uid, ids, planned_duration,
@@ -548,5 +559,18 @@ class crm_intervention(base_state, base_stage, orm.Model):
             inter.write({'analytic_line_id': line_id, 'state': 'done'}, context=context)
 
         return True
+
+
+class account_analytic_account(orm.Model):
+    _inherit = 'account.analytic.account'
+
+    _columns = {
+        'use_inter': fields.boolean('Use in intervention',
+                                    help='Check this if this contract can be in intervention'),
+    }
+
+    _defaults = {
+        'use_inter': False,
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
