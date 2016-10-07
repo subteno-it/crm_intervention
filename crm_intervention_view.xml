@@ -296,5 +296,18 @@
             </field>
         </record>
 
+        <record id="view_account_analytic_form" model="ir.ui.view">
+            <field name="name">account.analytic.account.form</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="priority" eval="30"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='project']" position="inside">
+                    <field name="use_inter"/>
+                    <label for="use_inter" string="Intervention"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>

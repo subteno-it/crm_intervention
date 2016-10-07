@@ -549,4 +549,17 @@ class crm_intervention(base_state, base_stage, orm.Model):
 
         return True
 
+
+class account_analytic_account(orm.Model):
+    _inherit = 'account.analytic.account'
+
+    _columns = {
+        'use_inter': fields.boolean('Use in intervention',
+                                    help='Check this if this contract can be in intervention'),
+    }
+
+    _defaults = {
+        'use_inter': False,
+    }
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
