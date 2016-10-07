@@ -161,10 +161,14 @@ class crm_intervention(base_state, base_stage, orm.Model):
             "\nWhen the case is over, the state is set to \'Done\'."
             "\nIf the case needs to be reviewed then the state is set to"
             "'Pending'."),
-        'contract_id': fields.many2one('account.analytic.account', 'Contract',
-                                       help='Select analytic account to generate line on this contract'),
+        'contract_id': fields.many2one(
+            'account.analytic.account', 'Contract',
+            help='Select analytic account to generate line on this contract\n'
+                 'if no contrat, invoicing button generate an invoice'),
         'analytic_line_id': fields.many2one('account.analytic.line', 'Analytic line',
                                             help='Analytic line'),
+        'invoice_id': fields.many2one('account.invoice', 'Invoice',
+                                      help='Invoice link to this intervention'),
         'product_id': fields.many2one('product.product', 'Prestation',
                                       domain=[('type', '=', 'service')],
                                       help='Product service relate with this intervention'),
@@ -421,6 +425,71 @@ class crm_intervention(base_state, base_stage, orm.Model):
 
         return super(crm_intervention, self).copy(
             cr, uid, id, default, context=context)
+
+    def prepare_invoice(self, cr, uid, ids, context=None):
+
+        for inter in self.browse(cr, uid, ids, context=context):
+            if inter.analytic_line_id:
+                raise orm.except_orm(_('Error'), _('Already invoiced !'))
+            elif inter.invoice_id:
+                raise orm.except_orm(_('Error'), _('Already invoiced !'))
+
+            if inter.contract_id:
+                self.generate_analytic_line(cr, uid, [inter.id], context=context)
+            elif not inter.contract_id:
+                self.generate_invoice(cr, uid, [inter.id], context=context)
+        return True
+
+    def generate_invoice(self, cr, uid, ids, context=None):
+        """
+
+        """
+        inv_obj = self.pool['account.invoice']
+        line_obj = self.pool['account.invoice.line']
+        for inter in self.browse(cr, uid, ids, context=context):
+            if inter.invoice_id:
+                raise orm.except_orm(_('Error'), _('This intervention already invoiced'))
+            if not inter.product_id:
+                raise orm.except_orm(_('Error'), _('Product to invoice is necessary'))
+
+            vals = {
+                'partner_id': inter.partner_invoice_id.id,
+                'date_invoice': inter.date_effective_start[:10],
+                'type': 'out_invoice',
+                'origin': _('GI %s') % inter.number_request,
+                'user_id': inter.user_id.id,
+                'section_id': inter.section_id.id,
+            }
+            vals.update(inv_obj.default_get(cr, uid, [
+                'journal_id','currency_id','state','company_id','internal_number',
+                'sent','user_id','reference_type'
+            ], context=context))
+            result = inv_obj.onchange_partner_id(
+                cr, uid, [], 'out_invoice', vals['partner_id'], vals['date_invoice'],
+                False, False, inter.company_id and inter.company_id.id or False)
+            vals.update(result['value'])
+
+            lines = {
+                'origin': inter.number_request,
+                'product_id': inter.product_id.id,
+                'quantity': inter.alldays_effective and 1.0 or inter.duration_effective,
+            }
+            lines.update(line_obj.product_id_change(
+                cr, uid, [], inter.product_id.id, inter.product_id.uom_id.id, qty=lines['quantity'],
+                partner_id=inter.partner_invoice_id.id, fposition_id=vals['fiscal_position'],
+                context=context, company_id=inter.company_id and inter.company_id.id or
+                False)['value']
+            )
+            lines['invoice_line_tax_id'] = [(6, 0, lines['invoice_line_tax_id'])]
+
+            lines['name'] = inter.name + '\n' + inter.user_id.name + '\n' + lines['name']
+            vals['invoice_line'] = [(0, 0, lines)]
+
+            inv_id = inv_obj.create(cr, uid, vals, context=context)
+            inv_obj.button_reset_taxes(cr, uid, [inv_id], context=context)
+            inter.write({'invoice_id': inv_id, 'state': 'done'})
+
+        return True
 
     def generate_analytic_line(self, cr, uid, ids, context=None):
         """

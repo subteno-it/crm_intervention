@@ -35,6 +35,8 @@
                     <header>
                         <button name="action_email_send" string="Send by Email" type="object"
                             states="open,pending" class="oe_highlight"/>
+                        <button string="Invoicing" states="pending" type="object" name="prepare_invoice"
+                            class="oe_highlight"/>
                         <button name="case_cancel" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel"/>
                         <button name="case_open" states="draft,pending" string="Open" type="object" icon="gtk-go-forward"/>
                         <button name="case_pending" states="draft,open" string="Pending" type="object" icon="gtk-media-pause"/>
@@ -60,6 +62,8 @@
                             <newline/>
                             <field name="product_id" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
+                            <newline/>
+                            <field name="contract_id" domain="[('type','=','contract'),('partner_id', '=', partner_id)]"/>
                         </group>
                         <notebook colspan="4">
                             <page string="General">
@@ -68,8 +72,6 @@
                                         <field domain="[('parent_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                                         <field domain="[('parent_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
                                         <field name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                        <field name="contract_id" domain="[('type','=',
-                                            'contract'),('partner_id', '=', partner_id)]"/>
                                     </group>
                                     <group>
                                         <field name="partner_address_phone" required="0" attrs="{'readonly':[('state','=','done')]}"/>
@@ -108,11 +110,9 @@
                                 <group colspan="4">
                                     <field colspan="4" name="email_cc" string="Global CC" widget="char"/>
                                     <separator string="Invoicing" colspan="4"/>
-                                    <div groups="base.group_crm_intervention_manager">
-                                        <field name="analytic_line_id" domain="[('account_id','=',contract_id)]" class="oe_inline"/>
-                                        <button name="generate_analytic_line" states="pending,done"
-                                            string="pre-invoicing" type="object" class="oe_link"/>
-                                    </div>
+                                    <field name="analytic_line_id" domain="[('account_id','=',contract_id)]" string="Contract line" 
+                                        attrs="{'readonly': [('contract_id','=', False)]}"/>
+                                    <field name="invoice_id" attrs="{'readonly': [('contract_id','!=', False)]}"/>
                                 </group>
                                 <group colspan="4">
                                     <group>
@@ -124,6 +124,7 @@
                                         <separator colspan="4" string="Misc"/>
                                         <field name="id"/>
                                         <field name="active"/>
+                                        <field name="company_id"/>
                                     </group>
                                 </group>
                                 <newline/>
