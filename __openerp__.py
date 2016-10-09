@@ -25,11 +25,11 @@
 
 {
     'name': 'CRM Intervention',
-    'version': '0.1',
+    'version': '0.2',
     'category': 'Generic Modules/CRM & SRM',
     'description': """Intervention Management""",
-    'author': 'SYLEAM',
-    'website': 'http://www.Syleam.fr/',
+    'author': 'SYLEAM, Mirounga',
+    'website': 'http://www.mirounga.fr/',
     'depends': [
         'crm',
         'account',
