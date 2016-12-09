@@ -84,7 +84,6 @@
             <tr>
                 <td>
                     <para style="terp_default_Bold_9">Shipping address :</para>
-                    <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_shipping_id.title and o.partner_shipping_id.title.shortcut or '' ]] [[ o.partner_shipping_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_shipping_id.street ]]</para>
                     <para style="terp_default_9">[[ o.partner_shipping_id.street2 or '' ]]</para>
@@ -98,7 +97,6 @@
                 <td>
                 </td>
                 <td>
-                    <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.title and o.partner_order_id.title.shortcut or '' ]] [[ o.partner_order_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.street ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.street2 or '' ]]</para>
