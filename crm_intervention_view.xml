@@ -6,6 +6,7 @@
         #    crm_intervention module for OpenERP, Managing intervention in CRM
         #    Copyright (C) 2011 SYLEAM Info Services ([http://www.Syleam.fr/]) 
         #              Sebastien LANGE [sebastien.lange@syleam.fr]
+        #    Copyright (C) 2014-2017 Mirounga ([http://www.mirounga.fr/]) 
         #              Christophe CHAUVET [christophe.chauvet@gmail.com]
         #
         #    This file is a part of crm_intervention
@@ -203,14 +204,19 @@
             <field name="model">crm.intervention</field>
             <field name="arch" type="xml">
                 <search string="Search intervention">
-                    <filter icon="terp-go-today" string="Today" domain="[('date_planned_start','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Todays's intervention Requests"/>
-                    <filter icon="terp-go-week" string="7 Days" help="Intervention requests during last 7 days" domain="[('date_planned_start','&lt;', time.strftime('%%Y-%%m-%%d 23:59:59')), ('date_planned_start','&gt;=',(datetime.date.today()-datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d 00:00:00'))]"/>
-                    <filter string="To be invoiced" domain="[('analytic_line_id','=', False)]" help="Choose line not invoiced yet"/>
+                    <filter icon="terp-go-today" string="Today" domain="[('date_planned_start','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" 
+                        help="Todays's intervention Requests"/>
+                    <filter  string="7 Days" domain="[('date_planned_start','&lt;', time.strftime('%%Y-%%m-%%d 23:59:59')), ('date_planned_start','&gt;=',(context_today()-datetime.timedelta(days=7)).strftime('%Y-%m-%d 00:00:00'))]"
+                        icon="terp-go-week" help="Intervention requests during last 7 days" />
+                    <filter string="To be invoiced" domain="[('invoice_id','=', False)]" help="Filter intervention to be invoiced"/>
+                    <filter string="To review" domain="[('contract_id','!=', False),('analytic_line_id','=',False)]"
+                        help="Intervention to review before create line on the contract"/> 
                     <separator orientation="vertical"/>
-                    <field name="name" string="Query"/>
+                    <field name="name" string=""/>
                     <field name="partner_id"/>
-                    <field name="user_id" widget="selection"/>
-                    <field name="section_id" widget="selection" string="Interventions Team">
+                    <field name="user_id"/>
+                    <field name="number_request"/>
+                    <field name="section_id" string="Interventions Team">
                         <filter icon="terp-personal+" groups="base.group_extended" domain="[('section_id', '=', context.get('section_id'))]" />
                     </field>
                     <field name="date_planned_start" widget="date"/>
