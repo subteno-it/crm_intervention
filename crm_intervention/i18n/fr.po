@@ -57,7 +57,7 @@ msgstr "Satisfait"
 #. module: crm_intervention
 #: field:crm.intervention,date_effective_start:0
 msgid "Effective start date"
-msgstr "Date de début"
+msgstr "Date de début réelle"
 
 #. module: crm_intervention
 #: field:crm.intervention,message_unread:0
@@ -741,7 +741,7 @@ msgstr "Votre satisfaction concernant cette intervention :"
 #. module: crm_intervention
 #: field:crm.intervention,date_effective_end:0
 msgid "Effective end date"
-msgstr "Date de début"
+msgstr "Date de fin réelle"
 
 #. module: crm_intervention
 #: help:crm.intervention,date_effective_start:0
