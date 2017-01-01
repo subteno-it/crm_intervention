@@ -46,7 +46,7 @@ class crm_case_section(orm.Model):
         'unit_hour_id': fields.many2one('product.uom', 'Hour unit',
                                         help='Select unit represent hour'),
         'unit_day_id': fields.many2one('product.uom', 'Day unit',
-                                      help='Select unit represent days'),
+                                       help='Select unit represent days'),
     }
 
 
@@ -138,8 +138,10 @@ class crm_intervention(base_state, base_stage, orm.Model):
         'duration_effective': fields.float(
             'Effective duration',
             help='Indicate real time to do the intervention.'),
-        'alldays_planned': fields.boolean('All day planned', help='All-day intervention planned'),
-        'alldays_effective': fields.boolean('All day effective', help='All-day intervention effective'),
+        'alldays_planned': fields.boolean(
+            'All day planned', help='All-day intervention planned'),
+        'alldays_effective': fields.boolean(
+            'All day effective', help='All-day intervention effective'),
         'partner_id': fields.many2one(
             'res.partner', 'Customer',
             change_default=True, select=True),
@@ -165,13 +167,16 @@ class crm_intervention(base_state, base_stage, orm.Model):
             'account.analytic.account', 'Contract',
             help='Select analytic account to generate line on this contract\n'
                  'if no contrat, invoicing button generate an invoice'),
-        'analytic_line_id': fields.many2one('account.analytic.line', 'Analytic line',
-                                            help='Analytic line'),
-        'invoice_id': fields.many2one('account.invoice', 'Invoice',
-                                      help='Invoice link to this intervention'),
-        'product_id': fields.many2one('product.product', 'Prestation',
-                                      domain=[('type', '=', 'service')],
-                                      help='Product service relate with this intervention'),
+        'analytic_line_id': fields.many2one(
+            'account.analytic.line', 'Analytic line',
+            help='Analytic line'),
+        'invoice_id': fields.many2one(
+            'account.invoice', 'Invoice',
+            help='Invoice link to this intervention'),
+        'product_id': fields.many2one(
+            'product.product', 'Prestation',
+            domain=[('type', '=', 'service')],
+            help='Product service relate with this intervention'),
         'message_ids': fields.one2many(
             'mail.message', 'res_id', 'Messages',
             domain=[('model', '=', _name)]),
@@ -212,38 +217,42 @@ class crm_intervention(base_state, base_stage, orm.Model):
         if context is None:
             context = {}
 
-        res = super(crm_intervention, self).write(cr, uid, ids, values, context=context)
+        res = super(crm_intervention, self).write(cr, uid, ids, values,
+                                                  context=context)
 
         for inter in self.browse(cr, uid, ids, context=context):
             if inter.state == 'open':
                 if not inter.date_planned_start:
                     raise orm.except_orm(
                         _('Error'),
-                        _('Date planned start is required before open the intervention')
+                        _('Date planned start is required before open the intervention')  # noqa
                     )
             if inter.state == 'pending':
                 if not inter.date_effective_start:
                     raise orm.except_orm(
                         _('Error'),
-                        _('Date effective start is required before to pending the intervention')
+                        _('Date effective start is required before to pending the intervention')  # noqa
                     )
                 if not (inter.date_effective_end or inter.alldays_effective):
                     raise orm.except_orm(
                         _('Error'),
-                        _('Date effective end or all days is required before to pending the intervention')
+                        _('Date effective end or all days is required before to pending the intervention')  # noqa
                     )
         return res
-
 
     def onchange_partner_intervention_id(self, cr, uid, ids, part):
         if not part:
             return {
                 'value': {
-                    'partner_invoice_id': False, 'partner_shipping_id': False,
-                    'partner_order_id': False, 'email_from': False,
-                    'partner_address_phone': False, 'partner_address_mobile': False,
+                    'partner_invoice_id': False,
+                    'partner_shipping_id': False,
+                    'partner_order_id': False,
+                    'email_from': False,
+                    'partner_address_phone': False,
+                    'partner_address_mobile': False,
                     'contract_id': False,
-                }}
+                }
+            }
         addr = self.pool.get('res.partner').address_get(
             cr, uid, [part], ['default', 'delivery', 'invoice', 'contact'])
         part = self.pool.get('res.partner').browse(cr, uid, part)
@@ -262,7 +271,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
         # retrieve contract if only one
         ctr_ids = self.pool['account.analytic.account'].search(cr, uid, [
             ('partner_id', '=', part.id),
-            ('type','=','contract'),
+            ('type', '=', 'contract'),
             ('use_inter', '=', True),
         ])
         if len(ctr_ids) == 1:
@@ -315,26 +324,27 @@ class crm_intervention(base_state, base_stage, orm.Model):
             minutes, secondes = divmod(difference.seconds, 60)
             hours, minutes = divmod(minutes, 60)
             return {'value': {
-                'duration_effective': (float(difference.days * 24) +
-                                       float(hours) + float(minutes) / float(60))}}
-        return {'value': {
-                'duration_effective': 0.0 }}
-
+                'duration_effective': (
+                    float(difference.days * 24) +
+                    float(hours) + float(minutes) / float(60))
+            }}
+        return {'value': {'duration_effective': 0.0}}
 
     def action_email_send(self, cr, uid, ids, context=None):
         """
         Send email from the form
         """
-        assert len(ids) == 1, 'This option should only be used for a single id at a time.'
+        assert len(ids) == 1, 'This option should only be used for a single id at a time.'  # noqa
         ir_model_data = self.pool.get('ir.model.data')
         try:
-            template_id = ir_model_data.get_object_reference(cr, uid, 'crm_intervention',
-                                                             'email_template_intervention')[1]
+            template_id = ir_model_data.get_object_reference(
+                cr, uid, 'crm_intervention', 'email_template_intervention')[1]
         except ValueError:
             template_id = False
 
         try:
-            compose_form_id = ir_model_data.get_object_reference(cr, uid, 'mail', 'email_compose_message_wizard_form')[1]
+            compose_form_id = ir_model_data.get_object_reference(
+                cr, uid, 'mail', 'email_compose_message_wizard_form')[1]
         except ValueError:
             compose_form_id = False
 
@@ -360,7 +370,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
 
     def message_new(self, cr, uid, msg, custom_values=None, context=None):
         """ Override to updates the document according to the email. """
-        if custom_values is None: custom_values = {}
+        if custom_values is None:
+            custom_values = {}
 
         vals = {
             'name': msg.get('subject'),
@@ -373,7 +384,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
             vals['priority'] = msg.get('priority')
 
         vals.update(custom_values)
-        return super(crm_intervention, self).message_new(cr, uid, msg, custom_values=vals, context=context)
+        return super(crm_intervention, self).message_new(
+            cr, uid, msg, custom_values=vals, context=context)
 
     def message_update(self, cr, uid, ids, vals={}, msg="",
                        default_act='pending', context=None):
@@ -446,9 +458,11 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 raise orm.except_orm(_('Error'), _('Already invoiced !'))
 
             if inter.contract_id:
-                self.generate_analytic_line(cr, uid, [inter.id], context=context)
+                self.generate_analytic_line(
+                    cr, uid, [inter.id], context=context)
             elif not inter.contract_id:
-                self.generate_invoice(cr, uid, [inter.id], context=context)
+                self.generate_invoice(
+                    cr, uid, [inter.id], context=context)
         return True
 
     def generate_invoice(self, cr, uid, ids, context=None):
@@ -459,9 +473,11 @@ class crm_intervention(base_state, base_stage, orm.Model):
         line_obj = self.pool['account.invoice.line']
         for inter in self.browse(cr, uid, ids, context=context):
             if inter.invoice_id:
-                raise orm.except_orm(_('Error'), _('This intervention already invoiced'))
+                raise orm.except_orm(_('Error'),
+                                     _('This intervention already invoiced'))
             if not inter.product_id:
-                raise orm.except_orm(_('Error'), _('Product to invoice is necessary'))
+                raise orm.except_orm(_('Error'),
+                                     _('Product to invoice is necessary'))
 
             vals = {
                 'partner_id': inter.partner_invoice_id.id,
@@ -472,28 +488,33 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 'section_id': inter.section_id.id,
             }
             vals.update(inv_obj.default_get(cr, uid, [
-                'journal_id','currency_id','state','company_id','internal_number',
-                'sent','user_id','reference_type'
+                'journal_id', 'currency_id', 'state', 'company_id',
+                'internal_number', 'sent', 'user_id', 'reference_type'
             ], context=context))
             result = inv_obj.onchange_partner_id(
-                cr, uid, [], 'out_invoice', vals['partner_id'], vals['date_invoice'],
-                False, False, inter.company_id and inter.company_id.id or False)
+                cr, uid, [], 'out_invoice', vals['partner_id'],
+                vals['date_invoice'], False, False,
+                inter.company_id and inter.company_id.id or False)
             vals.update(result['value'])
 
             lines = {
                 'origin': inter.number_request,
                 'product_id': inter.product_id.id,
-                'quantity': inter.alldays_effective and 1.0 or inter.duration_effective,
+                'quantity': inter.alldays_effective and 1.0 or inter.duration_effective,  # noqa
             }
             lines.update(line_obj.product_id_change(
-                cr, uid, [], inter.product_id.id, inter.product_id.uom_id.id, qty=lines['quantity'],
-                partner_id=inter.partner_invoice_id.id, fposition_id=vals['fiscal_position'],
-                context=context, company_id=inter.company_id and inter.company_id.id or
+                cr, uid, [], inter.product_id.id, inter.product_id.uom_id.id,
+                qty=lines['quantity'], partner_id=inter.partner_invoice_id.id,
+                fposition_id=vals['fiscal_position'], context=context,
+                company_id=inter.company_id and inter.company_id.id or
                 False)['value']
             )
-            lines['invoice_line_tax_id'] = [(6, 0, lines['invoice_line_tax_id'])]
+            lines['invoice_line_tax_id'] = [
+                (6, 0, lines['invoice_line_tax_id'])
+            ]
 
-            lines['name'] = inter.name + '\n' + inter.user_id.name + '\n' + lines['name']
+            lines['name'] = inter.name + '\n' + inter.user_id.name + '\n' \
+                + lines['name']
             vals['invoice_line'] = [(0, 0, lines)]
 
             inv_id = inv_obj.create(cr, uid, vals, context=context)
@@ -508,18 +529,20 @@ class crm_intervention(base_state, base_stage, orm.Model):
         """
         for inter in self.browse(cr, uid, ids, context=context):
             if inter.analytic_line_id:
-                raise orm.except_orm(_('Error'), _('This intervention already pre-invoiced'))
+                raise orm.except_orm(_('Error'), _('This intervention already pre-invoiced'))  # noqa
             if not inter.product_id:
-                raise orm.except_orm(_('Error'), _('Product to invoice is necessary'))
+                raise orm.except_orm(_('Error'), _('Product to invoice is necessary'))  # noqa
             if not inter.contract_id:
                 raise orm.except_orm(_('Error'), _('Contract is necessary'))
             if inter.product_id.standard_price < 0.1:
-                raise orm.except_orm(_('Error'),
-                                     _('Please define a cost price for the product %s') % inter.product_id.name)
+                raise orm.except_orm(
+                    _('Error'),
+                    _('Please define a cost price for the product %s') % inter.product_id.name)  # noqa
 
             # Find the analytic journal from the employe
             emp_obj = self.pool['hr.employee']
-            emp_ids = emp_obj.search(cr, uid, [('user_id', '=', uid)], context=context)
+            emp_ids = emp_obj.search(cr, uid, [('user_id', '=', uid)],
+                                     context=context)
             if not emp_ids:
                 raise orm.except_orm(_('Error'), _('Employee not found'))
 
@@ -527,14 +550,16 @@ class crm_intervention(base_state, base_stage, orm.Model):
 
             if inter.alldays_effective:
                 q = self.pool['product.uom']._compute_price(
-                    cr, uid, inter.product_id.uom_id.id, inter.product_id.standard_price,
+                    cr, uid, inter.product_id.uom_id.id,
+                    inter.product_id.standard_price,
                     inter.section_id.unit_day_id.id)
                 amount = q * -1
                 unit_amount = 1.0
                 unit = inter.section_id.unit_day_id.id
             else:
                 q = self.pool['product.uom']._compute_price(
-                    cr, uid, inter.product_id.uom_id.id, inter.product_id.standard_price,
+                    cr, uid, inter.product_id.uom_id.id,
+                    inter.product_id.standard_price,
                     inter.section_id.unit_hour_id.id)
                 amount = (q * inter.duration_effective) * -1
                 unit_amount = inter.duration_effective
@@ -552,11 +577,13 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 'unit_amount': unit_amount,
                 'product_uom_id': unit,
                 'amount': amount,
-                'general_account_id': inter.product_id.property_account_income.id,
+                'general_account_id': inter.product_id.property_account_income.id,  # noqa
             }
 
-            line_id = self.pool['account.analytic.line'].create(cr, uid, vals, context=context)
-            inter.write({'analytic_line_id': line_id, 'state': 'done'}, context=context)
+            line_id = self.pool['account.analytic.line'].create(
+                cr, uid, vals,  context=context)
+            inter.write({'analytic_line_id': line_id, 'state': 'done'},
+                        context=context)
 
         return True
 
@@ -565,8 +592,9 @@ class account_analytic_account(orm.Model):
     _inherit = 'account.analytic.account'
 
     _columns = {
-        'use_inter': fields.boolean('Use in intervention',
-                                    help='Check this if this contract can be in intervention'),
+        'use_inter': fields.boolean(
+            'Use in intervention',
+            help='Check this if this contract can be in intervention'),
     }
 
     _defaults = {
