@@ -1,13 +1,13 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
 # * crm_intervention
-# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2016.
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-23 08:47+0000\n"
-"PO-Revision-Date: 2016-09-23 10:58+0200\n"
+"POT-Creation-Date: 2017-01-01 16:31+0000\n"
+"PO-Revision-Date: 2017-01-01 17:39+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -18,9 +18,15 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Group By..."
-msgstr "Groupé par..."
+#: code:addons/crm_intervention/crm_intervention.py:477
+#, python-format
+msgid "This intervention already invoiced"
+msgstr "Cette intervention est déjà facturée"
+
+#. module: crm_intervention
+#: selection:crm.intervention,state:0
+msgid "Cancelled"
+msgstr "Annulée"
 
 #. module: crm_intervention
 #: model:ir.actions.report.xml,name:crm_intervention.report_crm_intervention
@@ -31,6 +37,12 @@ msgstr "Rapport d'intervention"
 #: view:crm.intervention:0
 msgid "Planned for"
 msgstr "Prévue pour"
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_report:0
+#: report:crm_intervention.inter_ticket:0
+msgid "Mail :"
+msgstr "Courriel :"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -70,14 +82,20 @@ msgid "thursday"
 msgstr "Jeudi"
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Choose line not invoiced yet"
-msgstr "Choisir les lignes à facturer"
+#: report:crm_intervention.inter_report:0
+msgid "to"
+msgstr "à"
 
 #. module: crm_intervention
 #: field:crm.intervention,partner_shipping_id:0
 msgid "Intervention Address"
 msgstr "Adresse d'intervention"
+
+#. module: crm_intervention
+#: view:crm.intervention:0
+msgid "Intervention to review before create line on the contract"
+msgstr ""
+"Intervention à contrôler avant de créer la ligne dans le compte analytique"
 
 #. module: crm_intervention
 #: selection:crm.intervention,priority:0
@@ -106,11 +124,6 @@ msgid "Search intervention"
 msgstr "Rechercher une intervention"
 
 #. module: crm_intervention
-#: report:crm_intervention.inter_report:0
-msgid "to"
-msgstr "à"
-
-#. module: crm_intervention
 #: field:crm.intervention,partner_address_mobile:0
 msgid "Mobile"
 msgstr "Portable"
@@ -131,15 +144,14 @@ msgid "All-day intervention planned"
 msgstr "Toute la journée prévue"
 
 #. module: crm_intervention
-#: selection:crm.intervention,state:0
-msgid "Cancelled"
-msgstr "Annulée"
+#: view:crm.intervention:0
+msgid "Filter intervention to be invoiced"
+msgstr "Filtre des intervention à facturer"
 
 #. module: crm_intervention
-#: report:crm_intervention.inter_report:0
-#: report:crm_intervention.inter_ticket:0
-msgid "Mail :"
-msgstr "Courriel :"
+#: view:crm.intervention:0
+msgid "Contract line"
+msgstr "Ligne de contrat"
 
 #. module: crm_intervention
 #: help:crm.intervention,message_unread:0
@@ -147,7 +159,14 @@ msgid "If checked new messages require your attention."
 msgstr "Si coché les nouveaux messages requièrent votre attention."
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:401
+#: code:addons/crm_intervention/crm_intervention.py:456
+#: code:addons/crm_intervention/crm_intervention.py:458
+#, python-format
+msgid "Already invoiced !"
+msgstr "Déjà facturé !"
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:536
 #, python-format
 msgid "Contract is necessary"
 msgstr "Le contract est nécéssaire"
@@ -157,6 +176,11 @@ msgstr "Le contract est nécéssaire"
 #: field:crm.intervention,ref:0
 msgid "Reference"
 msgstr "Référence"
+
+#. module: crm_intervention
+#: view:crm.intervention:0
+msgid "Group By..."
+msgstr "Groupé par..."
 
 #. module: crm_intervention
 #: help:crm.case.section,unit_day_id:0
@@ -181,9 +205,9 @@ msgid "Intervention to do"
 msgstr "Intervention à effectuer"
 
 #. module: crm_intervention
-#: field:crm.intervention,date_action_next:0
-msgid "Next Action"
-msgstr "Action suivante"
+#: model:ir.model,name:crm_intervention.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Compte analytique"
 
 #. module: crm_intervention
 #: help:crm.intervention,message_summary:0
@@ -204,6 +228,14 @@ msgstr "Info supplémentaires"
 #: field:crm.intervention,alldays_effective:0
 msgid "All day effective"
 msgstr "Toute la journée (effectif)"
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:234
+#, python-format
+msgid "Date effective start is required before to pending the intervention"
+msgstr ""
+"La date de début effective est requise avant de mettre l'intervention en "
+"attente"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -236,9 +268,9 @@ msgid "Misc"
 msgstr "Divers"
 
 #. module: crm_intervention
-#: help:crm.intervention,contract_id:0
-msgid "Select analytic account to generate line on this contract"
-msgstr "Sélectionner le compte analytique pour générer les lignes de ce contrat"
+#: field:account.analytic.account,use_inter:0
+msgid "Use in intervention"
+msgstr "Utiliser dans les interventions"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -276,6 +308,11 @@ msgstr "Courriel"
 #: field:crm.case.section,unit_day_id:0
 msgid "Day unit"
 msgstr "Unité du jour"
+
+#. module: crm_intervention
+#: field:crm.intervention,date_action_next:0
+msgid "Next Action"
+msgstr "Action suivante"
 
 #. module: crm_intervention
 #: report:crm_intervention.inter_report:0
@@ -355,7 +392,7 @@ msgid "Description of intervention"
 msgstr "Description de l'intervention"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:397
+#: code:addons/crm_intervention/crm_intervention.py:532
 #, python-format
 msgid "This intervention already pre-invoiced"
 msgstr "Cette intervention à déjà été pré-facturée"
@@ -573,11 +610,6 @@ msgid "Update Date"
 msgstr "Date de mise à jour"
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Query"
-msgstr "Requête"
-
-#. module: crm_intervention
 #: help:crm.intervention,section_id:0
 msgid "Interventions team to which Case belongs to.Define Responsible user and Email account for mail gateway."
 msgstr ""
@@ -646,14 +678,15 @@ msgid "Closed"
 msgstr "Fermer"
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "7 Days"
-msgstr "7 jours"
+#: code:addons/crm_intervention/crm_intervention.py:486
+#, python-format
+msgid "GI %s"
+msgstr "GI %s"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
-msgid "Communication & History"
-msgstr "Communication et Historique"
+msgid "7 Days"
+msgstr "7 jours"
 
 #. module: crm_intervention
 #: help:crm.intervention,date_planned_start:0
@@ -736,7 +769,7 @@ msgid "All days planned"
 msgstr "Toute la journée planifiée"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:410
+#: code:addons/crm_intervention/crm_intervention.py:547
 #, python-format
 msgid "Employee not found"
 msgstr "Employé non trouvé"
@@ -767,17 +800,32 @@ msgid "Active"
 msgstr "Actif"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:397
-#: code:addons/crm_intervention/crm_intervention.py:399
-#: code:addons/crm_intervention/crm_intervention.py:401
-#: code:addons/crm_intervention/crm_intervention.py:403
-#: code:addons/crm_intervention/crm_intervention.py:410
+#: code:addons/crm_intervention/crm_intervention.py:228
+#, python-format
+msgid "Date planned start is required before open the intervention"
+msgstr ""
+"La date de début planifiée est requise avant l'ouvertu du bon d'intervention"
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:227
+#: code:addons/crm_intervention/crm_intervention.py:233
+#: code:addons/crm_intervention/crm_intervention.py:238
+#: code:addons/crm_intervention/crm_intervention.py:456
+#: code:addons/crm_intervention/crm_intervention.py:458
+#: code:addons/crm_intervention/crm_intervention.py:476
+#: code:addons/crm_intervention/crm_intervention.py:479
+#: code:addons/crm_intervention/crm_intervention.py:532
+#: code:addons/crm_intervention/crm_intervention.py:534
+#: code:addons/crm_intervention/crm_intervention.py:536
+#: code:addons/crm_intervention/crm_intervention.py:539
+#: code:addons/crm_intervention/crm_intervention.py:547
 #, python-format
 msgid "Error"
 msgstr "Erreur"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:399
+#: code:addons/crm_intervention/crm_intervention.py:480
+#: code:addons/crm_intervention/crm_intervention.py:534
 #, python-format
 msgid "Product to invoice is necessary"
 msgstr "Le produit à facturer est nécéssaire"
@@ -787,6 +835,11 @@ msgstr "Le produit à facturer est nécéssaire"
 #: model:ir.ui.menu,name:crm_intervention.menu_intersupport_main
 msgid "Interventions"
 msgstr "Interventions"
+
+#. module: crm_intervention
+#: help:crm.intervention,invoice_id:0
+msgid "Invoice link to this intervention"
+msgstr "Lien de la facture pour cette intervention"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -807,6 +860,11 @@ msgstr "Le nom et l'adresse du contact qui a demandé l'intervention."
 #: view:crm.intervention:0
 msgid "Done"
 msgstr "Terminée"
+
+#. module: crm_intervention
+#: field:crm.intervention,invoice_id:0
+msgid "Invoice"
+msgstr "Facture"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -839,6 +897,12 @@ msgid "yes, precise ->"
 msgstr "Oui, précisez lequel ->"
 
 #. module: crm_intervention
+#: help:account.analytic.account,use_inter:0
+msgid "Check this if this contract can be in intervention"
+msgstr "Vérifie si ce contrat peut être une intervention"
+
+#. module: crm_intervention
+#: view:account.analytic.account:0
 #: view:crm.case.section:0
 #: view:crm.intervention:0
 #: model:ir.model,name:crm_intervention.model_crm_intervention
@@ -856,6 +920,11 @@ msgstr "samedi"
 #: selection:crm.intervention,state:0
 msgid "In Progress"
 msgstr "En cours"
+
+#. module: crm_intervention
+#: view:crm.intervention:0
+msgid "To review"
+msgstr "A vérifier"
 
 #. module: crm_intervention
 #: view:crm.intervention:0
@@ -879,7 +948,7 @@ msgid "Effective duration"
 msgstr "Durée réalisée"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:430
+#: code:addons/crm_intervention/crm_intervention.py:569
 #, python-format
 msgid "BI Num %s"
 msgstr "BI N° %s"
@@ -921,6 +990,14 @@ msgstr "Description"
 #: report:crm_intervention.inter_ticket:0
 msgid "no"
 msgstr "Non"
+
+#. module: crm_intervention
+#: help:crm.intervention,contract_id:0
+msgid "Select analytic account to generate line on this contract\n"
+"if no contrat, invoicing button generate an invoice"
+msgstr ""
+"Séléctionner le compte analytique pour les lignes a générer pour ce contrat\n"
+"Si pas de contrat, le bouton de facture génèrera une facture"
 
 #. module: crm_intervention
 #: report:crm_intervention.inter_report:0
@@ -1015,6 +1092,14 @@ msgid "Invoicing"
 msgstr "Facturation"
 
 #. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:239
+#, python-format
+msgid "Date effective end or all days is required before to pending the intervention"
+msgstr ""
+"La date de fin effective ou toute la journée sont requis avant de mettre "
+"l'intervention en attente"
+
+#. module: crm_intervention
 #: field:crm.intervention,customer_information:0
 msgid "Customer_information"
 msgstr "Customer_information"
@@ -1065,7 +1150,7 @@ msgid "End of the intervention : _____ h _____ min."
 msgstr "Fin d'intervention à : _____ h _____ min."
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:404
+#: code:addons/crm_intervention/crm_intervention.py:540
 #, python-format
 msgid "Please define a cost price for the product %s"
 msgstr "Veuillez définir un coût pour le produit %s"
@@ -1076,10 +1161,20 @@ msgstr "Veuillez définir un coût pour le produit %s"
 msgid "Mobile :"
 msgstr "Portable :"
 
-#. module: crm_intervention
-#: view:crm.intervention:0
-msgid "pre-invoicing"
-msgstr "pré-facturation"
+#~ msgid "Choose line not invoiced yet"
+#~ msgstr "Choisir les lignes à facturer"
+
+#~ msgid "Select analytic account to generate line on this contract"
+#~ msgstr "Sélectionner le compte analytique pour générer les lignes de ce contrat"
+
+#~ msgid "Query"
+#~ msgstr "Requête"
+
+#~ msgid "Communication & History"
+#~ msgstr "Communication et Historique"
+
+#~ msgid "pre-invoicing"
+#~ msgstr "pré-facturation"
 
 #~ msgid ""
 #~ "The state is set to 'Draft', when a case is created.                              \n"
