@@ -206,7 +206,7 @@
                 <search string="Search intervention">
                     <filter icon="terp-go-today" string="Today" domain="[('date_planned_start','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" 
                         help="Todays's intervention Requests"/>
-                    <filter  string="7 Days" domain="[('date_planned_start','&lt;', time.strftime('%%Y-%%m-%%d 23:59:59')), ('date_planned_start','&gt;=',(context_today()-datetime.timedelta(days=7)).strftime('%Y-%m-%d 00:00:00'))]"
+                    <filter  string="7 Days" domain="[('date_planned_start','&lt;', time.strftime('%%Y-%%m-%%d 23:59:59')), ('date_planned_start','&gt;=',(context_today()-datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d 00:00:00'))]"
                         icon="terp-go-week" help="Intervention requests during last 7 days" />
                     <filter string="To be invoiced" domain="[('invoice_id','=', False)]" help="Filter intervention to be invoiced"/>
                     <filter string="To review" domain="[('contract_id','!=', False),('analytic_line_id','=',False)]"
