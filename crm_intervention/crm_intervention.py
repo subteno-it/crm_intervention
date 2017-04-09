@@ -398,9 +398,6 @@ class crm_intervention(base_state, base_stage, orm.Model):
         if isinstance(ids, (str, int, long)):
             ids = [ids]
 
-        if msg.get('priority') in dict(crm.AVAILABLE_PRIORITIES):
-            vals['priority'] = msg.get('priority')
-
         maps = {
             'cost': 'planned_cost',
             'revenue': 'planned_revenue',
