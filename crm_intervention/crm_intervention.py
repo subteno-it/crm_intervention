@@ -387,7 +387,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
         return super(crm_intervention, self).message_new(
             cr, uid, msg, custom_values=vals, context=context)
 
-    def message_update(self, cr, uid, ids, vals={}, msg="",
+    def message_update(self, cr, uid, ids, msg, vals={},
                        default_act='pending', context=None):
         """
         :param self: The object pointer
@@ -406,7 +406,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
         vls = {}
         for line in msg['body'].split('\n'):
             line = line.strip()
-            res = tools.misc.command_re.match(line)
+            res = tools.command_re.match(line)
             if res and maps.get(res.group(1).lower()):
                 key = maps.get(res.group(1).lower())
                 vls[key] = res.group(2).lower()
