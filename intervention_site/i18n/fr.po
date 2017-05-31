@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-17 15:03+0000\n"
-"PO-Revision-Date: 2017-05-17 17:09+0200\n"
+"POT-Creation-Date: 2017-05-31 07:32+0000\n"
+"PO-Revision-Date: 2017-05-31 09:41+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -40,8 +40,24 @@ msgid "Commissioning"
 msgstr "Mise en service"
 
 #. module: intervention_site
+#: field:intervention.site,contract_id:0
+msgid "Contract"
+msgstr "Contrat"
+
+#. module: intervention_site
+#: help:intervention.site,contract_id:0
+msgid "Contract relate to this site"
+msgstr "Contrat lié à ce site"
+
+#. module: intervention_site
+#: view:crm.intervention:0
+msgid "Create Output"
+msgstr "Sortie de stock"
+
+#. module: intervention_site
 #: view:intervention.equipment:0
 #: field:intervention.equipment,partner_id:0
+#: field:intervention.site,customer_id:0
 msgid "Customer"
 msgstr "Client"
 
@@ -49,6 +65,11 @@ msgstr "Client"
 #: help:intervention.equipment,partner_id:0
 msgid "Customer link to the site"
 msgstr "Client lié à ce site"
+
+#. module: intervention_site
+#: field:intervention.equipment.history,hist_date:0
+msgid "Date"
+msgstr "Date"
 
 #. module: intervention_site
 #: help:intervention.equipment,starting_date:0
@@ -76,10 +97,23 @@ msgid "End of warranty"
 msgstr "Fin de garantie"
 
 #. module: intervention_site
+#: help:intervention.equipment.history,equipment_id:0
+msgid "Equipement link to this history"
+msgstr "Équipement lié à cet historique"
+
+#. module: intervention_site
+#: field:crm.intervention,equipment_id:0
 #: view:intervention.equipment:0
 #: view:intervention.site:0
 msgid "Equipment"
 msgstr "Équipement"
+
+#. module: intervention_site
+#: code:_description:0
+#: model:ir.model,name:intervention_site.model_intervention_equipment_history
+#, python-format
+msgid "Equipment history"
+msgstr "Historique équipement"
 
 #. module: intervention_site
 #: help:intervention.site,equipment_ids:0
@@ -103,6 +137,13 @@ msgid "Equipments"
 msgstr "Équipements"
 
 #. module: intervention_site
+#: code:addons/intervention_site/intervention.py:48
+#: code:addons/intervention_site/intervention.py:64
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: intervention_site
 #: view:intervention.equipment:0
 msgid "General"
 msgstr "Général"
@@ -113,6 +154,50 @@ msgid "Group by..."
 msgstr "Grouper par..."
 
 #. module: intervention_site
+#: help:crm.intervention,equipment_id:0
+msgid "Help note"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: field:intervention.equipment,history_ids:0
+msgid "Histories"
+msgstr "Historiques"
+
+#. module: intervention_site
+#: help:intervention.equipment,history_ids:0
+msgid "Histories for this equipment"
+msgstr "Historiques pour cet équipement"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+msgid "History"
+msgstr "Historique"
+
+#. module: intervention_site
+#: help:intervention.equipment.history,hist_date:0
+msgid "History date"
+msgstr "Date historique"
+
+#. module: intervention_site
+#: help:intervention.line,to_invoice:0
+msgid "If check , this lines must be invoiced"
+msgstr "Si coché, ces lignes seront facturés"
+
+#. module: intervention_site
+#: help:intervention.line,prodlot_id:0
+msgid "If product is manage per lot, fill this field"
+msgstr "Si le produit est géré par lot, remplir ce champ"
+
+#. module: intervention_site
+#: code:_description:0
+#: field:intervention.line,inter_id:0
+#: model:ir.model,name:intervention_site.model_crm_intervention
+#, python-format
+msgid "Intervention"
+msgstr "Intervention"
+
+#. module: intervention_site
 #: field:intervention.equipment,last_int_date:0
 msgid "Last Intervention"
 msgstr "Dernière intervention"
@@ -121,6 +206,56 @@ msgstr "Dernière intervention"
 #: help:intervention.equipment,last_int_date:0
 msgid "Last intervention date"
 msgstr "Date de dernière intervention"
+
+#. module: intervention_site
+#: code:_description:0
+#: model:ir.model,name:intervention_site.model_intervention_line
+#, python-format
+msgid "Line of intervention"
+msgstr "Ligne d'intervention"
+
+#. module: intervention_site
+#: view:crm.intervention:0
+#: field:crm.intervention,line_ids:0
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: intervention_site
+#: field:crm.intervention,src_location_id:0
+msgid "Location"
+msgstr "Emplacement"
+
+#. module: intervention_site
+#: help:crm.intervention,src_location_id:0
+msgid "Location where the products have been consumed"
+msgstr "Emplacement ou les produits seront consommés"
+
+#. module: intervention_site
+#: field:intervention.line,prodlot_id:0
+msgid "Lot"
+msgstr "Lot"
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention.py:65
+#, python-format
+msgid "Lot is necessary for product \"%s\""
+msgstr "Le lot est necessaire pour ce produit \"%s\""
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention.py:49
+#, python-format
+msgid "Missing location to made output movement"
+msgstr "Emplacement manquant pour faire la sortie de stock"
+
+#. module: intervention_site
+#: field:intervention.line,move_id:0
+msgid "Move"
+msgstr "Mouvement"
+
+#. module: intervention_site
+#: help:intervention.line,move_id:0
+msgid "Move related to stock output"
+msgstr "Mouvement lié au stock de produit"
 
 #. module: intervention_site
 #: field:intervention.equipment,name:0
@@ -139,6 +274,11 @@ msgid "Name of the site"
 msgstr "Nom du site"
 
 #. module: intervention_site
+#: field:intervention.line,product_id:0
+msgid "Product"
+msgstr "Produit"
+
+#. module: intervention_site
 #: field:intervention.equipment,product_number:0
 msgid "Product Number"
 msgstr "Numéro de produit"
@@ -149,6 +289,21 @@ msgid "Product Number of the equipment"
 msgstr "Numéro de produit de cet équipement P/N"
 
 #. module: intervention_site
+#: help:intervention.line,product_id:0
+msgid "Product use on this interevntion"
+msgstr "Produit utilisé pour cet intervention"
+
+#. module: intervention_site
+#: field:intervention.line,product_qty:0
+msgid "Qty"
+msgstr "Qté"
+
+#. module: intervention_site
+#: help:intervention.line,product_qty:0
+msgid "Quantity of product"
+msgstr "Quantité de produit"
+
+#. module: intervention_site
 #: field:intervention.equipment,replace_date:0
 msgid "Replacement"
 msgstr "Remplacement"
@@ -157,6 +312,11 @@ msgstr "Remplacement"
 #: help:intervention.site,partner_id:0
 msgid "Select address for this site"
 msgstr "Sélectionner l'adresse pour ce site"
+
+#. module: intervention_site
+#: help:intervention.site,customer_id:0
+msgid "Select customer for this site"
+msgstr "Sélectiopnner le client pour ce site"
 
 #. module: intervention_site
 #: help:intervention.equipment,supplier_id:0
@@ -174,6 +334,7 @@ msgid "Serial number"
 msgstr "Numéro de série"
 
 #. module: intervention_site
+#: field:crm.intervention,site_id:0
 #: view:intervention.equipment:0
 #: field:intervention.equipment,site_id:0
 msgid "Site"
@@ -185,6 +346,11 @@ msgstr "Site"
 #, python-format
 msgid "Site of the intervention"
 msgstr "Site de l'intervention"
+
+#. module: intervention_site
+#: help:crm.intervention,site_id:0
+msgid "Site to made this intervention"
+msgstr "Site ou cet intervention est effectué"
 
 #. module: intervention_site
 #: help:intervention.equipment,site_id:0
@@ -199,15 +365,60 @@ msgid "Sites"
 msgstr "Sites"
 
 #. module: intervention_site
+#: field:intervention.equipment.history,summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: intervention_site
+#: help:intervention.equipment.history,summary:0
+msgid "Summary from this note"
+msgstr "Résumé pour cette note"
+
+#. module: intervention_site
 #: view:intervention.equipment:0
 #: field:intervention.equipment,supplier_id:0
 msgid "Supplier"
 msgstr "Fournisseur"
 
 #. module: intervention_site
+#: help:intervention.line,inter_id:0
+msgid "This line is link on this intervention"
+msgstr "Cette ligne est lié à cet intervention"
+
+#. module: intervention_site
+#: field:intervention.line,to_invoice:0
+msgid "To invoice"
+msgstr "A Facturer"
+
+#. module: intervention_site
+#: help:intervention.line,product_uom_id:0
+msgid "Unit to invoice for this  product"
+msgstr "Unité à facturer pour ce produit"
+
+#. module: intervention_site
+#: field:intervention.line,product_uom_id:0
+msgid "Uom"
+msgstr "Unité"
+
+#. module: intervention_site
+#: field:intervention.equipment.history,user_id:0
+msgid "Users"
+msgstr "Utilisateurs"
+
+#. module: intervention_site
+#: help:intervention.equipment.history,user_id:0
+msgid "Users that made this entry"
+msgstr "Utilisateur qui a créé cette entrée"
+
+#. module: intervention_site
 #: view:intervention.equipment:0
 msgid "Without site"
 msgstr "Sans site"
+
+#. module: intervention_site
+#: field:intervention.equipment.history,equipment_id:0
+msgid "equipment"
+msgstr "équipement"
 
 #. module: intervention_site
 #: help:intervention.equipment,active:0
