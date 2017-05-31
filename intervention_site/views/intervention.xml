@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_crm_intervention_form" model="ir.ui.view">
+            <field name="name">crm.intervention.form</field>
+            <field name="model">crm.intervention</field>
+            <field name="inherit_id" ref="crm_intervention.crm_case_form_view_intervention"/>
+            <field name="priority" eval="25"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook//page[@string='After Intervention']//field[@name='description']" position="before">
+                    <newline/>
+                    <field name="src_location_id" domain="[('usage','=', 'internal')]"/>
+                    <button string="Create Output" type="object"
+                        name="create_output_move"/>
+                    <field name="line_ids" nolabel="1" colspan="6">
+                        <tree string="Lines" editable="bottom">
+                            <field name="product_id"
+                                on_change="onchange_product_id(product_id)"/>
+                            <field name="product_qty"/>
+                            <field name="product_uom_id"/>
+                            <field name="to_invoice"/>
+                            <field name="prodlot_id" groups="stock.group_production_lot"/>
+                            <field name="move_id" readonly="1"/>
+                        </tree>
+                    </field>
+                </xpath>
+                <xpath expr="//group[@name='general_global']" position="inside">
+                    <field name="site_id" domain="[('customer_id','=', partner_id)]"
+                        on_change="onchange_site_id(site_id)"/>
+                    <field name="equipment_id" 
+                        domain="['|',('site_id','=', site_id),('partner_id','=',partner_id)]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="equipment_1" model="intervention.equipment">
+            <field name="name">NAS Synology</field>
+            <field name="site_id" ref="inter_site_1"/>
+            <field name="buy_date" eval="time.strftime('%Y-%m-01')"/>
+            <field name="product_number">SYN01FG24567</field>
+            <field name="serial_number">2017AB09JKL555</field>
+        </record>
+
+        <record id="equipment_2" model="intervention.equipment">
+            <field name="name">NAS QNAP</field>
+            <field name="site_id" ref="inter_site_1"/>
+            <field name="buy_date" eval="time.strftime('%Y-02-10')"/>
+            <field name="last_int_date" eval="time.strftime('%Y-02-18')"/>
+            <field name="eow_date" eval="time.strftime('%Y-12-31')"/>
+            <field name="product_number">NAP01OP675RFVD</field>
+            <field name="serial_number">XYZ67543RTY890</field>
+        </record>
+
+        <record id="equipment_3" model="intervention.equipment">
+            <field name="name">NAS QNAP</field>
+            <field name="site_id" ref="inter_site_2"/>
+            <field name="buy_date" eval="time.strftime('%Y-03-10')"/>
+            <field name="last_int_date" eval="time.strftime('%Y-03-25')"/>
+            <field name="eow_date" eval="time.strftime('%Y-12-31')"/>
+            <field name="product_number">NAP01OP675RFVD</field>
+            <field name="serial_number">XYZ67543RTY891</field>
+        </record>
+
+        <record id="teleh_equip_1" model="intervention.equipment">
+            <field name="name">Server 1U Appliance</field>
+            <field name="site_id" ref="teleh_site_2"/>
+            <field name="buy_date" eval="time.strftime('%Y-01-02')"/>
+            <field name="starting_date" eval="time.strftime('%Y-03-25')"/>
+            <field name="eow_date" eval="time.strftime('%Y-%m-%d', time.localtime(time.time() + 370 * 86400))"/>
+            <field name="product_number">SRV1U20170001</field>
+            <field name="serial_number">ABCD2017DEFG</field>
+        </record>
+
+        <record id="teleh_equip_2" model="intervention.equipment">
+            <field name="name">Server 1U Appliance</field>
+            <field name="site_id" ref="teleh_site_1"/>
+            <field name="buy_date" eval="time.strftime('%Y-01-02')"/>
+            <field name="starting_date" eval="time.strftime('%Y-03-26')"/>
+            <field name="eow_date" eval="time.strftime('%Y-%m-%d', time.localtime(time.time() + 365 * 86400))"/>
+            <field name="product_number">SRV1U20170001</field>
+            <field name="serial_number">ABCD2017WXYZ</field>
+        </record>
+
+    </data>
+</openerp>

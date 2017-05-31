@@ -1,0 +1,215 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* intervention_site
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-17 15:03+0000\n"
+"PO-Revision-Date: 2017-05-17 15:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: field:intervention.equipment,active:0
+#: field:intervention.site,active:0
+msgid "Active"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.site,partner_id:0
+msgid "Address"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,buy_date:0
+msgid "Buying date"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,starting_date:0
+msgid "Commissioning"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: field:intervention.equipment,partner_id:0
+msgid "Customer"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,partner_id:0
+msgid "Customer link to the site"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,starting_date:0
+msgid "Date of the Commissioning"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,buy_date:0
+msgid "Date when the equipment have been buy"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,replace_date:0
+msgid "Date when this equipment must be replace"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,eow_date:0
+msgid "End of the warranty"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,eow_date:0
+msgid "End of warranty"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: view:intervention.site:0
+msgid "Equipment"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.site,equipment_ids:0
+msgid "Equipment in this site"
+msgstr ""
+
+#. module: intervention_site
+#: code:_description:0
+#: model:ir.model,name:intervention_site.model_intervention_equipment
+#, python-format
+msgid "Equipment per site"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: view:intervention.site:0
+#: field:intervention.site,equipment_ids:0
+#: model:ir.actions.act_window,name:intervention_site.act_open_intervention_equipment_view
+#: model:ir.ui.menu,name:intervention_site.menu_intervention_equipment
+msgid "Equipments"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+msgid "General"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+msgid "Group by..."
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,last_int_date:0
+msgid "Last Intervention"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,last_int_date:0
+msgid "Last intervention date"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,name:0
+#: field:intervention.site,name:0
+msgid "Name"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,name:0
+msgid "Name of the equipment"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.site,name:0
+msgid "Name of the site"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,product_number:0
+msgid "Product Number"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,product_number:0
+msgid "Product Number of the equipment"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,replace_date:0
+msgid "Replacement"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.site,partner_id:0
+msgid "Select address for this site"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,supplier_id:0
+msgid "Select supplier for this equipment"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,serial_number:0
+msgid "Serial Number"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,serial_number:0
+msgid "Serial number"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: field:intervention.equipment,site_id:0
+msgid "Site"
+msgstr ""
+
+#. module: intervention_site
+#: code:_description:0
+#: model:ir.model,name:intervention_site.model_intervention_site
+#, python-format
+msgid "Site of the intervention"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,site_id:0
+msgid "Site where the equipment is visible"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.site:0
+#: model:ir.actions.act_window,name:intervention_site.act_open_intervention_site_view
+#: model:ir.ui.menu,name:intervention_site.menu_intervention_site
+msgid "Sites"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: field:intervention.equipment,supplier_id:0
+msgid "Supplier"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+msgid "Without site"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,active:0
+#: help:intervention.site,active:0
+msgid "if check, this object is always available"
+msgstr ""
+

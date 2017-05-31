@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        ##############################################################################
+        #
+        #    crm_intervention module for OpenERP, Managing intervention in CRM
+        #    Copyright (C) 2014-2017 Christophe CHAUVET [christophe.chauvet@gmail.com]
+        #
+        #    This file is a part of crm_intervention
+        #
+        #    crm_intervention is free software: you can redistribute it and/or modify
+        #    it under the terms of the GNU General Public License as published by
+        #    the Free Software Foundation, either version 3 of the License, or
+        #    (at your option) any later version.
+        #
+        #    crm_intervention is distributed in the hope that it will be useful,
+        #    but WITHOUT ANY WARRANTY; without even the implied warranty of
+        #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        #    GNU Affero General Public License for more details.
+        #
+        #    You should have received a copy of the GNU Affero General Public License
+        #    along with this program.  If not, see [http://www.gnu.org/licenses/].
+        #
+        ##############################################################################
+
+        <record model="crm.case.section" id="section_internal_department">
+            <field name="name">Internal Interventions</field>
+            <field name="code">internal</field>
+            <field name="use_inter" eval="True"/>
+        </record>
+
+        <record id="account.analytic_agrolait" model="account.analytic.account">
+            <field name="use_inter" eval="True"/>
+            <field name="type">contract</field>
+        </record>
+
+        <record model="crm.intervention" id="crm_intervention_1">
+            <field name="name">Backup on site</field>
+            <field name="partner_id" ref="base.res_partner_2"/>
+            <field name="partner_invoice_id" ref="base.res_partner_2"/>
+            <field name="partner_order_id" ref="base.res_partner_2"/>
+            <field name="partner_shipping_id" ref="base.res_partner_2"/>
+            <field name="active" eval="1"/>
+            <field name="alldays_effective" eval="0"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="contract_id" ref="account.analytic_agrolait"/>
+            <field name="date_planned_end" eval="time.strftime('%Y-%m-01 13:00:00')"/>
+            <field name="date_planned_start" eval="time.strftime('%Y-%m-01 17:00:00')"/>
+            <field name="alldays_planned" eval="0"/>
+            <field name="duration_planned" eval="4.0"/>
+            <field name="email_from">info@agrolait.com</field>
+            <field name="partner_address_phone">+32 10 588 558</field>
+            <field name="priority">3</field>
+            <field name="section_id" ref="crm_intervention.section_interventions_department"/>
+            <field name="state">draft</field>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+
+        <record model="crm.intervention" id="crm_intervention_2">
+            <field name="name">Reinstall Windows</field>
+            <field name="partner_id" ref="base.res_partner_1"/>
+            <field name="partner_invoice_id" ref="base.res_partner_1"/>
+            <field name="partner_order_id" ref="base.res_partner_address_2"/>
+            <field name="partner_shipping_id" ref="base.res_partner_address_2"/>
+            <field name="active" eval="1"/>
+            <field name="alldays_effective" eval="0"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="date_planned_end" eval="time.strftime('%Y-%m-02 09:00:00')"/>
+            <field name="date_planned_start" eval="time.strftime('%Y-%m-02 13:30:00')"/>
+            <field name="alldays_planned" eval="0"/>
+            <field name="duration_planned" eval="4.5"/>
+            <field name="email_from"></field>
+            <field name="partner_address_phone"></field>
+            <field name="priority">3</field>
+            <field name="section_id" ref="crm_intervention.section_interventions_department"/>
+            <field name="state">draft</field>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+
+    </data>
+</openerp>

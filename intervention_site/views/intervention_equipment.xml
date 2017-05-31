@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_intervention_equipment_tree" model="ir.ui.view">
+            <field name="name">intervention.equipment.tree</field>
+            <field name="model">intervention.equipment</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Equipments">
+                    <field name="name"/>
+                    <field name="site_id"/>
+                    <field name="eow_date"/>
+                    <field name="last_int_date"/>
+                    <field name="serial_number"/>
+                    <field name="partner_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_intervention_equipment_form" model="ir.ui.view">
+            <field name="name">intervention.equipment.form</field>
+            <field name="model">intervention.equipment</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Equipments" version="7.0">
+                    <sheet>
+                        <div class="oe_title">
+                            <div class="oe_edit_only">
+                                <label for="name" string="Equipment"/>
+                            </div>
+                            <h1><field name="name"/></h1>
+                            <label for="site_id" class="oe_edit_only"/>
+                            <h2><field name="site_id"/></h2>
+                            <div name="options" groups="base.group_user">
+                                <field name="active"/>
+                                <label for="active" string="Active"/>
+                            </div>
+                        </div>
+                        <notebook colspan="4">
+                            <page string="General">
+                                <group name="information" colspan="4">
+                                    <group name="dates">
+                                        <field name="buy_date"/>
+                                        <field name="starting_date"/>
+                                        <field name="eow_date"/>
+                                        <field name="last_int_date"/>
+                                        <field name="replace_date"/>
+                                    </group>
+                                    <group name="other">
+                                        <field name="supplier_id" 
+                                            domain="[('supplier','=',True),('is_company','=',True)]"/>
+                                        <field name="product_number"/>
+                                        <field name="serial_number"/>
+                                        <field name="partner_id"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Histories">
+                                <field name="history_ids" nolabel="1">
+                                    <tree string="Histories">
+                                        <field name="hist_date"/>
+                                        <field name="user_id"/>
+                                        <field name="summary"/>
+                                    </tree>
+                                    <form string="History">
+                                        <group colspan="4" col="4">
+                                            <field name="hist_date"/>
+                                            <field name="user_id"/>
+                                            <field name="summary" nolabel="1" colspan="4"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_intervention_equipment_search" model="ir.ui.view">
+            <field name="name">intervention.equipment.search</field>
+            <field name="model">intervention.equipment</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Equipments">
+                    <field name="name" select="True"/>
+                    <field name="site_id"/>
+                    <field name="product_number"/>
+                    <field name="serial_number"/>
+                    <field name="supplier_id"/>
+                    <field name="partner_id"/>
+                    <filter string="Without site" name="filter_wo_site" domain="[('site_id','=',False)]"/>
+                   <group  expand='0' string='Group by...'>
+                        <filter string='Customer' domain="[]" context="{'group_by' : 'partner_id'}"/>
+                        <filter string='Supplier' domain="[]" context="{'group_by' : 'supplier_id'}"/>
+                        <filter string='Site' domain="[]" context="{'group_by' : 'site_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_intervention_equipment_view">
+            <field name="name">Equipments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">intervention.equipment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_intervention_equipment_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_intervention_equipment_view_form">
+            <field name="act_window_id" ref="act_open_intervention_equipment_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_intervention_equipment_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_intervention_equipment_view_tree">
+            <field name="act_window_id" ref="act_open_intervention_equipment_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_intervention_equipment_tree"/>
+        </record>
+
+        <menuitem id="menu_intervention_equipment"
+            parent="crm_intervention.menu_intersupport_main"
+            sequence="20"
+            action="act_open_intervention_equipment_view"/>
+
+    </data>
+</openerp>

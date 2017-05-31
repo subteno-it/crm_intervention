@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_intervention_site_tree" model="ir.ui.view">
+            <field name="name">intervention.site.tree</field>
+            <field name="model">intervention.site</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Sites">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="customer_id"/>
+                    <field name="contract_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_intervention_site_form" model="ir.ui.view">
+            <field name="name">intervention.site.form</field>
+            <field name="model">intervention.site</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Sites">
+                    <field name="name"/>
+                    <field name="active"/>
+                    <field name="customer_id"/>
+                    <field name="partner_id"/>
+                    <field name="contract_id" 
+                        domain="[('type','=','contract'),('partner_id', '=', customer_id), ('use_inter','=',True)]"/>
+                    <notebook colspan="4">
+                        <page string="Equipments">
+                            <field name="equipment_ids" nolabel="1" >
+                                <tree string="Equipment">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_intervention_site_search" model="ir.ui.view">
+            <field name="name">intervention.site.search</field>
+            <field name="model">intervention.site</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Sites">
+                    <field name="name" select="True"/>
+                    <field name="partner_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_intervention_site_view">
+            <field name="name">Sites</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">intervention.site</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_intervention_site_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_intervention_site_view_form">
+            <field name="act_window_id" ref="act_open_intervention_site_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_intervention_site_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_intervention_site_view_tree">
+            <field name="act_window_id" ref="act_open_intervention_site_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_intervention_site_tree"/>
+        </record>
+
+        <menuitem id="menu_intervention_site"
+            parent="crm_intervention.menu_intersupport_main"
+            sequence="10"
+            action="act_open_intervention_site_view"/>
+
+    </data>
+</openerp>

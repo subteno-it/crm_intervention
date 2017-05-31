@@ -1,0 +1,216 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * intervention_site
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2017.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-17 15:03+0000\n"
+"PO-Revision-Date: 2017-05-17 17:09+0200\n"
+"Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
+"Language-Team: Mirounga\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: field:intervention.equipment,active:0
+#: field:intervention.site,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: intervention_site
+#: field:intervention.site,partner_id:0
+msgid "Address"
+msgstr "Adresse"
+
+#. module: intervention_site
+#: field:intervention.equipment,buy_date:0
+msgid "Buying date"
+msgstr "Date d'achat"
+
+#. module: intervention_site
+#: field:intervention.equipment,starting_date:0
+msgid "Commissioning"
+msgstr "Mise en service"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: field:intervention.equipment,partner_id:0
+msgid "Customer"
+msgstr "Client"
+
+#. module: intervention_site
+#: help:intervention.equipment,partner_id:0
+msgid "Customer link to the site"
+msgstr "Client lié à ce site"
+
+#. module: intervention_site
+#: help:intervention.equipment,starting_date:0
+msgid "Date of the Commissioning"
+msgstr "Date de mise en service"
+
+#. module: intervention_site
+#: help:intervention.equipment,buy_date:0
+msgid "Date when the equipment have been buy"
+msgstr "Date lorsque l'équipement a été acheté"
+
+#. module: intervention_site
+#: help:intervention.equipment,replace_date:0
+msgid "Date when this equipment must be replace"
+msgstr "Date lorsque l'équipement doit être remplacer"
+
+#. module: intervention_site
+#: help:intervention.equipment,eow_date:0
+msgid "End of the warranty"
+msgstr "Fin de garantie"
+
+#. module: intervention_site
+#: field:intervention.equipment,eow_date:0
+msgid "End of warranty"
+msgstr "Fin de garantie"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: view:intervention.site:0
+msgid "Equipment"
+msgstr "Équipement"
+
+#. module: intervention_site
+#: help:intervention.site,equipment_ids:0
+msgid "Equipment in this site"
+msgstr "Équipement sur ce site"
+
+#. module: intervention_site
+#: code:_description:0
+#: model:ir.model,name:intervention_site.model_intervention_equipment
+#, python-format
+msgid "Equipment per site"
+msgstr "Équipement par site"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: view:intervention.site:0
+#: field:intervention.site,equipment_ids:0
+#: model:ir.actions.act_window,name:intervention_site.act_open_intervention_equipment_view
+#: model:ir.ui.menu,name:intervention_site.menu_intervention_equipment
+msgid "Equipments"
+msgstr "Équipements"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+msgid "General"
+msgstr "Général"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+msgid "Group by..."
+msgstr "Grouper par..."
+
+#. module: intervention_site
+#: field:intervention.equipment,last_int_date:0
+msgid "Last Intervention"
+msgstr "Dernière intervention"
+
+#. module: intervention_site
+#: help:intervention.equipment,last_int_date:0
+msgid "Last intervention date"
+msgstr "Date de dernière intervention"
+
+#. module: intervention_site
+#: field:intervention.equipment,name:0
+#: field:intervention.site,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: intervention_site
+#: help:intervention.equipment,name:0
+msgid "Name of the equipment"
+msgstr "Nom de l'équipement"
+
+#. module: intervention_site
+#: help:intervention.site,name:0
+msgid "Name of the site"
+msgstr "Nom du site"
+
+#. module: intervention_site
+#: field:intervention.equipment,product_number:0
+msgid "Product Number"
+msgstr "Numéro de produit"
+
+#. module: intervention_site
+#: help:intervention.equipment,product_number:0
+msgid "Product Number of the equipment"
+msgstr "Numéro de produit de cet équipement P/N"
+
+#. module: intervention_site
+#: field:intervention.equipment,replace_date:0
+msgid "Replacement"
+msgstr "Remplacement"
+
+#. module: intervention_site
+#: help:intervention.site,partner_id:0
+msgid "Select address for this site"
+msgstr "Sélectionner l'adresse pour ce site"
+
+#. module: intervention_site
+#: help:intervention.equipment,supplier_id:0
+msgid "Select supplier for this equipment"
+msgstr "Sélectionner le fournisseur pour cet equipement"
+
+#. module: intervention_site
+#: field:intervention.equipment,serial_number:0
+msgid "Serial Number"
+msgstr "Numéro de série"
+
+#. module: intervention_site
+#: help:intervention.equipment,serial_number:0
+msgid "Serial number"
+msgstr "Numéro de série"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: field:intervention.equipment,site_id:0
+msgid "Site"
+msgstr "Site"
+
+#. module: intervention_site
+#: code:_description:0
+#: model:ir.model,name:intervention_site.model_intervention_site
+#, python-format
+msgid "Site of the intervention"
+msgstr "Site de l'intervention"
+
+#. module: intervention_site
+#: help:intervention.equipment,site_id:0
+msgid "Site where the equipment is visible"
+msgstr "Site ou l'équipement sera visible"
+
+#. module: intervention_site
+#: view:intervention.site:0
+#: model:ir.actions.act_window,name:intervention_site.act_open_intervention_site_view
+#: model:ir.ui.menu,name:intervention_site.menu_intervention_site
+msgid "Sites"
+msgstr "Sites"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: field:intervention.equipment,supplier_id:0
+msgid "Supplier"
+msgstr "Fournisseur"
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+msgid "Without site"
+msgstr "Sans site"
+
+#. module: intervention_site
+#: help:intervention.equipment,active:0
+#: help:intervention.site,active:0
+msgid "if check, this object is always available"
+msgstr "Si coché, cette objet sera toujours visible"

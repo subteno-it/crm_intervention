@@ -1,0 +1,121 @@
+-
+    Create an intervention with site
+-
+  !record {model: crm.intervention, id: crm_intervention_test12}:
+      name: Intervention Test 1
+      partner_id: base.res_partner_2
+      customer_information: Test\ntest
+      site_id: intervention_site_test1
+      equipment_id: inter_equip_test1
+
+-
+    Check if onchange works
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test12'))
+      log('Partner invoice id: %i must be %i' % (inter.partner_invoice_id.id, ref('base.res_partner_2')))
+      assert inter.partner_invoice_id.id == ref('base.res_partner_2'), "The onchange function of partner was not correctly triggered"
+
+-
+    Confirm the intervention, check proposed date, must be raise
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test12'))
+      log('Date start is %s' % inter.date_planned_start)
+      try:
+          inter.case_open()
+          asset(False)
+      except:
+          pass
+-
+    Add start date and confirm
+-
+  !record {model: crm.intervention, id: crm_intervention_test12}:
+      name: Intervention Test 1
+      date_planned_start: !eval "time.strftime('%Y-%m-01 13:00:00')"
+      date_planned_end: !eval "time.strftime('%Y-%m-01 17:00:00')"
+-
+    Confirm the intervention, check the duration
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test12'))
+      inter.case_open()
+-
+    Check the duration
+-
+  !assert {model: crm.intervention, id: crm_intervention_test12, string: Total duration must be 4 hours}:
+      - duration_planned == 4.0
+
+-
+    After intervention fill the intervention report
+-
+  !record {model: crm.intervention, id: crm_intervention_test12}:
+      name: Intervention Test 1
+      date_effective_start: !eval "time.strftime('%Y-%m-01 13:00:00')"
+      duration_effective: 5.0
+      pause_effective: 1.0
+      description: This intervention is made correctly
+-
+    Check if end date is compute correctly
+-
+  !python {model: crm.intervention}: |
+      import time
+      inter = self.browse(cr, uid, ref('crm_intervention_test12'))
+      log('Date end is %s' % inter.date_effective_end)
+      assert inter.date_effective_end == time.strftime('%Y-%m-01 17:00:00'), 'End effective hour must be 17:00'
+-
+     intervention to invoice, click on the button 
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test12'))
+      inter.case_pending()
+-
+    Add product to invoice this intervention
+-
+  !record {model: crm.intervention, id: crm_intervention_test12}:
+      name: Intervention Test 1
+      product_id: product.product_product_2
+      duration_effective: 5.0
+      pause_effective: 1.0
+      alldays_effective: False
+      contract_id: False
+-
+    Check if the invoice quantity
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test12'))
+      log('Quantity is %s' % inter.invoice_qty)
+      log('Unit is %s' % inter.invoice_uom_id)
+      assert inter.invoice_qty == 4.0, 'Quantity must be 4.0'
+-
+    Add product USB adapter to invoice
+-
+  !record {model: intervention.line, id: intervention_line1}:
+      inter_id: crm_intervention_test12
+      product_id: product.product_product_48
+      product_qty: 2.0
+      product_uom_id: product.product_uom_unit
+      to_invoice: False
+-
+    Generate invoice 
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test12'))
+      assert inter.invoice_id.id == False, 'This intervention must not invoiced yet!'
+      assert inter.contract_id.id == False, 'No contract in this test'
+      inter.prepare_invoice()
+-
+    Check invoice generate with free USB Adapter
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test12'))
+      assert inter.state == 'done', 'Intervention must be done!'
+      assert inter.invoice_id.id > 0, 'This intervention must be invoiced!!'
+      assert len(inter.invoice_id.invoice_line) == 2, 'Must have 2 lines'
+      assert inter.invoice_id.invoice_line[1].discount == 100.0, 'USB Adpater is free'
+
+
+
+
+
+

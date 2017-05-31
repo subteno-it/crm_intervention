@@ -1,0 +1,24 @@
+-
+    Add histories for the equipement
+-
+  !record {model: intervention.equipment.history, id: hist_equip_test1}:
+      equipment_id: inter_equip_test1
+      hist_date: !eval "time.strftime('%Y-01-10')"
+      user_id: base.user_root
+      summary: Blah\nBlah
+-
+    Add histories for the equipement
+-
+  !record {model: intervention.equipment.history, id: hist_equip_test2}:
+      equipment_id: inter_equip_test1
+      hist_date: !eval "time.strftime('%Y-01-12')"
+      user_id: base.user_demo
+      summary: Second history
+-
+    Check if we have two hisotry on this equipement
+-
+  !python {model: intervention.equipment}: |
+      equip = self.browse(cr, uid, ref('inter_equip_test1'))
+      assert len(equip.history_ids) == 2, 'We must have only two histories'
+
+

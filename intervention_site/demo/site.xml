@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="inter_part_1" model="res.partner">
+            <field name="name">Telehouse Europe</field>
+            <field name="city">London</field>
+            <field name="website">www.telehouse.net</field>
+        </record>
+
+        <record id="inter_part_2" model="res.partner">
+            <field name="name">Telehouse France</field>
+            <field name="city">Paris</field>
+            <field name="zip">75010</field>
+            <field name="website">www.telehouse.fr</field>
+            <field name="parent_id" ref="inter_part_1"/>
+        </record>
+
+        <record id="inter_site_1" model="intervention.site">
+            <field name="name">Site of paris</field>
+            <field name="partner_id" ref="base.res_partner_1"/>
+            <field name="customer_id" ref="base.res_partner_1"/>
+        </record>
+
+        <record id="inter_site_2" model="intervention.site">
+            <field name="name">Site of Toulouse</field>
+            <field name="partner_id" ref="base.res_partner_address_2"/>
+            <field name="customer_id" ref="base.res_partner_1"/>
+        </record>
+
+        <record id="teleh_site_1" model="intervention.site">
+            <field name="name">Telehouse 1</field>
+            <field name="partner_id" ref="inter_part_1"/>
+            <field name="customer_id" ref="inter_part_1"/>
+        </record>
+
+        <record id="teleh_site_2" model="intervention.site">
+            <field name="name">Telehouse 2</field>
+            <field name="partner_id" ref="inter_part_2"/>
+            <field name="customer_id" ref="inter_part_1"/>
+        </record>
+    
+    </data>
+</openerp>

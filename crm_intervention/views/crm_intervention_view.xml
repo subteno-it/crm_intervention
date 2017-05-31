@@ -26,6 +26,12 @@
         #
         ##############################################################################
 
+        <menuitem name="Interventions" 
+            id="menu_intersupport_main" 
+            groups="base.group_crm_intervention_user" 
+            parent="base.menu_base_partner"
+            sequence="3"/>
+
         <!--  Intervention Form View -->
 
         <record model="ir.ui.view" id="crm_case_form_view_intervention">
@@ -39,11 +45,11 @@
                         <button string="Invoicing" states="pending" type="object" name="prepare_invoice"
                             class="oe_highlight"/>
                         <button name="case_cancel" states="draft,open,pending" string="Cancel" type="object" icon="gtk-cancel"/>
-                        <button name="case_open" states="draft,pending" string="Open" type="object" icon="gtk-go-forward"/>
-                        <button name="case_pending" states="draft,open" string="Pending" type="object" icon="gtk-media-pause"/>
+                        <button name="case_open" states="draft,pending" string="Confirm" type="object" icon="gtk-go-forward"/>
+                        <button name="case_pending" states="draft,open" string="To invoice" type="object" icon="gtk-media-pause"/>
                         <button name="case_close" states="open,draft,pending" string="Close" type="object" icon="gtk-jump-to"/>
                         <button name="case_reset" states="done,cancel" string="Reset to Draft" type="object" icon="gtk-convert"/>
-                        <field name="state" nolabel="1" widget="statusbar" statusbar_visible="draft,open,done" statusbar_colors='{"pending":"blue"}'/>
+                        <field name="state" nolabel="1" widget="statusbar" statusbar_visible="draft,open,pending,done" statusbar_colors='{"pending":"blue"}'/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -54,27 +60,30 @@
                                 <field name="name" string="Subject" attrs="{'readonly':[('state','=','done')]}"/>
                             </h1>
                         </div>
-                        <group colspan="4" col="7" class="oe_header">
-                            <field name="number_request" required="1" string="Reference" colspan="1" attrs="{'readonly':[('state','!=','draft')]}"/>
-                            <field name="section_id" colspan="1" widget="selection"/>
-                            <newline/>
-                            <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" attrs="{'readonly':[('state','=','done')]}"/>
-                            <field name="user_id" string="Planned for" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                            <newline/>
-                            <field name="product_id" attrs="{'readonly':[('state','=','done')]}"/>
-                            <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
-                            <newline/>
-                            <field name="contract_id" domain="[('type','=','contract'),('partner_id', '=', partner_id), ('use_inter','=',True)]"/>
+                        <group colspan="4" col="12" name="title_header">
+                            <group colspan="4" col="2" name="part_column1">
+                                <field name="number_request" required="1" string="Reference" colspan="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" attrs="{'readonly':[('state','=','done')]}"
+                                    context="{'show_address': 1}" options='{"always_reload": True}'/>
+                            </group>
+                            <group colspan="4" col="2" name="part_column2">
+                                <field name="section_id" colspan="1" widget="selection"/>
+                                <field domain="[('parent_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"
+                                    context="{'show_address': 1}" options='{"always_reload": True}'/>
+                            </group>
+                            <group colspan="4" col="2" name="part_column3">
+                                <field name="user_id" string="Planned for" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                <field name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"
+                                    context="{'show_address': 1}" options='{"always_reload": True}'/>
+                            </group>
                         </group>
                         <notebook colspan="4">
                             <page string="General">
                                 <group colspan="4" col="8">
-                                    <group>
-                                        <field domain="[('parent_id','=',partner_id)]" name="partner_order_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                        <field domain="[('parent_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                        <field name="partner_shipping_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <group name="general_global">
+                                        <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
                                     </group>
-                                    <group>
+                                    <group name="general_contact">
                                         <field name="partner_address_phone" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                                         <field name="partner_address_mobile" attrs="{'readonly':[('state','=','done')]}"/>
                                         <field name="email_from" widget="email" attrs="{'readonly':[('state','=','done')]}"/>
@@ -89,31 +98,56 @@
                                     <field name="date_planned_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="alldays_planned" attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="duration_planned" on_change="onchange_planned_duration(duration_planned, date_planned_start)" widget="float_time" 
-                                        attrs="{'readonly':['|', ('state','=','done'),('alldays_planned','=',True)]}"/>
+                                        attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="date_planned_end" on_change="onchange_planned_end_date(date_planned_end, date_planned_start)" colspan="1" 
-                                        attrs="{'readonly':['|', ('state','=','done'),('alldays_planned','=',True)]}"/>
+                                        attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="intervention_todo" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                                 </group>
                             </page>
                             <page string="After Intervention" attrs="{'invisible': [('state','=', 'draft')]}">
-                                <group colspan="4" col="4">
-                                    <field name="date_effective_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                <group colspan="4" col="6">
+                                    <field name="date_effective_start" colspan="1"
+                                        attrs="{'readonly':[('state','=','done')],'required': [('state', 'in', ['open', 'pending'])]}"/>
+                                    <field name="duration_effective" widget="float_time"
+                                        on_change="onchange_effective_values(date_effective_start,duration_effective,pause_effective,date_effective_end,'duration')"
+                                        attrs="{'readonly':[('state','=','done')],'required': [('state', 'in', ['open', 'pending'])]}"/>
+                                    <field name="pause_effective" widget="float_time"
+                                        on_change="onchange_effective_values(date_effective_start,duration_effective,pause_effective,date_effective_end,'pause')"
+                                        attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="date_effective_end" 
+                                        on_change="onchange_effective_values(date_effective_start,duration_effective,pause_effective,date_effective_end,'end')"
+                                        colspan="1" attrs="{'readonly':[('state','=','done')],'required': [('state', 'in', ['open', 'pending'])]}"/>
                                     <field name="alldays_effective" attrs="{'readonly':[('state','=','done')]}"/>
-                                    <field name="duration_effective" on_change="onchange_effective_duration(duration_effective, date_effective_start)" widget="float_time" 
-                                        attrs="{'readonly':['|',('state','=','done'),('alldays_effective','=',True)]}"/>
-                                    <field name="date_effective_end" on_change="onchange_effective_end_date(date_effective_end, date_effective_start)" colspan="1" 
-                                        attrs="{'readonly':['|',('state','=','done'),('alldays_effective','=',True)]}"/>
                                     <field name="categ_id" context="{'object_id':'crm.intervention'}" attrs="{'readonly':[('state','=','done')]}"/>
-                                    <field name="description" string="Customer" colspan="4" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                    <newline/>
+                                    <separator string="Summary of the intervention" colspan="4"/>
+                                    <field name="description" string="Customer" colspan="6" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/>
+                                </group>
+                            </page>
+                            <page string="Invoicing" groups="base.group_crm_intervention_manager">
+                                <group colspan="4" col="8">
+                                    <group colspan="4" col="2">
+                                        <field domain="[('parent_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"
+                                            context="{'show_address': 1}" options='{"always_reload": True}'/>
+                                        <field name="invoice_id" attrs="{'readonly': [('contract_id','!=', False)]}"/>
+                                    </group>
+                                    <group colspan="4" col="2">
+                                        <field name="contract_id" domain="[('type','=','contract'),('partner_id', '=', partner_id), ('use_inter','=',True)]"/>
+                                        <field name="product_id" attrs="{'readonly':[('state','=','done')], 'required': [('state','=', 'pending')]}"
+                                            on_change="onchange_product_id(product_id,alldays_effective,duration_effective,pause_effective,date_effective_start,date_effective_end)"/>
+                                        <label for="invoice_qty"/>
+                                        <div>
+                                            <field name="invoice_qty" class="oe_inline" attrs="{'required': [('state','=', 'pending')]}"/>
+                                            <field name="invoice_uom_id" class="oe_inline oe_no_button" attrs="{'required': [('state','=', 'pending')]}"/>
+                                        </div>
+                                        <field name="analytic_line_id" domain="[('account_id','=',contract_id)]" string="Contract line" 
+                                            attrs="{'readonly': [('contract_id','=', False)]}"/>
+                                    </group>
                                 </group>
                             </page>
                             <page string="Extra Info" groups="base.group_crm_intervention_manager" attrs="{'invisible': [('state','=', 'draft')]}">
                                 <group colspan="4">
                                     <field colspan="4" name="email_cc" string="Global CC" widget="char"/>
-                                    <separator string="Invoicing" colspan="4"/>
-                                    <field name="analytic_line_id" domain="[('account_id','=',contract_id)]" string="Contract line" 
-                                        attrs="{'readonly': [('contract_id','=', False)]}"/>
-                                    <field name="invoice_id" attrs="{'readonly': [('contract_id','!=', False)]}"/>
                                 </group>
                                 <group colspan="4">
                                     <group>
@@ -283,7 +317,9 @@
             <field name="act_window_id" ref="crm_case_intervention_act111"/>
         </record>
 
-        <menuitem name="Interventions" id="menu_intersupport_main" groups="base.group_crm_intervention_user" parent="base.menu_sales" action="crm_case_intervention_act111" sequence="3"/>
+        <menuitem name="Interventions" 
+            id="menu_intersupport_inter" groups="base.group_crm_intervention_user" parent="menu_intersupport_main" 
+            action="crm_case_intervention_act111" sequence="3"/>
 
         <record id="view_crm_case_section_form" model="ir.ui.view">
             <field name="name">crm.case.section.form - intervention</field>
@@ -294,6 +330,7 @@
                 <xpath expr="//notebook" position="inside">
                     <page string="Intervention">
                         <group colspan="4" name="intervention">
+                            <field name="use_inter"/>
                             <field name="unit_hour_id"/>
                             <field name="unit_day_id"/>
                         </group>
@@ -311,6 +348,37 @@
                 <xpath expr="//div[@name='project']" position="inside">
                     <field name="use_inter"/>
                     <label for="use_inter" string="Intervention"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_intervention_contract_form" model="ir.actions.act_window">
+            <field name="name">Contracts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.analytic.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_use_inter': True, 'default_use_inter': True}</field>
+            <field name="view_id" ref="account.view_account_analytic_account_tree"/>
+            <field name="search_view_id" ref="account.view_account_analytic_account_search"/>
+        </record>
+
+        <menuitem name="Contracts" 
+            id="menu_intersupport_contract" 
+            groups="base.group_crm_intervention_manager" 
+            parent="menu_intersupport_main" 
+            action="action_intervention_contract_form" 
+            sequence="3"/>
+
+
+        <record id="view_res_partner_repairer_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="30"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="intervention_user_id"/>
                 </xpath>
             </field>
         </record>

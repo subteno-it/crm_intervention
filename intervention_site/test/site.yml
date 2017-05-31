@@ -1,0 +1,8 @@
+-
+    Create an site
+-
+  !record {model: intervention.site, id: intervention_site_test1}:
+      name: Paris Site
+      partner_id: base.res_partner_2
+      customer_id: base.res_partner_2
+

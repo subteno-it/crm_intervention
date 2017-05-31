@@ -31,6 +31,7 @@
         <record model="crm.case.section" id="section_interventions_department">
             <field name="name">Interventions Department</field>
             <field name="code">inter</field>
+            <field name="use_inter" eval="True"/>
         </record>
 
         #

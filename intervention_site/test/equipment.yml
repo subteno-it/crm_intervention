@@ -1,0 +1,28 @@
+-
+    Create an equipment
+-
+  !record {model: intervention.equipment, id: inter_equip_test1}:
+      name: Synology NAS
+      site_id: intervention_site_test1
+      buy_date: !eval "time.strftime('%Y-01-01')"
+      eow_date: !eval "time.strftime('%Y-12-31')"
+      product_number: SYN01FG24567
+      serial_number: 2017AB09JKL555
+-
+    Create a second equipment
+-
+  !record {model: intervention.equipment, id: inter_equip_test2}:
+      name: Synology NAS
+      site_id: intervention_site_test1
+      buy_date: !eval "time.strftime('%Y-01-10')"
+      eow_date: !eval "time.strftime('%Y-12-31')"
+      product_number: SYN01FG24567
+      serial_number: 2017AB09JKL666
+-
+    Check if we have one equipement on the site
+-
+  !python {model: intervention.site}: |
+      site = self.browse(cr, uid, ref('intervention_site_test1'))
+      assert len(site.equipment_ids) == 2, 'We muste have only two equipments'
+
+
