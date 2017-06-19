@@ -11,6 +11,7 @@ class InterventionSite(orm.Model):
     _columns = {
         'name': fields.char(
             'Name', size=64, required=True, help='Name of the site'),
+        'code': fields.char('Code', size=16, help='Code for this site'),
         'partner_id': fields.many2one(
             'res.partner', 'Address', help='Select address for this site'),
         'customer_id': fields.many2one(
@@ -23,8 +24,13 @@ class InterventionSite(orm.Model):
         'equipment_ids': fields.one2many(
             'intervention.equipment', 'site_id', 'Equipments',
             help='Equipment in this site'),
+        'company_id': fields.many2one(
+            'res.company', 'Company'),
     }
 
     _defaults = {
         'active': True,
+        'company_id': lambda s, cr, uid,c:
+            s.pool.get('res.company')._company_default_get(
+                cr, uid, 'intervention.site', context=c),
     }

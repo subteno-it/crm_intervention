@@ -4,6 +4,31 @@ from openerp.osv import orm
 from openerp.osv import fields
 
 
+class InterventionEquipmentType(orm.Model):
+    _name = 'intervention.equipment.type'
+    _description = 'Type of equipment'
+
+    _columns = {
+        'name': fields.char(
+            'Name', size=64, required=True,
+            help='Name of equipment type'),
+        'code': fields.char(
+            'Code', size=32,
+            help='Code of equipment type'),
+        'active': fields.boolean(
+            'Active', help='if check, this object is always available'),
+        'company_id': fields.many2one(
+            'res.company', 'Company'),
+    }
+
+    _defaults = {
+        'active': True,
+        'company_id': lambda s, cr, uid,c:
+            s.pool.get('res.company')._company_default_get(
+                cr, uid, 'intervention.equipment.type', context=c),
+    }
+
+
 class InterventionEquipment(orm.Model):
     _name = 'intervention.equipment'
     _description = 'Equipment per site'
@@ -29,6 +54,9 @@ class InterventionEquipment(orm.Model):
             'Last Intervention', help='Last intervention date'),
         'replace_date': fields.date(
             'Replacement', help='Date when this equipment must be replace'),
+        'next_date': fields.date(
+            'Next visit date',
+            help='Indicate the next visite date'),
         'product_number': fields.char(
             'Product Number', size=64, help='Product Number of the equipment'),
         'serial_number': fields.char(
@@ -39,10 +67,21 @@ class InterventionEquipment(orm.Model):
         'history_ids': fields.one2many(
             'intervention.equipment.history', 'equipment_id',
             'Histories', help='Histories for this equipment'),
+        'type_id': fields.many2one(
+            'intervention.equipment.type', 'Type',
+            help='Select type of the equipment'),
+        'user_id': fields.many2one(
+            'res.users', 'Repairer',
+            help='Choose dedicate repairer for this equipment'),
+        'company_id': fields.many2one(
+            'res.company', 'Company'),
     }
 
     _defaults = {
         'active': True,
+        'company_id': lambda s, cr, uid,c:
+            s.pool.get('res.company')._company_default_get(
+                cr, uid, 'intervention.equipment', context=c),
     }
 
 
@@ -58,6 +97,9 @@ class InterventionEquipmentHistory(orm.Model):
         'hist_date': fields.date('Date', required=True, help='History date'),
         'user_id': fields.many2one('res.users', 'Users', required=True, help='Users that made this entry'),
         'summary': fields.text('Summary', help='Summary from this note'),
+        'comapnyd_id': fields.related(
+            'equipment_id', 'company_id', type='many2one', store=True,
+            relation='intervention.equipment', string='Company'),
     }
 
     _defaults = {

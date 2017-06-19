@@ -37,6 +37,18 @@ class CrmIntervention(orm.Model):
 
         return {'value': vals}
 
+    def onchange_equipment_id(self, cr, uid, ids, equip_id, context=None):
+        """
+        If equipment have dedicate repairer, we retrieve it
+        """
+        vals = {}
+        if not equip_id:
+            return {}
+        equip = self.pool['intervention.equipment'].browse(cr, uid, equip_id, context=context)
+        if equip.user_id:
+            vals['user_id'] = equip.user_id.id
+        return {'value': vals}
+
     def create_output_move(self, cr, uid, ids, context=None):
         """
         Create moves based on lines entries
@@ -56,7 +68,7 @@ class CrmIntervention(orm.Model):
                         'product_qty': l.product_qty,
                         'product_uom': l.product_uom_id.id,
                         'state': 'draft',
-                        'location_id': inter.src_location_id.id,
+                        'location_id': l.src_location_id and l.src_location_id.id or inter.src_location_id.id,
                         'location_dest_id': inter.partner_shipping_id.property_stock_customer.id,
                     }
                     if l.product_id.track_outgoing and not l.prodlot_id:
@@ -77,7 +89,13 @@ class CrmIntervention(orm.Model):
         """
         res = super(CrmIntervention, self)._prepare_invoice_line(cr, uid, inter, lines, inv, context=context)
         line_obj = self.pool['account.invoice.line']
+        ctr_id = inter.contract_id and inter.contract_id.id or False
         for l in inter.line_ids:
+            if ctr_id and not l.out_of_contract:
+                # if contract and not out of contract
+                # we must check next line
+                continue
+
             line = {
                 'origin': inter.number_request,
                 'product_id': l.product_id.id,
@@ -101,6 +119,52 @@ class CrmIntervention(orm.Model):
 
         return res
 
+    def _compute_standard_price(self, cr, uid, product, context=None):
+        """
+        Override this function, id you want to provide another
+        standard price
+        """
+        return product.standard_price
+
+    def generate_analytic_line(self, cr, uid, ids, context=None):
+        """
+        For each line, add line on contract to bill alter
+        """
+        res = super(CrmIntervention, self).generate_analytic_line(cr, uid, ids, context=context)
+        al_obj = self.pool['account.analytic.line']
+        for inter in self.browse(cr, uid, ids, context=context):
+            if not inter.contract_id:
+                continue
+            emp = self._get_employee(cr, uid, inter, context=context)
+            for line in inter.line_ids:
+                if line.out_of_contract:
+                    # Line out of contract must be invoice directly
+                    continue
+                q = self._compute_standard_price(cr, uid, line.product_id, context=context)
+                amount = q * line.product_qty
+                unit_amount = q
+                unit = line.product_uom_id.id
+                vals = {
+                    'name': _('BI Num %s') % inter.number_request,
+                    'account_id': inter.contract_id.id,
+                    'journal_id': emp.journal_id.id,
+                    'user_id': inter.user_id.id,
+                    'date': inter.date_effective_start[:10],
+                    'ref': inter.name[:64],
+                    'to_invoice': inter.contract_id.to_invoice.id,
+                    'product_id': line.product_id.id,
+                    'unit_amount': unit_amount,
+                    'product_uom_id': unit,
+                    'amount': amount,
+                    'general_account_id': inter.product_id.property_account_income.id,  # noqa
+                }
+
+                line_id = al_obj.create(
+                    cr, uid, vals,  context=context)
+                line.write({'analytic_line_id': line_id}, context=context)
+
+        return res
+
     def copy(self, cr, uid, id, default=None, context=None):
         """
         """
@@ -110,7 +174,9 @@ class CrmIntervention(orm.Model):
         if default is None:
             default = {}
 
-        default['line_ids'] = None
+        default.update({
+            'line_ids': None
+        })
 
         return super(CrmIntervention, self).copy(
             cr, uid, id, default, context=context)
@@ -126,7 +192,7 @@ class CrmIntervention(orm.Model):
             hist_obj = self.pool['intervention.equipment.history']
             equi_obj = self.pool['intervention.equipment']
             for rec in self.browse(cr, uid, ids, context=context):
-                if rec.equipment_id:
+                if rec.equipment_id and rec.date_effective_start:
                     equi_obj.write(cr, uid, [rec.equipment_id.id], {
                         'last_int_date': rec.date_effective_start[:10]
                     }, context=context)
@@ -164,11 +230,21 @@ class CrmInterventionLines(orm.Model):
         'prodlot_id': fields.many2one(
             'stock.production.lot', 'Lot',
             help='If product is manage per lot, fill this field'),
+        'src_location_id': fields.many2one(
+            'stock.location', 'Location',
+            help='Location where the products have been consumed, if different from global one'),
+        'out_of_contract': fields.boolean(
+            'Out of contract',
+            help='If check, this line must be invoice directly, and not in contract if present'),
+        'analytic_line_id': fields.many2one(
+            'account.analytic.line', 'Analytic line',
+            help='Analytic line'),
     }
 
     _defaults = {
         'product_qty': 0.0,
         'to_invoice': True,
+        'out_of_contract': False,
     }
 
     def onchange_product_id(self, cr, uid, ids, product_id, context=None):

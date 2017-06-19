@@ -139,9 +139,12 @@
                                         <div>
                                             <field name="invoice_qty" class="oe_inline" attrs="{'required': [('state','=', 'pending')]}"/>
                                             <field name="invoice_uom_id" class="oe_inline oe_no_button" attrs="{'required': [('state','=', 'pending')]}"/>
+                                            <field name="out_of_contract" class="oe_inline"/>
+                                            <label for="out_of_contract" string="Out of contract" class="oe_inline"/>
                                         </div>
                                         <field name="analytic_line_id" domain="[('account_id','=',contract_id)]" string="Contract line" 
-                                            attrs="{'readonly': [('contract_id','=', False)]}"/>
+                                            attrs="{'invisible': [('contract_id','=', False)]}"/>
+                                        <field name="invoice_contract_id" attrs="{'invisible': [('contract_id','=', False)]}"/>
                                     </group>
                                 </group>
                             </page>
@@ -352,12 +355,25 @@
             </field>
         </record>
 
+        <record id="view_inter_contract_search" model="ir.ui.view">
+            <field name="name">account.analytic.account.search - contrat</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account.view_account_analytic_account_search"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@string='Pending']" position="after">
+                    <filter string="Intervention" domain="[('use_inter','=',True)]" help="Intervention contract"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="action_intervention_contract_form" model="ir.actions.act_window">
             <field name="name">Contracts</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">account.analytic.account</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('use_inter', '=', True)]</field>
             <field name="context">{'search_default_use_inter': True, 'default_use_inter': True}</field>
             <field name="view_id" ref="account.view_account_analytic_account_tree"/>
             <field name="search_view_id" ref="account.view_account_analytic_account_search"/>

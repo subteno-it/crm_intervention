@@ -13,15 +13,18 @@
                     <field name="src_location_id" domain="[('usage','=', 'internal')]"/>
                     <button string="Create Output" type="object"
                         name="create_output_move"/>
-                    <field name="line_ids" nolabel="1" colspan="6">
+                    <field name="line_ids" nolabel="1" colspan="6" attrs="{'readonly': [('state','=', 'done')]}">
                         <tree string="Lines" editable="bottom">
                             <field name="product_id"
                                 on_change="onchange_product_id(product_id)"/>
                             <field name="product_qty"/>
                             <field name="product_uom_id"/>
-                            <field name="to_invoice"/>
+                            <field name="to_invoice" groups="base.group_crm_intervention_manager"/>
+                            <field name="out_of_contract" groups="base.group_crm_intervention_manager"/>
                             <field name="prodlot_id" groups="stock.group_production_lot"/>
                             <field name="move_id" readonly="1"/>
+                            <field name="src_location_id"/>
+                            <field name="analytic_line_id" groups="base.group_crm_intervention_manager"/>
                         </tree>
                     </field>
                 </xpath>
@@ -29,7 +32,34 @@
                     <field name="site_id" domain="[('customer_id','=', partner_id)]"
                         on_change="onchange_site_id(site_id)"/>
                     <field name="equipment_id" 
-                        domain="['|',('site_id','=', site_id),('partner_id','=',partner_id)]"/>
+                        domain="['|',('site_id','=', site_id),('partner_id','=',partner_id)]"
+                        on_change="onchange_equipment_id(equipment_id)"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_inter_site_mandatory_form" model="ir.ui.view">
+            <field name="name">crm.intervention.form - Site mandatory</field>
+            <field name="model">crm.intervention</field>
+            <field name="inherit_id" ref="intervention_site.view_crm_intervention_form"/>
+            <field name="groups_id" eval="[(4, ref('group_inter_site_mandatory'))]"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='site_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_inter_equip_mandatory_form" model="ir.ui.view">
+            <field name="name">crm.intervention.form - Equipment mandatory</field>
+            <field name="model">crm.intervention</field>
+            <field name="inherit_id" ref="intervention_site.view_crm_intervention_form"/>
+            <field name="groups_id" eval="[(4, ref('group_inter_equip_mandatory'))]"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='equipment_id']" position="attributes">
+                    <attribute name="required">1</attribute>
                 </xpath>
             </field>
         </record>

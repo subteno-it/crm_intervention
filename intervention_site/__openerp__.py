@@ -35,6 +35,7 @@
         'crm_intervention',
     ],
     'data': [
+        'security/groups.xml',
         'security/ir.model.access.csv',
         'views/intervention_site.xml',
         'views/intervention_equipment.xml',

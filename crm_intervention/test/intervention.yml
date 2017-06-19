@@ -105,5 +105,18 @@
       assert inter.state == 'done', 'Intervention must be done!'
       assert inter.invoice_id.id > 0, 'This intervention must be invoiced!!'
 
+-
+    Create an new intervention
+-
+  !record {model: crm.intervention, id: crm_intervention_test_close}:
+      name: Intervention Direct close
+      partner_id: base.res_partner_2
+      customer_information: Test\ntest
+-
+    Close the inetrvention directly
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test_close'))
+      inter.case_close()
 
 

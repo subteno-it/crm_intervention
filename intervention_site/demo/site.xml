@@ -32,12 +32,14 @@
             <field name="name">Telehouse 1</field>
             <field name="partner_id" ref="inter_part_1"/>
             <field name="customer_id" ref="inter_part_1"/>
+            <field name="code">THLD001</field>
         </record>
 
         <record id="teleh_site_2" model="intervention.site">
             <field name="name">Telehouse 2</field>
             <field name="partner_id" ref="inter_part_2"/>
             <field name="customer_id" ref="inter_part_1"/>
+            <field name="code">THPR002</field>
         </record>
     
     </data>

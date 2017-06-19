@@ -96,6 +96,7 @@
       product_qty: 2.0
       product_uom_id: product.product_uom_unit
       to_invoice: True
+      src_location_id: stock.stock_location_components
 -
     Add graphic card to invoice
 -
@@ -114,6 +115,23 @@
       product_qty: 1.0
       product_uom_id: product.product_uom_unit
       to_invoice: False
+-
+    Made an output move for each products lines, mustraised
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test1'))
+      try:
+          inter.create_output_move()
+          assert 0 == 1, 'Raise must be appear, missing location stock'
+      except:
+          pass
+-
+    Made an output move for each products lines, move ok
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test1'))
+      inter.write({'src_location_id': ref('stock.stock_location_stock')})
+      inter.create_output_move()
 -
     Generate invoice 
 -
@@ -138,6 +156,13 @@
       inter = self.browse(cr, uid, ref('crm_intervention_test1'))
       assert inter.date_effective_start[:10] == inter.equipment_id.last_int_date, 'Last intervention date must be updated'
       assert len(inter.equipment_id.history_ids) == 3, 'There are three histories now'
+-
+    Check if output move made to shelf 1
+-
+  !python {model: intervention.line}: |
+      line = self.browse(cr, uid, ref('intervention_line1'))
+      assert line.move_id.location_id.id == ref('stock.stock_location_components'), 'Location dest must be shelf 1'
+
 
 
 

@@ -1,8 +1,8 @@
 -
     Create an intervention
 -
-  !record {model: crm.intervention, id: crm_intervention_test11}:
-      name: Intervention Test 1
+  !record {model: crm.intervention, id: crm_intervention_test41}:
+      name: Intervention Test 41
       partner_id: base.res_partner_2
       customer_information: Test\ntest
       user_id: base.user_root
@@ -10,14 +10,14 @@
     Check if onchange works
 -
   !python {model: crm.intervention}: |
-      inter = self.browse(cr, uid, ref('crm_intervention_test11'))
+      inter = self.browse(cr, uid, ref('crm_intervention_test41'))
       assert inter.partner_invoice_id.id == ref('base.res_partner_2'), "The onchange function of partner was not correctly triggered"
 
 -
     Confirm the intervention, check proposed date, must be raise
 -
   !python {model: crm.intervention}: |
-      inter = self.browse(cr, uid, ref('crm_intervention_test11'))
+      inter = self.browse(cr, uid, ref('crm_intervention_test41'))
       log('Date start is %s' % inter.date_planned_start)
       try:
           inter.case_open()
@@ -27,7 +27,7 @@
 -
     Add start date and confirm
 -
-  !record {model: crm.intervention, id: crm_intervention_test11}:
+  !record {model: crm.intervention, id: crm_intervention_test41}:
       name: Intervention Test 1
       date_planned_start: !eval "time.strftime('%Y-%m-01 13:00:00')"
       date_planned_end: !eval "time.strftime('%Y-%m-01 17:00:00')"
@@ -35,17 +35,17 @@
     Confirm the intervention, check the duration
 -
   !python {model: crm.intervention}: |
-      inter = self.browse(cr, uid, ref('crm_intervention_test11'))
+      inter = self.browse(cr, uid, ref('crm_intervention_test41'))
       inter.case_open()
 -
     Check the duration
 -
-  !assert {model: crm.intervention, id: crm_intervention_test11, string: Total duration must be 4 hours}:
+  !assert {model: crm.intervention, id: crm_intervention_test41, string: Total duration must be 4 hours}:
       - duration_planned == 4.0
 -
     After intervention fill the intervention report
 -
-  !record {model: crm.intervention, id: crm_intervention_test11}:
+  !record {model: crm.intervention, id: crm_intervention_test41}:
       name: Intervention Test 1
       date_effective_start: !eval "time.strftime('%Y-%m-01 13:00:00')"
       duration_effective: 5.0
@@ -56,25 +56,26 @@
 -
   !python {model: crm.intervention}: |
       import time
-      inter = self.browse(cr, uid, ref('crm_intervention_test11'))
+      inter = self.browse(cr, uid, ref('crm_intervention_test41'))
       log('Date end is %s' % inter.date_effective_end)
       assert inter.date_effective_end == time.strftime('%Y-%m-01 17:00:00'), 'End effective hour must be 17:00'
 -
      intervention to invoice, click on the button 
 -
   !python {model: crm.intervention}: |
-      inter = self.browse(cr, uid, ref('crm_intervention_test11'))
+      inter = self.browse(cr, uid, ref('crm_intervention_test41'))
       inter.case_pending()
       assert inter.state == 'pending', 'Intervention must be in pending!'
 -
     Add product to invoice this intervention
 -
-  !record {model: crm.intervention, id: crm_intervention_test11}:
+  !record {model: crm.intervention, id: crm_intervention_test41}:
       name: Intervention Test 1
       product_id: product.product_product_2
       duration_effective: 5.0
       pause_effective: 1.0
       alldays_effective: False
+      out_of_contract: True
 -
     Add expense account on product
 -
@@ -85,15 +86,16 @@
     Check if the invoice quantity
 -
   !python {model: crm.intervention}: |
-      inter = self.browse(cr, uid, ref('crm_intervention_test11'))
+      inter = self.browse(cr, uid, ref('crm_intervention_test41'))
       assert inter.invoice_qty == 4.0, 'Quantity must be 4.0'
       assert inter.invoice_uom_id.id == inter.product_id.uom_id.id, 'Unit is not the same on product and intervention'
       assert inter.contract_id.id >  0, 'This partner must have a contract'
+      assert inter.out_of_contract == True, 'Out of contract must be check!!'
 -
     Generate invoice 
 -
   !python {model: crm.intervention}: |
-      inter = self.browse(cr, uid, ref('crm_intervention_test11'))
+      inter = self.browse(cr, uid, ref('crm_intervention_test41'))
       assert inter.invoice_id.id == False, 'This intervention must not invoiced yet!'
       assert inter.analytic_line_id.id == False, 'No analytic line yet !!'
       inter.prepare_invoice()
@@ -101,6 +103,8 @@
     Check invoice generate
 -
   !python {model: crm.intervention}: |
-      inter = self.browse(cr, uid, ref('crm_intervention_test11'))
+      inter = self.browse(cr, uid, ref('crm_intervention_test41'))
       assert inter.state == 'done', 'Intervention must be done!'
-      assert inter.analytic_line_id.id > 0, 'This intervention must be invoiced!!'
+      assert inter.analytic_line_id.id == False, 'This intervention must be invoiced directly!!'
+      assert inter.invoice_id.id > 0, 'Intervention must be invoiced directly!!'
+      log('Invoicing with out of contract is done')

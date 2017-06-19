@@ -5,4 +5,10 @@
       name: Paris Site
       partner_id: base.res_partner_2
       customer_id: base.res_partner_2
+-
+    Check if company is fill automatically
+-
+  !python {model: intervention.site}: |
+      site = self.browse(cr, uid, ref('intervention_site_test1'))
+      assert site.company_id.id == ref('base.main_company'), 'Company must be fill automatically'
 

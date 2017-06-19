@@ -7,3 +7,5 @@
 "access_intervention_line_user","intervention.line.user","model_intervention_line","base.group_crm_intervention_user",1,1,1,0
 "access_intervention_equi_hist_manager","intervention.equipment.history.manager","model_intervention_equipment_history","base.group_crm_intervention_manager",1,1,1,1
 "access_intervention_equi_hist_user","intervention.equipment.history.user","model_intervention_equipment_history","base.group_crm_intervention_user",1,1,1,0
+"access_intervention_equipment_type_manager","access_intervention_equipment_type.manager","model_intervention_equipment_type","base.group_crm_intervention_manager",1,1,1,1
+"access_intervention_equipment_type_user","access_intervention_equipment_type.user","model_intervention_equipment_type","base.group_crm_intervention_user",1,0,0,0

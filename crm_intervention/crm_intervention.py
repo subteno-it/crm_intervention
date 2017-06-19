@@ -195,6 +195,9 @@ class crm_intervention(base_state, base_stage, orm.Model):
         'analytic_line_id': fields.many2one(
             'account.analytic.line', 'Analytic line',
             help='Analytic line'),
+        'invoice_contract_id': fields.related(
+            'analytic_line_id', 'invoice_id', type='many2one', relation='account.invoice',
+            string='Invoice contract', store=True, help='Invoice relate in this contract'),
         'invoice_id': fields.many2one(
             'account.invoice', 'Invoice',
             help='Invoice link to this intervention'),
@@ -206,6 +209,9 @@ class crm_intervention(base_state, base_stage, orm.Model):
             'product.product', 'Prestation',
             domain=[('type', '=', 'service')],
             help='Product service relate with this intervention'),
+        'out_of_contract': fields.boolean(
+            'Out of contract',
+            help='If check, this product is invoiced directly'),
         'message_ids': fields.one2many(
             'mail.message', 'res_id', 'Messages',
             domain=[('model', '=', _name)]),
@@ -238,6 +244,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
         'alldays_planned': False,
         'alldays_effective': False,
         'pause_effective': 0.0,
+        'out_of_contract': False,
     }
 
     def write(self, cr, uid, ids, values, context=None):
@@ -523,6 +530,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
             'timesheet_ids': False,
             'analytic_line_id': False,
             'invoice_id': False,
+            'invoice_contract_id': False,
         })
 
         return super(crm_intervention, self).copy(
@@ -531,17 +539,10 @@ class crm_intervention(base_state, base_stage, orm.Model):
     def prepare_invoice(self, cr, uid, ids, context=None):
 
         for inter in self.browse(cr, uid, ids, context=context):
-            if inter.analytic_line_id:
-                raise orm.except_orm(_('Error'), _('Already invoiced !'))
-            elif inter.invoice_id:
-                raise orm.except_orm(_('Error'), _('Already invoiced !'))
-
-            if inter.contract_id:
-                self.generate_analytic_line(
-                    cr, uid, [inter.id], context=context)
-            else:
-                self.generate_invoice(
-                    cr, uid, [inter.id], context=context)
+            self.generate_analytic_line(
+                cr, uid, [inter.id], context=context)
+            self.generate_invoice(
+                cr, uid, [inter.id], context=context)
         return True
 
     def _prepare_invoice_line(self, cr, uid, inter, lines, inv, context=None):
@@ -577,6 +578,9 @@ class crm_intervention(base_state, base_stage, orm.Model):
         inv_obj = self.pool['account.invoice']
         line_obj = self.pool['account.invoice.line']
         for inter in self.browse(cr, uid, ids, context=context):
+            if not inter.out_of_contract and inter.contract_id:
+                continue
+
             if inter.invoice_id:
                 raise orm.except_orm(_('Error'),
                                      _('This intervention already invoiced'))
@@ -616,6 +620,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
         Generate an analytic line in the contract specified, base on product
         """
         for inter in self.browse(cr, uid, ids, context=context):
+            if inter.out_of_contract or not inter.contract_id:
+                continue
             if inter.analytic_line_id:
                 raise orm.except_orm(_('Error'), _('This intervention already pre-invoiced'))  # noqa
             if not inter.product_id:
@@ -627,14 +633,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
                     _('Error'),
                     _('Please define a cost price for the product %s') % inter.product_id.name)  # noqa
 
-            # Find the analytic journal from the employe
-            emp_obj = self.pool['hr.employee']
-            emp_ids = emp_obj.search(cr, uid, [('user_id', '=', uid)],
-                                     context=context)
-            if not emp_ids:
-                raise orm.except_orm(_('Error'), _('Employee not found'))
-
-            emp = emp_obj.browse(cr, uid, emp_ids[0], context=context)
+            emp = self._get_employee(cr, uid, inter, context=context)
 
             if inter.alldays_effective:
                 q = self.pool['product.uom']._compute_price(
@@ -674,6 +673,26 @@ class crm_intervention(base_state, base_stage, orm.Model):
                         context=context)
 
         return True
+
+    def _get_employee(self, cr, uid, inter, context=None):
+        """
+        To create an analytical line, we have to retrieve
+        the employee associated with the user
+        if no user defined on inetrvention, we use the current user
+
+        :return: Return a browse object to the employee
+        """
+        user_id = inter.user_id and inter.user_id.id or uid
+        emp_obj = self.pool['hr.employee']
+        emp_ids = emp_obj.search(cr, uid, [
+            ('user_id', '=', user_id)
+        ], context=context)
+        if not emp_ids:
+            raise orm.except_orm(
+                _('Error'),
+                _('Employee not found (uid: %s)' % uid)
+            )
+        return emp_obj.browse(cr, uid, emp_ids[0], context=context)
 
 
 class account_analytic_account(orm.Model):

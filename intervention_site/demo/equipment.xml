@@ -2,12 +2,29 @@
 <openerp>
     <data>
 
+        <record id="type_1" model="intervention.equipment.type">
+            <field name="code">SYNRS214</field>
+            <field name="name">NAS Synology RS214</field>
+        </record>
+
+        <record id="type_2" model="intervention.equipment.type">
+            <field name="code">SYNRS216</field>
+            <field name="name">NAS Synology RS216</field>
+        </record>
+
+        <record id="type_3" model="intervention.equipment.type">
+            <field name="code">QNAP-TVS-1282T3</field>
+            <field name="name">NAS QNAP TVS-1282T3</field>
+        </record>
+
+
         <record id="equipment_1" model="intervention.equipment">
             <field name="name">NAS Synology</field>
             <field name="site_id" ref="inter_site_1"/>
             <field name="buy_date" eval="time.strftime('%Y-%m-01')"/>
             <field name="product_number">SYN01FG24567</field>
             <field name="serial_number">2017AB09JKL555</field>
+            <field name="type_id" ref="type_1"/>
         </record>
 
         <record id="equipment_2" model="intervention.equipment">
@@ -18,6 +35,7 @@
             <field name="eow_date" eval="time.strftime('%Y-12-31')"/>
             <field name="product_number">NAP01OP675RFVD</field>
             <field name="serial_number">XYZ67543RTY890</field>
+            <field name="type_id" ref="type_3"/>
         </record>
 
         <record id="equipment_3" model="intervention.equipment">
@@ -28,6 +46,7 @@
             <field name="eow_date" eval="time.strftime('%Y-12-31')"/>
             <field name="product_number">NAP01OP675RFVD</field>
             <field name="serial_number">XYZ67543RTY891</field>
+            <field name="type_id" ref="type_3"/>
         </record>
 
         <record id="teleh_equip_1" model="intervention.equipment">

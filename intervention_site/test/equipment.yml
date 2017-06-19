@@ -9,6 +9,12 @@
       product_number: SYN01FG24567
       serial_number: 2017AB09JKL555
 -
+    Check if company is fill automatically
+-
+  !python {model: intervention.equipment}: |
+      site = self.browse(cr, uid, ref('inter_equip_test1'))
+      assert site.company_id.id == ref('base.main_company'), 'Company must be fill automatically'
+-
     Create a second equipment
 -
   !record {model: intervention.equipment, id: inter_equip_test2}:
@@ -18,11 +24,40 @@
       eow_date: !eval "time.strftime('%Y-12-31')"
       product_number: SYN01FG24567
       serial_number: 2017AB09JKL666
+      user_id: base.user_demo
 -
     Check if we have one equipement on the site
 -
   !python {model: intervention.site}: |
       site = self.browse(cr, uid, ref('intervention_site_test1'))
       assert len(site.equipment_ids) == 2, 'We muste have only two equipments'
+-
+    Create a third equipment
+-
+  !record {model: intervention.equipment, id: inter_equip_test3}:
+      name: Synology NAS
+      site_id: intervention_site_test1
+      buy_date: !eval "time.strftime('%Y-02-11')"
+      eow_date: !eval "time.strftime('%Y-12-31')"
+      product_number: SYN01FG24568
+      serial_number: 2017AB09JKL777
+      user_id: base.user_demo
+-
+    Create an intervention with equipment with dedicate repairer
+-
+  !record {model: crm.intervention, id: crm_intervention_dedi1}:
+      name: Intervention Dedicate repairer
+      partner_id: base.res_partner_2
+      customer_information: Test\ntest
+      site_id: intervention_site_test1
+      equipment_id: inter_equip_test3
+-
+    Check intervention to check dedicate repairer
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_dedi1'))
+      log('Dedicate repairer : %i must be %i' % (inter.user_id.id, ref('base.user_demo')))
+      assert inter.user_id.id == ref('base.user_demo'), "The onchange function of equipment was not correctly triggered"
+
 
 

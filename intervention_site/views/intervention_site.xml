@@ -9,10 +9,12 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <tree string="Sites">
+                    <field name="code"/>
                     <field name="name"/>
                     <field name="partner_id"/>
                     <field name="customer_id"/>
                     <field name="contract_id"/>
+                    <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                 </tree>
             </field>
         </record>
@@ -25,11 +27,13 @@
             <field name="arch" type="xml">
                 <form string="Sites">
                     <field name="name"/>
-                    <field name="active"/>
+                    <field name="code"/>
                     <field name="customer_id"/>
                     <field name="partner_id"/>
                     <field name="contract_id" 
                         domain="[('type','=','contract'),('partner_id', '=', customer_id), ('use_inter','=',True)]"/>
+                    <field name="active"/>
+                    <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                     <notebook colspan="4">
                         <page string="Equipments">
                             <field name="equipment_ids" nolabel="1" >
@@ -52,6 +56,10 @@
                 <search string="Sites">
                     <field name="name" select="True"/>
                     <field name="partner_id"/>
+                    <field name="active"/>
+                    <field name="customer_id"/>
+                    <field name="partner_id"/>
+                    <field name="contract_id"/>
                 </search>
             </field>
         </record>

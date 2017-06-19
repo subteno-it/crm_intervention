@@ -50,6 +50,7 @@
         'test/intervention.yml',
         'test/intervention_alldays.yml',
         'test/intervention_contract.yml',
+        'test/intervention_out_of_contract.yml',
     ],
     'installable': True,
     'active': False,
