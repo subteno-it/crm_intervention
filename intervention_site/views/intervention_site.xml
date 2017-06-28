@@ -36,11 +36,21 @@
                     <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                     <notebook colspan="4">
                         <page string="Equipments">
-                            <field name="equipment_ids" nolabel="1" >
+                            <field name="equipment_ids" nolabel="1" colspan="4" readonly="1">
                                 <tree string="Equipment">
                                     <field name="name"/>
+                                    <field name="type_id"/>
+                                    <field name="site_id"/>
+                                    <field name="serial_number"/>
+                                    <field name="eow_date"/>
+                                    <field name="last_int_date"/>
+                                    <field name="next_date"/>
+                                    <field name="partner_id"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1" colspan="4"/>
                         </page>
                     </notebook>
                 </form>
@@ -54,8 +64,8 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <search string="Sites">
-                    <field name="name" select="True"/>
-                    <field name="partner_id"/>
+                    <field name="name"/>
+                    <field name="code"/>
                     <field name="active"/>
                     <field name="customer_id"/>
                     <field name="partner_id"/>

@@ -23,7 +23,7 @@
 
 {
     'name': 'Intervention Site, Equipment',
-    'version': '0.1',
+    'version': '0.2',
     'category': 'Generic Modules/CRM & SRM',
     'description': """Intervention Site & Equipment""",
     'author': 'Mirounga',
@@ -40,6 +40,7 @@
         'views/intervention_site.xml',
         'views/intervention_equipment.xml',
         'views/intervention.xml',
+        'wizard/generate_intervention_view.xml',
     ],
     'demo': [
         'demo/site.xml',

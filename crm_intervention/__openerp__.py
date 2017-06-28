@@ -25,7 +25,7 @@
 
 {
     'name': 'CRM Intervention',
-    'version': '0.2',
+    'version': '0.3',
     'category': 'Generic Modules/CRM & SRM',
     'description': """Intervention Management""",
     'author': 'SYLEAM, Mirounga',
@@ -33,6 +33,7 @@
     'depends': [
         'crm',
         'account',
+        'base_calendar',
         'hr_timesheet_invoice',
     ],
     'data': [

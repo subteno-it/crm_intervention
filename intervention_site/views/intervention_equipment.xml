@@ -10,12 +10,15 @@
             <field name="arch" type="xml">
                 <tree string="Equipments">
                     <field name="name"/>
+                    <field name="type_id"/>
                     <field name="site_id"/>
                     <field name="serial_number"/>
                     <field name="eow_date"/>
                     <field name="last_int_date"/>
                     <field name="next_date"/>
                     <field name="partner_id"/>
+                    <field name="contract_id"/>
+                    <field name="out_of_contract"/>
                     <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                 </tree>
             </field>
@@ -51,6 +54,8 @@
                                         <field name="last_int_date"/>
                                         <field name="replace_date"/>
                                         <field name="next_date"/>
+                                        <field name="contract_id" domain="[('use_inter','=', True),('type','=','contract')]"/>
+                                        <field name="out_of_contract"/>
                                     </group>
                                     <group name="other">
                                         <field name="supplier_id" 
@@ -79,6 +84,9 @@
                                         </group>
                                     </form>
                                 </field>
+                            </page>
+                            <page string="Notes">
+                                <field name="notes" nolabel="1" colspan="4"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -110,15 +118,34 @@
             </field>
         </record>
 
+        <record id="view_intervention_equipment_calendar" model="ir.ui.view">
+            <field name="name">intervention.equipment.calendar</field>
+            <field name="model">intervention.equipment</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <calendar string="Equipments" color="site_id" date_start="next_date">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="act_open_intervention_equipment_view">
             <field name="name">Equipments</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">intervention.equipment</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,calendar</field>
             <field name="search_view_id" ref="view_intervention_equipment_search"/>
             <field name="domain">[]</field>
             <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_intervention_equipment_view_calendar">
+            <field name="act_window_id" ref="act_open_intervention_equipment_view"/>
+            <field name="sequence" eval="30"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="view_intervention_equipment_calendar"/>
         </record>
 
         <record model="ir.actions.act_window.view" id="act_open_intervention_equipment_view_form">
@@ -165,6 +192,21 @@
                     <field name="active"/>
                     <field name="code"/>
                     <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                    <notebook colspan="4">
+                        <page string="Equipments">
+                            <field name="equipment_ids" nolabel="1" colspan="4" readonly="1">
+                                <tree string="Equipments">
+                                    <field name="name"/>
+                                    <field name="site_id"/>
+                                    <field name="serial_number"/>
+                                    <field name="eow_date"/>
+                                    <field name="last_int_date"/>
+                                    <field name="next_date"/>
+                                    <field name="partner_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </form>
             </field>
         </record>

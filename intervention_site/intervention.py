@@ -6,6 +6,16 @@ from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 
 
+class ResPartner(orm.Model):
+    _inherit = 'res.partner'
+
+    _columns = {
+        'inter_location_id': fields.many2one(
+            'stock.location', 'Intervention location',
+            help='Dedicate stock for the repairer'),
+    }
+
+
 class CrmIntervention(orm.Model):
     _inherit = 'crm.intervention'
 
@@ -19,6 +29,45 @@ class CrmIntervention(orm.Model):
             'stock.location', 'Location',
             help='Location where the products have been consumed'),
     }
+
+    def onchange_user_id(self, cr, uid, ids, user):
+        """
+        When user change, we retrieve the mobile location
+        """
+        res = {'value':{}}
+        if not user:
+            res['value'].update({
+                'src_location_id': False,
+            })
+        else:
+            usr = self.pool['res.users'].browse(cr, uid, user)
+            res['value'].update({
+                'src_location_id': usr.inter_location_id and \
+                    usr.inter_location_id.id or False,
+            })
+
+        return res
+
+    def onchange_partner_intervention_id(self, cr, uid, ids, part):
+        """
+        If one site on the customer, we fill it automatically
+        """
+        res = super(CrmIntervention, self).onchange_partner_intervention_id(
+            cr, uid, ids, part=part)
+        if not part:
+            res['value'].update({
+                'site_id': False,
+                'equipment_id': False,
+            })
+
+        s_args = [
+            ('partner_id', '=', res['value']['partner_order_id'])
+        ]
+        s_ids = self.pool['intervention.site'].search(cr, uid, s_args)
+        if len(s_ids) == 1:
+            res['value']['site_id'] = s_ids[0]
+
+        return res
 
     def onchange_site_id(self, cr, uid, ids, site_id, context=None):
         """
@@ -47,6 +96,10 @@ class CrmIntervention(orm.Model):
         equip = self.pool['intervention.equipment'].browse(cr, uid, equip_id, context=context)
         if equip.user_id:
             vals['user_id'] = equip.user_id.id
+        if equip.contract_id:
+            vals['contract_id'] = equip.contract_id.id
+        if equip.out_of_contract:
+            vals['contract_id'] = False
         return {'value': vals}
 
     def create_output_move(self, cr, uid, ids, context=None):

@@ -19,6 +19,9 @@ class InterventionEquipmentType(orm.Model):
             'Active', help='if check, this object is always available'),
         'company_id': fields.many2one(
             'res.company', 'Company'),
+        'equipment_ids': fields.one2many(
+            'intervention.equipment', 'type_id', 'Equipment',
+            help='List of equipement link to this type'),
     }
 
     _defaults = {
@@ -75,6 +78,12 @@ class InterventionEquipment(orm.Model):
             help='Choose dedicate repairer for this equipment'),
         'company_id': fields.many2one(
             'res.company', 'Company'),
+        'contract_id': fields.many2one(
+            'account.analytic.account', 'Contract',
+            help='Contract relate to this equipment'),
+        'out_of_contract': fields.boolean(
+            'Out of contract', help='This equipment'),
+        'notes': fields.text('Notes', help='Notes'),
     }
 
     _defaults = {
@@ -83,6 +92,26 @@ class InterventionEquipment(orm.Model):
             s.pool.get('res.company')._company_default_get(
                 cr, uid, 'intervention.equipment', context=c),
     }
+
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        For each equipment, add site and serial number
+        """
+        if context is None:
+            context = {}
+        if not len(ids):
+            return []
+        equips = self.browse(cr, uid, ids, context=context)
+        res = []
+        for equip in equips:
+            name = equip.name
+            e = equip.site_id
+            if e:
+                name += ' (%s)' % (e.name or '',)
+            if equip.serial_number:
+                name += ' [%s]' % (equip.serial_number or '',)
+            res.append((equip.id, name))
+        return res
 
 
 class InterventionEquipmentHistory(orm.Model):

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-31 07:32+0000\n"
-"PO-Revision-Date: 2017-05-31 07:32+0000\n"
+"POT-Creation-Date: 2017-06-28 15:28+0000\n"
+"PO-Revision-Date: 2017-06-28 15:28+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,7 @@ msgstr ""
 #. module: intervention_site
 #: view:intervention.equipment:0
 #: field:intervention.equipment,active:0
+#: field:intervention.equipment.type,active:0
 #: field:intervention.site,active:0
 msgid "Active"
 msgstr ""
@@ -28,8 +29,46 @@ msgid "Address"
 msgstr ""
 
 #. module: intervention_site
+#: field:intervention.line,analytic_line_id:0
+#: help:intervention.line,analytic_line_id:0
+msgid "Analytic line"
+msgstr ""
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention.py:201
+#, python-format
+msgid "BI Num %s"
+msgstr ""
+
+#. module: intervention_site
 #: field:intervention.equipment,buy_date:0
 msgid "Buying date"
+msgstr ""
+
+#. module: intervention_site
+#: view:generate.equipment.intervention:0
+msgid "Cancel"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,user_id:0
+msgid "Choose dedicate repairer for this equipment"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment.type,code:0
+#: field:intervention.site,code:0
+msgid "Code"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.site,code:0
+msgid "Code for this site"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment.type,code:0
+msgid "Code of equipment type"
 msgstr ""
 
 #. module: intervention_site
@@ -38,8 +77,22 @@ msgid "Commissioning"
 msgstr ""
 
 #. module: intervention_site
+#: field:intervention.equipment,company_id:0
+#: field:intervention.equipment.history,comapnyd_id:0
+#: field:intervention.equipment.type,company_id:0
+#: field:intervention.site,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,contract_id:0
 #: field:intervention.site,contract_id:0
 msgid "Contract"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,contract_id:0
+msgid "Contract relate to this equipment"
 msgstr ""
 
 #. module: intervention_site
@@ -50,6 +103,11 @@ msgstr ""
 #. module: intervention_site
 #: view:crm.intervention:0
 msgid "Create Output"
+msgstr ""
+
+#. module: intervention_site
+#: view:generate.equipment.intervention:0
+msgid "Create intervention"
 msgstr ""
 
 #. module: intervention_site
@@ -75,6 +133,11 @@ msgid "Date of the Commissioning"
 msgstr ""
 
 #. module: intervention_site
+#: help:generate.equipment.intervention,begin_date:0
+msgid "Date to begin intervention"
+msgstr ""
+
+#. module: intervention_site
 #: help:intervention.equipment,buy_date:0
 msgid "Date when the equipment have been buy"
 msgstr ""
@@ -82,6 +145,11 @@ msgstr ""
 #. module: intervention_site
 #: help:intervention.equipment,replace_date:0
 msgid "Date when this equipment must be replace"
+msgstr ""
+
+#. module: intervention_site
+#: help:res.partner,inter_location_id:0
+msgid "Dedicate stock for the repairer"
 msgstr ""
 
 #. module: intervention_site
@@ -95,6 +163,11 @@ msgid "End of warranty"
 msgstr ""
 
 #. module: intervention_site
+#: model:res.groups,comment:intervention_site.group_inter_equip_mandatory
+msgid "Equipement is mandatory on intervention"
+msgstr ""
+
+#. module: intervention_site
 #: help:intervention.equipment.history,equipment_id:0
 msgid "Equipement link to this history"
 msgstr ""
@@ -102,6 +175,7 @@ msgstr ""
 #. module: intervention_site
 #: field:crm.intervention,equipment_id:0
 #: view:intervention.equipment:0
+#: field:intervention.equipment.type,equipment_ids:0
 #: view:intervention.site:0
 msgid "Equipment"
 msgstr ""
@@ -119,6 +193,11 @@ msgid "Equipment in this site"
 msgstr ""
 
 #. module: intervention_site
+#: model:res.groups,name:intervention_site.group_inter_equip_mandatory
+msgid "Equipment mandatory"
+msgstr ""
+
+#. module: intervention_site
 #: code:_description:0
 #: model:ir.model,name:intervention_site.model_intervention_equipment
 #, python-format
@@ -127,6 +206,7 @@ msgstr ""
 
 #. module: intervention_site
 #: view:intervention.equipment:0
+#: view:intervention.equipment.type:0
 #: view:intervention.site:0
 #: field:intervention.site,equipment_ids:0
 #: model:ir.actions.act_window,name:intervention_site.act_open_intervention_equipment_view
@@ -135,8 +215,8 @@ msgid "Equipments"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:48
-#: code:addons/intervention_site/intervention.py:64
+#: code:addons/intervention_site/intervention.py:113
+#: code:addons/intervention_site/intervention.py:129
 #, python-format
 msgid "Error"
 msgstr ""
@@ -144,6 +224,19 @@ msgstr ""
 #. module: intervention_site
 #: view:intervention.equipment:0
 msgid "General"
+msgstr ""
+
+#. module: intervention_site
+#: view:generate.equipment.intervention:0
+#: model:ir.actions.act_window,name:intervention_site.action_generate_intervention_view
+msgid "Generate Intervention"
+msgstr ""
+
+#. module: intervention_site
+#: code:_description:0
+#: model:ir.model,name:intervention_site.model_generate_equipment_intervention
+#, python-format
+msgid "Generate intervention from equipment"
 msgstr ""
 
 #. module: intervention_site
@@ -183,8 +276,18 @@ msgid "If check , this lines must be invoiced"
 msgstr ""
 
 #. module: intervention_site
+#: help:intervention.line,out_of_contract:0
+msgid "If check, this line must be invoice directly, and not in contract if present"
+msgstr ""
+
+#. module: intervention_site
 #: help:intervention.line,prodlot_id:0
 msgid "If product is manage per lot, fill this field"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,next_date:0
+msgid "Indicate the next visite date"
 msgstr ""
 
 #. module: intervention_site
@@ -193,6 +296,21 @@ msgstr ""
 #: model:ir.model,name:intervention_site.model_crm_intervention
 #, python-format
 msgid "Intervention"
+msgstr ""
+
+#. module: intervention_site
+#: field:res.partner,inter_location_id:0
+msgid "Intervention location"
+msgstr ""
+
+#. module: intervention_site
+#: field:crm.intervention,invoice_contract_id:0
+msgid "Invoice contract"
+msgstr ""
+
+#. module: intervention_site
+#: help:crm.intervention,invoice_contract_id:0
+msgid "Invoice relate in this contract"
 msgstr ""
 
 #. module: intervention_site
@@ -219,7 +337,13 @@ msgid "Lines"
 msgstr ""
 
 #. module: intervention_site
+#: help:intervention.equipment.type,equipment_ids:0
+msgid "List of equipement link to this type"
+msgstr ""
+
+#. module: intervention_site
 #: field:crm.intervention,src_location_id:0
+#: field:intervention.line,src_location_id:0
 msgid "Location"
 msgstr ""
 
@@ -229,18 +353,23 @@ msgid "Location where the products have been consumed"
 msgstr ""
 
 #. module: intervention_site
+#: help:intervention.line,src_location_id:0
+msgid "Location where the products have been consumed, if different from global one"
+msgstr ""
+
+#. module: intervention_site
 #: field:intervention.line,prodlot_id:0
 msgid "Lot"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:65
+#: code:addons/intervention_site/intervention.py:130
 #, python-format
 msgid "Lot is necessary for product \"%s\""
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:49
+#: code:addons/intervention_site/intervention.py:114
 #, python-format
 msgid "Missing location to made output movement"
 msgstr ""
@@ -257,8 +386,14 @@ msgstr ""
 
 #. module: intervention_site
 #: field:intervention.equipment,name:0
+#: field:intervention.equipment.type,name:0
 #: field:intervention.site,name:0
 msgid "Name"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment.type,name:0
+msgid "Name of equipment type"
 msgstr ""
 
 #. module: intervention_site
@@ -269,6 +404,39 @@ msgstr ""
 #. module: intervention_site
 #: help:intervention.site,name:0
 msgid "Name of the site"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,next_date:0
+msgid "Next visit date"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+#: field:intervention.equipment,notes:0
+#: help:intervention.equipment,notes:0
+#: view:intervention.site:0
+#: field:intervention.site,notes:0
+#: help:intervention.site,notes:0
+msgid "Notes"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,out_of_contract:0
+#: field:intervention.line,out_of_contract:0
+msgid "Out of contract"
+msgstr ""
+
+#. module: intervention_site
+#: code:_description:0
+#: model:ir.model,name:intervention_site.model_res_partner
+#, python-format
+msgid "Partner"
+msgstr ""
+
+#. module: intervention_site
+#: field:generate.equipment.intervention,name:0
+msgid "Prefix for the intervention"
 msgstr ""
 
 #. module: intervention_site
@@ -302,8 +470,19 @@ msgid "Quantity of product"
 msgstr ""
 
 #. module: intervention_site
+#: field:generate.equipment.intervention,user_id:0
+#: field:intervention.equipment,user_id:0
+msgid "Repairer"
+msgstr ""
+
+#. module: intervention_site
 #: field:intervention.equipment,replace_date:0
 msgid "Replacement"
+msgstr ""
+
+#. module: intervention_site
+#: field:generate.equipment.intervention,section_id:0
+msgid "Section"
 msgstr ""
 
 #. module: intervention_site
@@ -317,8 +496,23 @@ msgid "Select customer for this site"
 msgstr ""
 
 #. module: intervention_site
+#: help:generate.equipment.intervention,user_id:0
+msgid "Select repairer"
+msgstr ""
+
+#. module: intervention_site
+#: help:generate.equipment.intervention,section_id:0
+msgid "Select section"
+msgstr ""
+
+#. module: intervention_site
 #: help:intervention.equipment,supplier_id:0
 msgid "Select supplier for this equipment"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,type_id:0
+msgid "Select type of the equipment"
 msgstr ""
 
 #. module: intervention_site
@@ -336,6 +530,16 @@ msgstr ""
 #: view:intervention.equipment:0
 #: field:intervention.equipment,site_id:0
 msgid "Site"
+msgstr ""
+
+#. module: intervention_site
+#: model:res.groups,comment:intervention_site.group_inter_site_mandatory
+msgid "Site is mandatory on intervention"
+msgstr ""
+
+#. module: intervention_site
+#: model:res.groups,name:intervention_site.group_inter_site_mandatory
+msgid "Site mandatory"
 msgstr ""
 
 #. module: intervention_site
@@ -363,6 +567,11 @@ msgid "Sites"
 msgstr ""
 
 #. module: intervention_site
+#: field:generate.equipment.intervention,begin_date:0
+msgid "Start date"
+msgstr ""
+
+#. module: intervention_site
 #: field:intervention.equipment.history,summary:0
 msgid "Summary"
 msgstr ""
@@ -379,6 +588,11 @@ msgid "Supplier"
 msgstr ""
 
 #. module: intervention_site
+#: help:intervention.equipment,out_of_contract:0
+msgid "This equipment"
+msgstr ""
+
+#. module: intervention_site
 #: help:intervention.line,inter_id:0
 msgid "This line is link on this intervention"
 msgstr ""
@@ -386,6 +600,25 @@ msgstr ""
 #. module: intervention_site
 #: field:intervention.line,to_invoice:0
 msgid "To invoice"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.equipment,type_id:0
+#: view:intervention.equipment.type:0
+msgid "Type"
+msgstr ""
+
+#. module: intervention_site
+#: model:ir.actions.act_window,name:intervention_site.act_open_inter_equip_type_view
+#: model:ir.ui.menu,name:intervention_site.menu_inter_equip_type
+msgid "Type Equipment"
+msgstr ""
+
+#. module: intervention_site
+#: code:_description:0
+#: model:ir.model,name:intervention_site.model_intervention_equipment_type
+#, python-format
+msgid "Type of equipment"
 msgstr ""
 
 #. module: intervention_site
@@ -420,7 +653,18 @@ msgstr ""
 
 #. module: intervention_site
 #: help:intervention.equipment,active:0
+#: help:intervention.equipment.type,active:0
 #: help:intervention.site,active:0
 msgid "if check, this object is always available"
+msgstr ""
+
+#. module: intervention_site
+#: view:crm.intervention:0
+msgid "onchange_user_id(user_id)"
+msgstr ""
+
+#. module: intervention_site
+#: view:generate.equipment.intervention:0
+msgid "or"
 msgstr ""
 

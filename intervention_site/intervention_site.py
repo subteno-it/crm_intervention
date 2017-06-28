@@ -26,6 +26,7 @@ class InterventionSite(orm.Model):
             help='Equipment in this site'),
         'company_id': fields.many2one(
             'res.company', 'Company'),
+        'notes': fields.text('Notes', help='Notes'),
     }
 
     _defaults = {
@@ -34,3 +35,21 @@ class InterventionSite(orm.Model):
             s.pool.get('res.company')._company_default_get(
                 cr, uid, 'intervention.site', context=c),
     }
+
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        For each site, add zip and city
+        """
+        if context is None:
+            context = {}
+        if not len(ids):
+            return []
+        sites = self.browse(cr, uid, ids, context=context)
+        res = []
+        for site in sites:
+            name = site.name
+            p = site.partner_id
+            if p:
+                name += ' (%s %s)' % (p.zip or '',p.city or '')
+            res.append((site.id, name))
+        return res

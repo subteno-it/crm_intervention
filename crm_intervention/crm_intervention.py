@@ -215,6 +215,9 @@ class crm_intervention(base_state, base_stage, orm.Model):
         'message_ids': fields.one2many(
             'mail.message', 'res_id', 'Messages',
             domain=[('model', '=', _name)]),
+        'meeting_id': fields.many2one(
+            'crm.meeting', 'Meeting',
+            help='Intervention store in calendar'),
     }
 
     _defaults = {
@@ -247,6 +250,38 @@ class crm_intervention(base_state, base_stage, orm.Model):
         'out_of_contract': False,
     }
 
+    def _create_calendar_event(self, cr, uid, inter, context=None):
+        """
+        Create an event in calendar meeting
+        """
+        ctx = context.copy()
+        ctx['inter_event'] = True  # Prevent recursive loop
+        meeting_obj = self.pool.get('crm.meeting')
+        cal_type = self.pool['ir.model.data'].get_object_reference(
+            cr, uid, 'crm_intervention', 'metting_type_intervention')[1]
+        meeting_vals = {
+            'name': inter.name or _('Intervention'),
+            'categ_ids': [(6, 0, [cal_type])],
+            'duration': inter.duration_planned,
+            'description': inter.intervention_todo or inter.customer_information or '',
+            'user_id': inter.user_id.id,
+            'date': inter.date_planned_start,
+            'end_date': inter.date_planned_end,
+            'date_deadline': inter.date_planned_end,
+            'allday': inter.alldays_planned,
+            'state': 'open',
+            'class': 'confidential',
+        }
+        meeting_id = meeting_obj.create(cr, uid, meeting_vals)
+        inter.write({'meeting_id': meeting_id}, context=ctx)
+        return meeting_id
+
+    def _delete_calendar_event(self, cr, uid, meeting_id, context=None):
+        """
+        delete the event in calendar when intervention is cancel or draft
+        """
+        return self.pool['crm.meeting'].unlink(cr, uid, [meeting_id], context=context)
+
     def write(self, cr, uid, ids, values, context=None):
         """
         Before changing state, check if date is filled
@@ -264,7 +299,9 @@ class crm_intervention(base_state, base_stage, orm.Model):
                         _('Error'),
                         _('Date planned start is required before open the intervention')  # noqa
                     )
-            if inter.state == 'pending':
+                if not context.get('inter_event'):
+                    self._create_calendar_event(cr, uid, inter, context=context)
+            elif inter.state == 'pending':
                 if not inter.date_effective_start:
                     raise orm.except_orm(
                         _('Error'),
@@ -275,6 +312,12 @@ class crm_intervention(base_state, base_stage, orm.Model):
                         _('Error'),
                         _('Date effective end or all days is required before to pending the intervention')  # noqa
                     )
+            elif inter.state == 'cancel':
+                if inter.meeting_id:
+                    self._delete_calendar_event(cr, uid, inter.meeting_id.id, context=context)
+            elif inter.state == 'draft':
+                if inter.meeting_id:
+                    self._delete_calendar_event(cr, uid, inter.meeting_id.id, context=context)
         return res
 
     @staticmethod

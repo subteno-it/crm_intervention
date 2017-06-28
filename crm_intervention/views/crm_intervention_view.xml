@@ -157,6 +157,7 @@
                                         <separator colspan="4" string="Dates"/>
                                         <field name="create_date"/>
                                         <field name="date_closed"/>
+                                        <field name="meeting_id"/>
                                     </group>
                                     <group>
                                         <separator colspan="4" string="Misc"/>
@@ -398,6 +399,12 @@
                 </xpath>
             </field>
         </record>
+
+        <menuitem id="intervention_planning_menu" 
+            parent="menu_intersupport_main"
+            sequence="4"
+            name="Planning"
+            action="base_calendar.action_crm_meeting"/>
 
     </data>
 </openerp>

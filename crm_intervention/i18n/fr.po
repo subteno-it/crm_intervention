@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-31 07:31+0000\n"
-"PO-Revision-Date: 2017-05-31 09:36+0200\n"
+"POT-Creation-Date: 2017-06-28 15:27+0000\n"
+"PO-Revision-Date: 2017-06-28 17:37+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -220,13 +220,6 @@ msgid "All-day intervention planned"
 msgstr "Toute la journée prévue"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:535
-#: code:addons/crm_intervention/crm_intervention.py:537
-#, python-format
-msgid "Already invoiced !"
-msgstr "Déjà facturé !"
-
-#. module: crm_intervention
 #: code:_description:0
 #: model:ir.model,name:crm_intervention.model_account_analytic_account
 #, python-format
@@ -240,7 +233,7 @@ msgid "Analytic line"
 msgstr "Ligne analytique"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:657
+#: code:addons/crm_intervention/crm_intervention.py:699
 #, python-format
 msgid "BI Num %s"
 msgstr "BI N° %s"
@@ -312,7 +305,7 @@ msgid "Contract"
 msgstr "Contrat"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:624
+#: code:addons/crm_intervention/crm_intervention.py:673
 #, python-format
 msgid "Contract is necessary"
 msgstr "Le contract est nécéssaire"
@@ -365,7 +358,7 @@ msgid "Date"
 msgstr "Date"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:269
+#: code:addons/crm_intervention/crm_intervention.py:313
 #, python-format
 msgid "Date effective end or all days is required before to pending the intervention"
 msgstr ""
@@ -373,7 +366,7 @@ msgstr ""
 "l'intervention en attente"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:264
+#: code:addons/crm_intervention/crm_intervention.py:308
 #, python-format
 msgid "Date effective start is required before to pending the intervention"
 msgstr ""
@@ -381,7 +374,7 @@ msgstr ""
 "attente"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:258
+#: code:addons/crm_intervention/crm_intervention.py:300
 #, python-format
 msgid "Date planned start is required before open the intervention"
 msgstr ""
@@ -438,10 +431,10 @@ msgid "Email"
 msgstr "Courriel"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:635
+#: code:addons/crm_intervention/crm_intervention.py:736
 #, python-format
-msgid "Employee not found"
-msgstr "Employé non trouvé"
+msgid "Employee not found (uid: %s)"
+msgstr "Employé non trouvé (uid: %s)"
 
 #. module: crm_intervention
 #: report:crm_intervention.inter_ticket:0
@@ -449,19 +442,17 @@ msgid "End of the intervention : _____ h _____ min."
 msgstr "Fin d'intervention à : _____ h _____ min."
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:257
-#: code:addons/crm_intervention/crm_intervention.py:263
-#: code:addons/crm_intervention/crm_intervention.py:268
-#: code:addons/crm_intervention/crm_intervention.py:381
-#: code:addons/crm_intervention/crm_intervention.py:535
-#: code:addons/crm_intervention/crm_intervention.py:537
-#: code:addons/crm_intervention/crm_intervention.py:581
-#: code:addons/crm_intervention/crm_intervention.py:584
-#: code:addons/crm_intervention/crm_intervention.py:620
-#: code:addons/crm_intervention/crm_intervention.py:622
-#: code:addons/crm_intervention/crm_intervention.py:624
-#: code:addons/crm_intervention/crm_intervention.py:627
-#: code:addons/crm_intervention/crm_intervention.py:635
+#: code:addons/crm_intervention/crm_intervention.py:299
+#: code:addons/crm_intervention/crm_intervention.py:307
+#: code:addons/crm_intervention/crm_intervention.py:312
+#: code:addons/crm_intervention/crm_intervention.py:431
+#: code:addons/crm_intervention/crm_intervention.py:628
+#: code:addons/crm_intervention/crm_intervention.py:631
+#: code:addons/crm_intervention/crm_intervention.py:669
+#: code:addons/crm_intervention/crm_intervention.py:671
+#: code:addons/crm_intervention/crm_intervention.py:673
+#: code:addons/crm_intervention/crm_intervention.py:676
+#: code:addons/crm_intervention/crm_intervention.py:735
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -492,7 +483,7 @@ msgid "Furious"
 msgstr "Pas du tout satisfait"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:591
+#: code:addons/crm_intervention/crm_intervention.py:638
 #, python-format
 msgid "GI %s"
 msgstr "GI %s"
@@ -546,6 +537,11 @@ msgstr "ID"
 #: report:crm_intervention.inter_ticket:0
 msgid "Ideas and comments :"
 msgstr "Vos commentaires et idées d'amélioration :"
+
+#. module: crm_intervention
+#: help:crm.intervention,out_of_contract:0
+msgid "If check, this product is invoiced directly"
+msgstr "Si coché, ce produit sera facturé directement"
 
 #. module: crm_intervention
 #: help:crm.case.section,use_inter:0
@@ -630,9 +626,12 @@ msgstr "Intervenant"
 #. module: crm_intervention
 #: code:_description:0
 #: view:account.analytic.account:0
+#: code:addons/crm_intervention/crm_intervention.py:263
 #: view:crm.case.section:0
 #: view:crm.intervention:0
+#: model:crm.meeting.type,name:crm_intervention.metting_type_intervention
 #: model:ir.model,name:crm_intervention.model_crm_intervention
+#: model:ir.module.category,name:crm_intervention.category_intervention
 #, python-format
 msgid "Intervention"
 msgstr "Intervention"
@@ -668,6 +667,16 @@ msgid "Intervention Tree"
 msgstr "Liste des interventions"
 
 #. module: crm_intervention
+#: view:account.analytic.account:0
+msgid "Intervention contract"
+msgstr "Contrat de l'intervention"
+
+#. module: crm_intervention
+#: model:ir.module.category,name:crm_intervention.category_intervention_opts
+msgid "Intervention options"
+msgstr "Options de l'intervention"
+
+#. module: crm_intervention
 #: report:crm_intervention.inter_report:0
 msgid "Intervention report on"
 msgstr "Rapport d'intervention du"
@@ -676,6 +685,11 @@ msgstr "Rapport d'intervention du"
 #: view:crm.intervention:0
 msgid "Intervention requests during last 7 days"
 msgstr "Intervention demandées durant les 7 derniers jours"
+
+#. module: crm_intervention
+#: help:crm.intervention,meeting_id:0
+msgid "Intervention store in calendar"
+msgstr "Intervention stockée dans le calendrier"
 
 #. module: crm_intervention
 #: report:crm_intervention.inter_ticket:0
@@ -796,6 +810,11 @@ msgid "Maintenance"
 msgstr "Suivi à envisager"
 
 #. module: crm_intervention
+#: field:crm.intervention,meeting_id:0
+msgid "Meeting"
+msgstr "Rendez vous"
+
+#. module: crm_intervention
 #: field:crm.intervention,message_ids:0
 msgid "Messages"
 msgstr "Messages"
@@ -847,6 +866,12 @@ msgid "Open"
 msgstr "Ouvert"
 
 #. module: crm_intervention
+#: view:crm.intervention:0
+#: field:crm.intervention,out_of_contract:0
+msgid "Out of contract"
+msgstr "Hors contrat"
+
+#. module: crm_intervention
 #: code:_description:0
 #: view:crm.intervention:0
 #: model:ir.model,name:crm_intervention.model_res_partner
@@ -891,13 +916,18 @@ msgid "Planned for"
 msgstr "Prévue pour"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:628
+#: model:ir.ui.menu,name:crm_intervention.intervention_planning_menu
+msgid "Planning"
+msgstr "Planning"
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:677
 #, python-format
 msgid "Please define a cost price for the product %s"
 msgstr "Veuillez définir un coût pour le produit %s"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:376
+#: code:addons/crm_intervention/crm_intervention.py:426
 #, python-format
 msgid "Please fill be start date!!"
 msgstr "Veuillez remplir la date de début!!"
@@ -924,8 +954,8 @@ msgid "Product service relate with this intervention"
 msgstr "Produit de type service lié à cette intervention"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:585
-#: code:addons/crm_intervention/crm_intervention.py:622
+#: code:addons/crm_intervention/crm_intervention.py:632
+#: code:addons/crm_intervention/crm_intervention.py:671
 #, python-format
 msgid "Product to invoice is necessary"
 msgstr "Le produit à facturer est nécéssaire"
@@ -1061,7 +1091,7 @@ msgid "The name and address of the contact that requested the intervention."
 msgstr "Le nom et l'adresse du contact qui a demandé l'intervention."
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:382
+#: code:addons/crm_intervention/crm_intervention.py:432
 #, python-format
 msgid "The pause cannot be longer than total!!"
 msgstr "La pause ne peut pas être plus long que le temps total!!"
@@ -1088,13 +1118,13 @@ msgid "These people will receive email."
 msgstr "Ces personnes recevront un couriel."
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:582
+#: code:addons/crm_intervention/crm_intervention.py:629
 #, python-format
 msgid "This intervention already invoiced"
 msgstr "Cette intervention est déjà facturée"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:620
+#: code:addons/crm_intervention/crm_intervention.py:669
 #, python-format
 msgid "This intervention already pre-invoiced"
 msgstr "Cette intervention à déjà été pré-facturée"
@@ -1155,7 +1185,7 @@ msgid "Very Happy"
 msgstr "Très satisfait"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:375
+#: code:addons/crm_intervention/crm_intervention.py:425
 #, python-format
 msgid "Warning"
 msgstr "Avertissement"
@@ -1265,6 +1295,14 @@ msgstr "mercredi"
 #: report:crm_intervention.inter_ticket:0
 msgid "yes, precise ->"
 msgstr "Oui, précisez lequel ->"
+
+#, python-format
+#~ msgid "Already invoiced !"
+#~ msgstr "Déjà facturé !"
+
+#, python-format
+#~ msgid "Employee not found"
+#~ msgstr "Employé non trouvé"
 
 #~ msgid "\n"
 #~ "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"

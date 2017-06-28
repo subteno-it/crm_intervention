@@ -78,5 +78,12 @@
             <field name="number_next">1</field>
         </record>
 
+        #
+        # Indentify intervention on calendar
+        #
+        <record id="metting_type_intervention" model="crm.meeting.type">
+            <field name="name">Intervention</field>
+        </record>
+
     </data>
 </openerp>
