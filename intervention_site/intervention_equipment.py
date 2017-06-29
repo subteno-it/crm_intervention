@@ -2,6 +2,14 @@
 
 from openerp.osv import orm
 from openerp.osv import fields
+from openerp.tools.translate import _
+
+EQUIP_STATUS = [
+    ('owner', _('Owner')),
+    ('tenant', _('Tenant')),
+    ('depositary', _('Depositary')),
+    ('loan', _('Loan')),
+]
 
 
 class InterventionEquipmentType(orm.Model):
@@ -84,6 +92,9 @@ class InterventionEquipment(orm.Model):
         'out_of_contract': fields.boolean(
             'Out of contract', help='This equipment'),
         'notes': fields.text('Notes', help='Notes'),
+        'status': fields.selection(
+            EQUIP_STATUS, 'Status',
+            help='Status for this equipment'),
     }
 
     _defaults = {
@@ -92,6 +103,7 @@ class InterventionEquipment(orm.Model):
         'company_id': lambda s, cr, uid,c:
             s.pool.get('res.company')._company_default_get(
                 cr, uid, 'intervention.equipment', context=c),
+        'status': '',
     }
 
     def name_get(self, cr, uid, ids, context=None):
