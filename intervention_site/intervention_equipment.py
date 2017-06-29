@@ -87,6 +87,7 @@ class InterventionEquipment(orm.Model):
     }
 
     _defaults = {
+        'name': '/',
         'active': True,
         'company_id': lambda s, cr, uid,c:
             s.pool.get('res.company')._company_default_get(
@@ -112,6 +113,18 @@ class InterventionEquipment(orm.Model):
                 name += ' [%s]' % (equip.serial_number or '',)
             res.append((equip.id, name))
         return res
+
+    def create(self, cr, uid, values, context=None):
+        """
+        Generate site code
+        """
+        if context is None:
+            context = {}
+
+        if values.get('name', '') == '/':
+            values['name'] = self.pool.get('ir.sequence').get(cr, uid, 'intervention.equip') or '/'
+
+        return super(InterventionEquipment, self).create(cr, uid, values, context=context)
 
 
 class InterventionEquipmentHistory(orm.Model):
