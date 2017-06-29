@@ -29,8 +29,8 @@
                     </field>
                 </xpath>
                 <xpath expr="//group[@name='general_global']" position="inside">
-                    <field name="site_id" domain="[('customer_id','=', partner_id)]"
-                        on_change="onchange_site_id(site_id)"/>
+                    <field name="site_id" 
+                        on_change="onchange_site_id(site_id, partner_id)"/>
                     <field name="equipment_id" 
                         domain="['|',('site_id','=', site_id),('partner_id','=',partner_id)]"
                         on_change="onchange_equipment_id(equipment_id)"/>
