@@ -27,6 +27,12 @@ class InterventionSite(orm.Model):
         'company_id': fields.many2one(
             'res.company', 'Company'),
         'notes': fields.text('Notes', help='Notes'),
+        'last_date': fields.date(
+            'Last Inspection', help='Date to the last inspection'),
+        'next_date': fields.date(
+            'Next Inspection', help='Date to the next inspection'),
+        'inspection_month': fields.integer(
+            'Month', help='Number of month beetween two inspection visit'),
     }
 
     _defaults = {
@@ -34,6 +40,7 @@ class InterventionSite(orm.Model):
         'company_id': lambda s, cr, uid,c:
             s.pool.get('res.company')._company_default_get(
                 cr, uid, 'intervention.site', context=c),
+        'inspection_month': 12,
     }
 
     def name_get(self, cr, uid, ids, context=None):

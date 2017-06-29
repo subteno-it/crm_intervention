@@ -14,6 +14,7 @@
                     <field name="partner_id"/>
                     <field name="customer_id"/>
                     <field name="contract_id"/>
+                    <field name="next_date"/>
                     <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                 </tree>
             </field>
@@ -36,6 +37,11 @@
                     <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                     <notebook colspan="4">
                         <page string="Equipments">
+                            <group col="6" colspan="4">
+                                <field name="last_date"/>
+                                <field name="next_date"/>
+                                <field name="inspection_month"/>
+                            </group>
                             <field name="equipment_ids" nolabel="1" colspan="4" readonly="1">
                                 <tree string="Equipment">
                                     <field name="name"/>
