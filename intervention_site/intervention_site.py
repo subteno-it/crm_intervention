@@ -39,6 +39,7 @@ class InterventionSite(orm.Model):
     }
 
     _defaults = {
+        'code': '/',
         'active': True,
         'company_id': lambda s, cr, uid,c:
             s.pool.get('res.company')._company_default_get(
@@ -63,3 +64,15 @@ class InterventionSite(orm.Model):
                 name += ' (%s %s)' % (p.zip or '',p.city or '')
             res.append((site.id, name))
         return res
+
+    def create(self, cr, uid, values, context=None):
+        """
+        Generate site code
+        """
+        if context is None:
+            context = {}
+
+        if values.get('code', '') == '/':
+            values['code'] = self.pool.get('ir.sequence').get(cr, uid, 'intervention.site') or '/'
+
+        return super(InterventionSite, self).create(cr, uid, values, context=context)
