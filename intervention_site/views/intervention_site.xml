@@ -15,6 +15,7 @@
                     <field name="customer_id"/>
                     <field name="contract_id"/>
                     <field name="next_date"/>
+                    <field name="section_id"/>
                     <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                 </tree>
             </field>
@@ -35,6 +36,7 @@
                         domain="[('type','=','contract'),('partner_id', '=', customer_id), ('use_inter','=',True)]"/>
                     <field name="active"/>
                     <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                    <field name="section_id" widget="selection" domain="[('use_inter','=', True)]"/>
                     <notebook colspan="4">
                         <page string="Equipments">
                             <group col="6" colspan="4">
@@ -76,6 +78,7 @@
                     <field name="customer_id"/>
                     <field name="partner_id"/>
                     <field name="contract_id"/>
+                    <field name="section_id"/>
                 </search>
             </field>
         </record>

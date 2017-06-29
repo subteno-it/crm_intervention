@@ -46,6 +46,8 @@ class GenerateIntervention(orm.TransientModel):
             int_args.update(part_vals['value'])
             if eq.site_id:
                 int_args['site_id'] = eq.site_id.id
+                if not this.section_id and eq.site_id.section_id:
+                    int_args['section_id'] = eq.site_id.section_id.id
                 if eq.site_id.partner_id:
                     int_args['partner_shipping_id'] = eq.site_id.partner_id.id
             int_ids.append(inter_obj.create(cr, uid, int_args, context=context))

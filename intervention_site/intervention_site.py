@@ -33,6 +33,9 @@ class InterventionSite(orm.Model):
             'Next Inspection', help='Date to the next inspection'),
         'inspection_month': fields.integer(
             'Month', help='Number of month beetween two inspection visit'),
+        'section_id': fields.many2one(
+            'crm.case.section', 'Section',
+            help='Section assigned to this site'),
     }
 
     _defaults = {
