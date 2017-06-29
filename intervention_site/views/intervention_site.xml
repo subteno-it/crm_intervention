@@ -30,8 +30,10 @@
                 <form string="Sites">
                     <field name="name"/>
                     <field name="code"/>
-                    <field name="customer_id"/>
-                    <field name="partner_id"/>
+                    <field name="customer_id"
+                        context="{'show_address': 1}" options='{"always_reload": True}'/>
+                    <field name="partner_id"
+                        context="{'show_address': 1}" options='{"always_reload": True}'/>
                     <field name="contract_id" 
                         domain="[('type','=','contract'),('partner_id', '=', customer_id), ('use_inter','=',True)]"/>
                     <field name="active"/>
