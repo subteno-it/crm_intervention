@@ -2,6 +2,14 @@
 
 from openerp.osv import orm
 from openerp.osv import fields
+from openerp.tools.translate import _
+
+EQUIP_STATUS = [
+    ('owner', _('Owner')),
+    ('tenant', _('Tenant')),
+    ('depositary', _('Depositary')),
+    ('loan', _('Loan')),
+]
 
 
 class InterventionEquipmentType(orm.Model):
@@ -84,13 +92,18 @@ class InterventionEquipment(orm.Model):
         'out_of_contract': fields.boolean(
             'Out of contract', help='This equipment'),
         'notes': fields.text('Notes', help='Notes'),
+        'status': fields.selection(
+            EQUIP_STATUS, 'Status',
+            help='Status for this equipment'),
     }
 
     _defaults = {
+        'name': '/',
         'active': True,
         'company_id': lambda s, cr, uid,c:
             s.pool.get('res.company')._company_default_get(
                 cr, uid, 'intervention.equipment', context=c),
+        'status': '',
     }
 
     def name_get(self, cr, uid, ids, context=None):
@@ -112,6 +125,18 @@ class InterventionEquipment(orm.Model):
                 name += ' [%s]' % (equip.serial_number or '',)
             res.append((equip.id, name))
         return res
+
+    def create(self, cr, uid, values, context=None):
+        """
+        Generate site code
+        """
+        if context is None:
+            context = {}
+
+        if values.get('name', '') == '/':
+            values['name'] = self.pool.get('ir.sequence').get(cr, uid, 'intervention.equip') or '/'
+
+        return super(InterventionEquipment, self).create(cr, uid, values, context=context)
 
 
 class InterventionEquipmentHistory(orm.Model):

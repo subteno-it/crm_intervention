@@ -37,6 +37,7 @@
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
+        'data/sequence.xml',
         'views/intervention_site.xml',
         'views/intervention_equipment.xml',
         'views/intervention.xml',

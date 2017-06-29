@@ -40,12 +40,18 @@ class GenerateIntervention(orm.TransientModel):
                 'section_id': this.section_id and this.section_id.id or False,
                 'user_id': this.user_id and this.user_id.id or False,
                 'date_planned_start': this.begin_date,
+                'duration_planned': 1.0,
                 'partner_id': part_id,
                 'equipment_id': eq.id,
             }
+            if this.begin_date:
+                int_args['date_planned_end'] = inter_obj.onchange_planned_duration(
+                    cr, uid, [], 1.0, this.begin_date)['value']['date_planned_end']
             int_args.update(part_vals['value'])
             if eq.site_id:
                 int_args['site_id'] = eq.site_id.id
+                if not this.section_id and eq.site_id.section_id:
+                    int_args['section_id'] = eq.site_id.section_id.id
                 if eq.site_id.partner_id:
                     int_args['partner_shipping_id'] = eq.site_id.partner_id.id
             int_ids.append(inter_obj.create(cr, uid, int_args, context=context))
@@ -55,5 +61,6 @@ class GenerateIntervention(orm.TransientModel):
         r_id = result and result[1] or False
         result = act_obj.read(cr, uid, [r_id], context=context)[0]
         result['domain'] = "[('id','in', [" + ','.join(map(str, int_ids)) + "])]"
+        del result['context']
 
         return result

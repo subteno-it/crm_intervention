@@ -69,14 +69,20 @@ class CrmIntervention(orm.Model):
 
         return res
 
-    def onchange_site_id(self, cr, uid, ids, site_id, context=None):
+    def onchange_site_id(self, cr, uid, ids, site_id, partner_id, context=None):
         """
         If site have an address, we replace the intervention address with
         site address
         """
         vals = {}
+        domain = {
+            'site_id': "[]",
+            'equipment_id': "[]",
+        }
         if not site_id:
-            return {}
+            if partner_id:
+                domain['site_id'] = "[('customer_id','=', %s)]" % partner_id
+            return {'value': vals, 'domain': domain}
 
         site = self.pool['intervention.site'].browse(cr, uid, site_id, context=context)
         if site.partner_id:
@@ -84,7 +90,12 @@ class CrmIntervention(orm.Model):
         if site.contract_id:
             vals['contract_id'] = site.contract_id.id
 
-        return {'value': vals}
+        if not partner_id and site.customer_id:
+            vals['partner_id'] = site.customer_id.id or False
+            domain['site_id'] = "[('customer_id','=', %s)]" % site.customer_id.id
+            domain['equipment_id'] = "[('site_id','=', %s)]" % site.id
+
+        return {'value': vals, 'domain': domain}
 
     def onchange_equipment_id(self, cr, uid, ids, equip_id, context=None):
         """

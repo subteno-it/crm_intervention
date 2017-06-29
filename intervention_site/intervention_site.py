@@ -27,13 +27,24 @@ class InterventionSite(orm.Model):
         'company_id': fields.many2one(
             'res.company', 'Company'),
         'notes': fields.text('Notes', help='Notes'),
+        'last_date': fields.date(
+            'Last Inspection', help='Date to the last inspection'),
+        'next_date': fields.date(
+            'Next Inspection', help='Date to the next inspection'),
+        'inspection_month': fields.integer(
+            'Month', help='Number of month beetween two inspection visit'),
+        'section_id': fields.many2one(
+            'crm.case.section', 'Section',
+            help='Section assigned to this site'),
     }
 
     _defaults = {
+        'code': '/',
         'active': True,
         'company_id': lambda s, cr, uid,c:
             s.pool.get('res.company')._company_default_get(
                 cr, uid, 'intervention.site', context=c),
+        'inspection_month': 12,
     }
 
     def name_get(self, cr, uid, ids, context=None):
@@ -53,3 +64,15 @@ class InterventionSite(orm.Model):
                 name += ' (%s %s)' % (p.zip or '',p.city or '')
             res.append((site.id, name))
         return res
+
+    def create(self, cr, uid, values, context=None):
+        """
+        Generate site code
+        """
+        if context is None:
+            context = {}
+
+        if values.get('code', '') == '/':
+            values['code'] = self.pool.get('ir.sequence').get(cr, uid, 'intervention.site') or '/'
+
+        return super(InterventionSite, self).create(cr, uid, values, context=context)

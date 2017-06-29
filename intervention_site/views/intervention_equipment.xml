@@ -65,6 +65,7 @@
                                         <field name="partner_id"/>
                                         <field name="type_id"/>
                                         <field name="user_id"/>
+                                        <field name="status"/>
                                         <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                                     </group>
                                 </group>
