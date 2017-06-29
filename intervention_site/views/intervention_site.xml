@@ -54,6 +54,7 @@
                                     <field name="last_int_date"/>
                                     <field name="next_date"/>
                                     <field name="partner_id"/>
+                                    <field name="contract_id"/>
                                 </tree>
                             </field>
                         </page>

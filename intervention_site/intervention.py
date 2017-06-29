@@ -75,7 +75,10 @@ class CrmIntervention(orm.Model):
         site address
         """
         vals = {}
-        domain = {'site_id': "[]"}
+        domain = {
+            'site_id': "[]",
+            'equipment_id': "[]",
+        }
         if not site_id:
             if partner_id:
                 domain['site_id'] = "[('customer_id','=', %s)]" % partner_id
@@ -90,6 +93,7 @@ class CrmIntervention(orm.Model):
         if not partner_id and site.customer_id:
             vals['partner_id'] = site.customer_id.id or False
             domain['site_id'] = "[('customer_id','=', %s)]" % site.customer_id.id
+            domain['equipment_id'] = "[('site_id','=', %s)]" % site.id
 
         return {'value': vals, 'domain': domain}
 

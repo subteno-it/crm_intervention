@@ -32,7 +32,6 @@
                     <field name="site_id" 
                         on_change="onchange_site_id(site_id, partner_id)"/>
                     <field name="equipment_id" 
-                        domain="['|',('site_id','=', site_id),('partner_id','=',partner_id)]"
                         on_change="onchange_equipment_id(equipment_id)"/>
                 </xpath>
                 <xpath expr="//field[@name='user_id']" position="attributes">
