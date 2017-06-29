@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="seq_type_intervention_site" model="ir.sequence.type">
+            <field name="name">Intervention Site</field>
+            <field name="code">intervention.site</field>
+        </record>
+
+        <record id="seq_type_intervention_equip" model="ir.sequence.type">
+            <field name="name">Intervention Equipment</field>
+            <field name="code">intervention.equip</field>
+        </record>
+
+        <record id="seq_intervention_site" model="ir.sequence">
+            <field name="name">Intervention Site</field>
+            <field name="code">intervention.site</field>
+            <field name="prefix">S%(y)s%(woy)s</field>
+            <field name="padding">3</field>
+            <field name="number_next">1</field>
+        </record>
+
+        <record id="seq_intervention_equip" model="ir.sequence">
+            <field name="name">Intervention Equip</field>
+            <field name="code">intervention.equip</field>
+            <field name="prefix">E</field>
+            <field name="padding">8</field>
+            <field name="number_next">1</field>
+        </record>
+
+    </data>
+</openerp>
