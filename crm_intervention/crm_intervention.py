@@ -299,6 +299,11 @@ class crm_intervention(base_state, base_stage, orm.Model):
                         _('Error'),
                         _('Date planned start is required before open the intervention')  # noqa
                     )
+                if not inter.date_planned_end:
+                    raise orm.except_orm(
+                        _('Error'),
+                        _('Date planned end is required before open the intervention')  # noqa
+                    )
                 if not context.get('inter_event'):
                     self._create_calendar_event(cr, uid, inter, context=context)
             elif inter.state == 'pending':

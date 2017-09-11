@@ -96,27 +96,27 @@
                             <page string="Before Intervention">
                                 <group colspan="4" col="4">
                                     <field name="date_planned_start" colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
-                                    <field name="alldays_planned" attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="duration_planned" on_change="onchange_planned_duration(duration_planned, date_planned_start)" widget="float_time" 
                                         attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="date_planned_end" on_change="onchange_planned_end_date(date_planned_end, date_planned_start)" colspan="1" 
                                         attrs="{'readonly':[('state','=','done')]}"/>
+                                    <field name="alldays_planned" attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="intervention_todo" nolabel="1" colspan="4" required="0" attrs="{'readonly':[('state','=','done')]}"/>
                                 </group>
                             </page>
                             <page string="After Intervention" attrs="{'invisible': [('state','=', 'draft')]}">
                                 <group colspan="4" col="6">
                                     <field name="date_effective_start" colspan="1"
-                                        attrs="{'readonly':[('state','=','done')],'required': [('state', 'in', ['open', 'pending'])]}"/>
+                                        attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="duration_effective" widget="float_time"
                                         on_change="onchange_effective_values(date_effective_start,duration_effective,pause_effective,date_effective_end,'duration')"
-                                        attrs="{'readonly':[('state','=','done')],'required': [('state', 'in', ['open', 'pending'])]}"/>
+                                        attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="pause_effective" widget="float_time"
                                         on_change="onchange_effective_values(date_effective_start,duration_effective,pause_effective,date_effective_end,'pause')"
                                         attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="date_effective_end" 
                                         on_change="onchange_effective_values(date_effective_start,duration_effective,pause_effective,date_effective_end,'end')"
-                                        colspan="1" attrs="{'readonly':[('state','=','done')],'required': [('state', 'in', ['open', 'pending'])]}"/>
+                                        colspan="1" attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="alldays_effective" attrs="{'readonly':[('state','=','done')]}"/>
                                     <field name="categ_id" context="{'object_id':'crm.intervention'}" attrs="{'readonly':[('state','=','done')]}"/>
                                     <newline/>
