@@ -60,6 +60,9 @@
                                 <field name="name" string="Subject" attrs="{'readonly':[('state','=','done')]}"/>
                             </h1>
                         </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button string="Send event to repairer" states="open" type="object" name="send_event_repairer"/>
+                        </div>
                         <group colspan="4" col="12" name="title_header">
                             <group colspan="4" col="2" name="part_column1">
                                 <field name="number_request" required="1" string="Reference" colspan="1" attrs="{'readonly':[('state','!=','draft')]}"/>

@@ -31,6 +31,7 @@ from openerp.osv import fields
 from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 import time
+import pytz
 import datetime
 import openerp.tools as tools
 
@@ -39,6 +40,70 @@ CRM_INTERVENTION_STATES = (
     crm.AVAILABLE_STATES[3][0],  # Done
     crm.AVAILABLE_STATES[4][0],  # Pending
 )
+
+html_invitation = """
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>%(name)s</title>
+</head>
+<body>
+<table border="0" cellspacing="10" cellpadding="0" width="100%%"
+    style="font-family: Arial, Sans-serif; font-size: 14">
+    <tr>
+        <td width="100%%">Hello,</td>
+    </tr>
+    <tr>
+        <td width="100%%">You are invited by <i>%(user)s</i></td>
+    </tr>
+    <tr>
+        <td width="100%%">Below are the details of event. Hours and dates expressed in %(timezone)s time.</td>
+    </tr>
+</table>
+
+<table cellspacing="0" cellpadding="5" border="0" summary=""
+    style="width: 90%%; font-family: Arial, Sans-serif; border: 1px Solid #ccc; background-color: #f6f6f6">
+    <tr valign="center" align="center">
+        <td bgcolor="DFDFDF">
+        <h3>%(name)s</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <table cellpadding="8" cellspacing="0" border="0"
+            style="font-size: 14" summary="Eventdetails" bgcolor="f6f6f6"
+            width="90%%">
+            <tr>
+                <td width="21%%">
+                <div><b>Start Date</b></div>
+                </td>
+                <td><b>:</b></td>
+                <td>%(start_date)s</td>
+                <td width="15%%">
+                <div><b>End Date</b></div>
+                </td>
+                <td><b>:</b></td>
+                <td width="25%%">%(end_date)s</td>
+            </tr>
+            <tr valign="top">
+                <td><b>Description</b></td>
+                <td><b>:</b></td>
+                <td colspan="3">%(description)s</td>
+            </tr>
+            <tr valign="top">
+                <td>
+                <div><b>Location</b></div>
+                </td>
+                <td><b>:</b></td>
+                <td colspan="3">%(location)s</td>
+            </tr>
+        </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
+"""
 
 
 class res_partner(orm.Model):
@@ -463,6 +528,68 @@ class crm_intervention(base_state, base_stage, orm.Model):
                     hours=total_duration)).strftime('%Y-%m-%d %H:%M:00')
             }
         return {'warning': warn, 'value': vals}
+
+    def send_event_repairer(self, cr, uid, ids, context=None):
+        """Send an email to the repairer"""
+        if len(ids) > 1:
+            raise orm.except_orm(
+                _('Error'),
+                _('Send one mail per intervention'))
+
+        inter = self.browse(cr, uid, ids[0], context=context)
+
+        def ics_datetime(idate, short=False):
+            if idate:
+                #returns the datetime as UTC, because it is stored as it in the database
+                return datetime.datetime.strptime(idate, '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.timezone('UTC'))
+            return False
+        try:
+            import vobject
+        except ImportError:
+            raise orm.except_orm(
+                _('Error'),
+                _('missing vobject library'))
+
+        usr = self.pool['res.users'].browse(cr, uid, uid, context=context)
+        cal = vobject.iCalendar()
+        event = cal.add('vevent')
+        event.add('created').value = ics_datetime(time.strftime('%Y-%m-%d %H:%M:%S'))
+        event.add('dtstart').value = ics_datetime(inter.date_planned_start)
+        event.add('dtend').value = ics_datetime(inter.date_planned_end)
+        event.add('summary').value = inter.name
+        if  inter.customer_information:
+            event.add('description').value = inter.customer_information
+        if inter.partner_shipping_id:
+            addr = self.pool['res.partner']._display_address(
+                cr, uid, inter.partner_shipping_id, context=context)
+            event.add('location').value = addr
+        ics_file = cal.serialize()
+
+        body_vals = {
+            'name': inter.name,
+            'start_date': inter.date_planned_start,
+            'end_date': inter.date_planned_end,
+            'timezone': context.get('tz', pytz.timezone('UTC')),
+            'description': inter.customer_information or '-',
+            'location': addr or '-',
+            'user': usr.name,
+        }
+        body = html_invitation % body_vals
+        vals = {
+            'email_from': usr.email,
+            'email_to': inter.user_id.email,
+            'state': 'outgoing',
+            'subject': _('[INTERVENTION] %s') % inter.name,
+            'body_html': body,
+            'auto_delete': True
+        }
+        if ics_file:
+            vals['attachment_ids'] = [(0,0,{
+                'name': 'intervention.ics',
+                'datas_fname': 'intervention.ics',
+                'datas': str(ics_file).encode('base64')})]
+        self.pool.get('mail.mail').create(cr, uid, vals, context=context)
+        return True
 
     def action_email_send(self, cr, uid, ids, context=None):
         """
