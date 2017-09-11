@@ -579,9 +579,21 @@ class crm_intervention(base_state, base_stage, orm.Model):
         return super(crm_intervention, self).copy(
             cr, uid, id, default, context=context)
 
+    def _required_field(self, inter, fields):
+        """Check if fields given is fill"""
+        for f in fields:
+            if not getattr(inter, f):
+                raise orm.except_orm(
+                    _('Error'),
+                    _('%s is necessary to make invoice') % f
+                )
+
     def prepare_invoice(self, cr, uid, ids, context=None):
 
         for inter in self.browse(cr, uid, ids, context=context):
+            self._required_field(inter=inter, fields=[
+                'product_id','invoice_qty', 'invoice_uom_id'])
+
             self.generate_analytic_line(
                 cr, uid, [inter.id], context=context)
             self.generate_invoice(

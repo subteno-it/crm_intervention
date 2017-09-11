@@ -133,13 +133,13 @@
                                     </group>
                                     <group colspan="4" col="2">
                                         <field name="contract_id" domain="[('type','=','contract'),('partner_id', '=', partner_id), ('use_inter','=',True)]"/>
-                                        <field name="product_id" attrs="{'readonly':[('state','=','done')], 'required': [('state','=', 'pending')]}"
+                                        <field name="product_id" attrs="{'readonly':[('state','=','done')]}"
                                             on_change="onchange_product_id(product_id,alldays_effective,duration_effective,pause_effective,date_effective_start,date_effective_end)"/>
                                         <label for="invoice_qty"/>
                                         <div>
-                                            <field name="invoice_qty" class="oe_inline" attrs="{'required': [('state','=', 'pending')]}"/>
-                                            <field name="invoice_uom_id" class="oe_inline oe_no_button" attrs="{'required': [('state','=', 'pending')]}"/>
-                                            <field name="out_of_contract" class="oe_inline"/>
+                                            <field name="invoice_qty" class="oe_inline" attrs="{'readonly':[('state','=','done')]}"/>
+                                            <field name="invoice_uom_id" class="oe_inline oe_no_button" attrs="{'readonly':[('state','=','done')]}"/>
+                                            <field name="out_of_contract" class="oe_inline" attrs="{'readonly':[('state','=','done')]}"/>
                                             <label for="out_of_contract" string="Out of contract" class="oe_inline"/>
                                         </div>
                                         <field name="analytic_line_id" domain="[('account_id','=',contract_id)]" string="Contract line" 
