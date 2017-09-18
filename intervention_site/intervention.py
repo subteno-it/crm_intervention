@@ -59,6 +59,12 @@ class CrmIntervention(orm.Model):
                 'site_id': False,
                 'equipment_id': False,
             })
+            if 'domain' not in res:
+                res['domain'] = {}
+            res['domain'].update({
+                'site_id': [],
+                'equipment_id': [],
+            })
 
         s_args = [
             ('partner_id', '=', res['value']['partner_order_id'])
