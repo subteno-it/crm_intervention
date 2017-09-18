@@ -409,8 +409,11 @@ class crm_intervention(base_state, base_stage, orm.Model):
         vals['invoice_uom_id'] = product.uom_id.id
         if alldays:
             _b = self._eval_timestamp(begin_dt)
-            _e = self._eval_timestamp(end_dt)
-            vals['invoice_qty'] = (_e - _b).days + 1.0
+            try:
+                _e = self._eval_timestamp(end_dt)
+                vals['invoice_qty'] = (_e - _b).days + 1.0
+            except Exception, e:
+                vals['invoice_qty'] = 1.0
         else:
             vals['invoice_qty'] = duration - pause
 

@@ -269,11 +269,16 @@ class CrmIntervention(orm.Model):
                         'last_int_date': rec.date_effective_start[:10]
                     }, context=context)
 
+                    summary = rec.description or '--'
+                    for line in rec.line_ids:
+                        summary += '\n %.3f %s %s' % (
+                            line.product_qty, line.product_id.default_code or '',
+                            line.product_id.name)
                     hist_args = {
                         'equipment_id': rec.equipment_id.id,
                         'hist_date': rec.date_effective_start[:10],
                         'user_id': rec.user_id.id,
-                        'summary': rec.description,
+                        'summary': summary,
                     }
                     hist_obj.create(cr, uid, hist_args, context=context)
 
