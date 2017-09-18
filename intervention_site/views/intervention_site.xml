@@ -49,7 +49,7 @@
                                 <field name="next_date"/>
                                 <field name="inspection_month"/>
                             </group>
-                            <field name="equipment_ids" nolabel="1" colspan="4" readonly="1">
+                            <field name="equipment_ids" nolabel="1" colspan="4">
                                 <tree string="Equipment">
                                     <field name="name"/>
                                     <field name="type_id"/>
@@ -60,6 +60,7 @@
                                     <field name="next_date"/>
                                     <field name="partner_id"/>
                                     <field name="contract_id"/>
+                                    <field name="out_of_contract"/>
                                 </tree>
                             </field>
                         </page>

@@ -38,7 +38,7 @@
                             </div>
                             <h1><field name="name"/></h1>
                             <label for="site_id" class="oe_edit_only"/>
-                            <h2><field name="site_id"/></h2>
+                            <h2><field name="site_id" attrs="{'readonly': [('name','=', '/')]}"/></h2>
                             <div name="options" groups="base.group_user">
                                 <field name="active"/>
                                 <label for="active" string="Active"/>
