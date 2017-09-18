@@ -18,6 +18,7 @@
                     <field name="section_id"/>
                     <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                     <field name="zip"/>
+                    <field name="city"/>
                 </tree>
             </field>
         </record>
@@ -40,6 +41,7 @@
                     <field name="active"/>
                     <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                     <field name="section_id" widget="selection" domain="[('use_inter','=', True)]"/>
+                    <field name="user_id"/>
                     <notebook colspan="4">
                         <page string="Equipments">
                             <group col="6" colspan="4">
@@ -79,6 +81,7 @@
                     <field name="name"/>
                     <field name="code"/>
                     <field name="zip"/>
+                    <field name="city"/>
                     <field name="active"/>
                     <field name="customer_id"/>
                     <field name="partner_id"/>
