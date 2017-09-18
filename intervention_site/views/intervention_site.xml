@@ -17,6 +17,7 @@
                     <field name="next_date"/>
                     <field name="section_id"/>
                     <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                    <field name="zip"/>
                 </tree>
             </field>
         </record>
@@ -77,6 +78,7 @@
                 <search string="Sites">
                     <field name="name"/>
                     <field name="code"/>
+                    <field name="zip"/>
                     <field name="active"/>
                     <field name="customer_id"/>
                     <field name="partner_id"/>

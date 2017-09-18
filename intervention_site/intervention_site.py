@@ -38,6 +38,10 @@ class InterventionSite(orm.Model):
         'section_id': fields.many2one(
             'crm.case.section', 'Section',
             help='Section assigned to this site'),
+        'zip': fields.related(
+            'partner_id', 'zip', type='char',
+            relation='res.partner', string='Zip site',
+            help='Zip code for the physical address of the site'),
     }
 
     _defaults = {
