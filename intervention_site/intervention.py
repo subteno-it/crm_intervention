@@ -89,6 +89,8 @@ class CrmIntervention(orm.Model):
             vals['partner_shipping_id'] = site.partner_id.id
         if site.contract_id:
             vals['contract_id'] = site.contract_id.id
+        if site.user_id:
+            vals['user_id'] = site.user_id.id
 
         if not partner_id and site.customer_id:
             vals['partner_id'] = site.customer_id.id or False

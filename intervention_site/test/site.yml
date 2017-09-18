@@ -5,6 +5,7 @@
       name: Paris Site
       partner_id: base.res_partner_2
       customer_id: base.res_partner_2
+      user_id: base.user_demo
 -
     Check if company is fill automatically
 -

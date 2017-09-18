@@ -15,6 +15,7 @@
       inter = self.browse(cr, uid, ref('crm_intervention_test1'))
       log('Partner invoice id: %i must be %i' % (inter.partner_invoice_id.id, ref('base.res_partner_2')))
       assert inter.partner_invoice_id.id == ref('base.res_partner_2'), "The onchange function of partner was not correctly triggered"
+      assert inter.user_id.id == ref('base.user_demo'), "Must be a demo user afefct on the site"
 
 -
     Confirm the intervention, check proposed date, must be raise
