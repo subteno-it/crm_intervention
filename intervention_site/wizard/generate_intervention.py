@@ -26,8 +26,6 @@ class GenerateIntervention(orm.TransientModel):
         this = self.browse(cr, uid, ids[0], context=context)
         inter_obj = self.pool['crm.intervention']
         int_ids = []
-        mod_obj = self.pool['ir.model.data']
-        act_obj = self.pool['ir.actions.act_window']
         for eq in self.pool['intervention.equipment'].browse(
                 cr, uid, equip_ids, context=context):
             part_id = eq.partner_id and eq.partner_id.id or False
@@ -56,11 +54,4 @@ class GenerateIntervention(orm.TransientModel):
                     int_args['partner_shipping_id'] = eq.site_id.partner_id.id
             int_ids.append(inter_obj.create(cr, uid, int_args, context=context))
 
-        # Open the intervention with ths generate list
-        result = mod_obj.get_object_reference(cr, uid, 'crm_intervention', 'crm_case_intervention_act111')
-        r_id = result and result[1] or False
-        result = act_obj.read(cr, uid, [r_id], context=context)[0]
-        result['domain'] = "[('id','in', [" + ','.join(map(str, int_ids)) + "])]"
-        del result['context']
-
-        return result
+        return inter_obj.open_intervention(cr, uid, int_ids, context=context)

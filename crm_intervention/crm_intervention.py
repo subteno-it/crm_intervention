@@ -881,6 +881,20 @@ class crm_intervention(base_state, base_stage, orm.Model):
             )
         return emp_obj.browse(cr, uid, emp_ids[0], context=context)
 
+    def open_intervention(self, cr, uid, int_ids, context=None):
+        """Open the tree or form view of intervention"""
+        mod_obj = self.pool['ir.model.data']
+        act_obj = self.pool['ir.actions.act_window']
+
+        result = mod_obj.get_object_reference(cr, uid, 'crm_intervention', 'crm_case_intervention_act111')
+        r_id = result and result[1] or False
+        result = act_obj.read(cr, uid, [r_id], context=context)[0]
+        result['domain'] = "[('id','in', [" + ','.join(map(str, int_ids)) + "])]"
+        del result['context']
+        result['context'] = context or {}
+
+        return result
+
 
 class account_analytic_account(orm.Model):
     _inherit = 'account.analytic.account'
