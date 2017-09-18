@@ -44,10 +44,12 @@
                     <field name="user_id"/>
                     <notebook colspan="4">
                         <page string="Equipments">
-                            <group col="6" colspan="4">
+                            <group col="8" colspan="4">
                                 <field name="last_date"/>
                                 <field name="next_date"/>
                                 <field name="inspection_month"/>
+                                <button string="New Intervention" icon="gtk-ok"
+                                    type="object" name="create_intervention"/>
                             </group>
                             <field name="equipment_ids" nolabel="1" colspan="4">
                                 <tree string="Equipment">
