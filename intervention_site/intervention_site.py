@@ -10,8 +10,10 @@ class InterventionSite(orm.Model):
 
     _columns = {
         'name': fields.char(
-            'Name', size=64, required=True, help='Name of the site'),
-        'code': fields.char('Code', size=16, help='Code for this site'),
+            'Site Name', size=64, required=True, help='Name of the site'),
+        'code': fields.char(
+            'Site Code', size=16,
+            help='Code for this site, keep / for automatic code'),
         'partner_id': fields.many2one(
             'res.partner', 'Address', help='Select address for this site'),
         'customer_id': fields.many2one(
