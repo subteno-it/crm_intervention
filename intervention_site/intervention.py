@@ -59,6 +59,12 @@ class CrmIntervention(orm.Model):
                 'site_id': False,
                 'equipment_id': False,
             })
+            if 'domain' not in res:
+                res['domain'] = {}
+            res['domain'].update({
+                'site_id': [],
+                'equipment_id': [],
+            })
 
         s_args = [
             ('partner_id', '=', res['value']['partner_order_id'])
@@ -89,6 +95,8 @@ class CrmIntervention(orm.Model):
             vals['partner_shipping_id'] = site.partner_id.id
         if site.contract_id:
             vals['contract_id'] = site.contract_id.id
+        if site.user_id:
+            vals['user_id'] = site.user_id.id
 
         if not partner_id and site.customer_id:
             vals['partner_id'] = site.customer_id.id or False
@@ -173,7 +181,8 @@ class CrmIntervention(orm.Model):
                 company_id=inter.company_id and inter.company_id.id or
                 False)['value']
             )
-            line['uos_id'] = l.product_uom_id.id,
+            line['uos_id'] = l.product_uom_id.id
+            line['name'] = l.name
             line['invoice_line_tax_id'] = [
                 (6, 0, line['invoice_line_tax_id'])
             ]
@@ -209,12 +218,12 @@ class CrmIntervention(orm.Model):
                 unit_amount = q
                 unit = line.product_uom_id.id
                 vals = {
-                    'name': _('BI Num %s') % inter.number_request,
+                    'ref': _('BI Num %s') % inter.number_request,
                     'account_id': inter.contract_id.id,
                     'journal_id': emp.journal_id.id,
                     'user_id': inter.user_id.id,
                     'date': inter.date_effective_start[:10],
-                    'ref': inter.name[:64],
+                    'name': line.name,
                     'to_invoice': inter.contract_id.to_invoice.id,
                     'product_id': line.product_id.id,
                     'unit_amount': unit_amount,
@@ -261,11 +270,20 @@ class CrmIntervention(orm.Model):
                         'last_int_date': rec.date_effective_start[:10]
                     }, context=context)
 
+                    summary = rec.description or '--'
+                    for line in rec.line_ids:
+                        if line.product_id:
+                            summary += '\n %.3f %s %s' % (
+                                line.product_qty, line.product_id.default_code or '',
+                                line.name)
+                        else:
+                            summary += '\n %.3f %s' % (
+                                line.product_qty, line.name)
                     hist_args = {
                         'equipment_id': rec.equipment_id.id,
                         'hist_date': rec.date_effective_start[:10],
                         'user_id': rec.user_id.id,
-                        'summary': rec.description,
+                        'summary': summary,
                     }
                     hist_obj.create(cr, uid, hist_args, context=context)
 
@@ -283,6 +301,9 @@ class CrmInterventionLines(orm.Model):
         'product_id': fields.many2one(
             'product.product', 'Product', required=True,
             help='Product use on this interevntion'),
+        'name': fields.char(
+            'description', size=64, required=True,
+            help='Line description, use on invoice'),
         'product_qty': fields.float(
             'Qty', digits_compute=dp.get_precision('Account'),
             required=True, help='Quantity of product'),
@@ -323,6 +344,6 @@ class CrmInterventionLines(orm.Model):
         vals['value'].update({
             'product_qty': 1.0,
             'product_uom_id': pro.uom_id.id,
+            'name': pro.name,
         })
-
         return vals

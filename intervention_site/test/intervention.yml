@@ -15,6 +15,7 @@
       inter = self.browse(cr, uid, ref('crm_intervention_test1'))
       log('Partner invoice id: %i must be %i' % (inter.partner_invoice_id.id, ref('base.res_partner_2')))
       assert inter.partner_invoice_id.id == ref('base.res_partner_2'), "The onchange function of partner was not correctly triggered"
+      assert inter.user_id.id == ref('base.user_demo'), "Must be a demo user afefct on the site"
 
 -
     Confirm the intervention, check proposed date, must be raise
@@ -93,6 +94,7 @@
   !record {model: intervention.line, id: intervention_line1}:
       inter_id: crm_intervention_test1
       product_id: product.product_product_48
+      name: 'My product 1'
       product_qty: 2.0
       product_uom_id: product.product_uom_unit
       to_invoice: True
@@ -103,6 +105,7 @@
   !record {model: intervention.line, id: intervention_line2}:
       inter_id: crm_intervention_test1
       product_id: product.product_product_24
+      name: 'My product 2'
       product_qty: 1.0
       product_uom_id: product.product_uom_unit
       to_invoice: True
@@ -112,6 +115,7 @@
   !record {model: intervention.line, id: intervention_line3}:
       inter_id: crm_intervention_test1
       product_id: product.product_product_46
+      name: 'My RAM'
       product_qty: 1.0
       product_uom_id: product.product_uom_unit
       to_invoice: False
