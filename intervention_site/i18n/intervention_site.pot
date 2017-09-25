@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-29 14:24+0000\n"
-"PO-Revision-Date: 2017-06-29 14:24+0000\n"
+"POT-Creation-Date: 2017-09-25 18:36+0000\n"
+"PO-Revision-Date: 2017-09-25 18:36+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgid "Analytic line"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:212
+#: code:addons/intervention_site/intervention.py:221
 #, python-format
 msgid "BI Num %s"
 msgstr ""
@@ -56,14 +56,28 @@ msgid "Choose dedicate repairer for this equipment"
 msgstr ""
 
 #. module: intervention_site
+#: help:intervention.site,user_id:0
+msgid "Choose dedicate repairer for this site"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.site,city:0
+msgid "City"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.site,city:0
+msgid "City for the physical address of the site"
+msgstr ""
+
+#. module: intervention_site
 #: field:intervention.equipment.type,code:0
-#: field:intervention.site,code:0
 msgid "Code"
 msgstr ""
 
 #. module: intervention_site
 #: help:intervention.site,code:0
-msgid "Code for this site"
+msgid "Code for this site, keep / for automatic code"
 msgstr ""
 
 #. module: intervention_site
@@ -232,8 +246,8 @@ msgid "Equipments"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:124
-#: code:addons/intervention_site/intervention.py:140
+#: code:addons/intervention_site/intervention.py:132
+#: code:addons/intervention_site/intervention.py:148
 #, python-format
 msgid "Error"
 msgstr ""
@@ -346,6 +360,11 @@ msgid "Last intervention date"
 msgstr ""
 
 #. module: intervention_site
+#: help:intervention.line,name:0
+msgid "Line description, use on invoice"
+msgstr ""
+
+#. module: intervention_site
 #: code:_description:0
 #: model:ir.model,name:intervention_site.model_intervention_line
 #, python-format
@@ -392,13 +411,13 @@ msgid "Lot"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:141
+#: code:addons/intervention_site/intervention.py:149
 #, python-format
 msgid "Lot is necessary for product \"%s\""
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:125
+#: code:addons/intervention_site/intervention.py:133
 #, python-format
 msgid "Missing location to made output movement"
 msgstr ""
@@ -421,7 +440,6 @@ msgstr ""
 #. module: intervention_site
 #: field:intervention.equipment,name:0
 #: field:intervention.equipment.type,name:0
-#: field:intervention.site,name:0
 msgid "Name"
 msgstr ""
 
@@ -438,6 +456,11 @@ msgstr ""
 #. module: intervention_site
 #: help:intervention.site,name:0
 msgid "Name of the site"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.site:0
+msgid "New Intervention"
 msgstr ""
 
 #. module: intervention_site
@@ -523,6 +546,7 @@ msgstr ""
 #. module: intervention_site
 #: field:generate.equipment.intervention,user_id:0
 #: field:intervention.equipment,user_id:0
+#: field:intervention.site,user_id:0
 msgid "Repairer"
 msgstr ""
 
@@ -587,6 +611,16 @@ msgstr ""
 #: view:intervention.equipment:0
 #: field:intervention.equipment,site_id:0
 msgid "Site"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.site,code:0
+msgid "Site Code"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.site,name:0
+msgid "Site Name"
 msgstr ""
 
 #. module: intervention_site
@@ -718,6 +752,21 @@ msgstr ""
 #. module: intervention_site
 #: view:intervention.equipment:0
 msgid "Without site"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.site,zip:0
+msgid "Zip code for the physical address of the site"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.site,zip:0
+msgid "Zip site"
+msgstr ""
+
+#. module: intervention_site
+#: field:intervention.line,name:0
+msgid "description"
 msgstr ""
 
 #. module: intervention_site

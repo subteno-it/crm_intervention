@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-29 14:24+0000\n"
-"PO-Revision-Date: 2017-06-29 16:27+0200\n"
+"POT-Creation-Date: 2017-09-25 18:36+0000\n"
+"PO-Revision-Date: 2017-09-25 20:44+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -37,7 +37,7 @@ msgid "Analytic line"
 msgstr "Ligne contrat"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:212
+#: code:addons/intervention_site/intervention.py:221
 #, python-format
 msgid "BI Num %s"
 msgstr "BI Num %s"
@@ -58,15 +58,29 @@ msgid "Choose dedicate repairer for this equipment"
 msgstr "Choisir un téchnicien dédié pour cet équipement"
 
 #. module: intervention_site
+#: help:intervention.site,user_id:0
+msgid "Choose dedicate repairer for this site"
+msgstr "Choisir un technicien dédié pour ce site"
+
+#. module: intervention_site
+#: field:intervention.site,city:0
+msgid "City"
+msgstr "Ville"
+
+#. module: intervention_site
+#: help:intervention.site,city:0
+msgid "City for the physical address of the site"
+msgstr "Ville pour cette adresse physique de ce site"
+
+#. module: intervention_site
 #: field:intervention.equipment.type,code:0
-#: field:intervention.site,code:0
 msgid "Code"
 msgstr "Code"
 
 #. module: intervention_site
 #: help:intervention.site,code:0
-msgid "Code for this site"
-msgstr "Code pour ce site"
+msgid "Code for this site, keep / for automatic code"
+msgstr "Code pour le site, garder / pour un code automatique"
 
 #. module: intervention_site
 #: help:intervention.equipment.type,code:0
@@ -234,8 +248,8 @@ msgid "Equipments"
 msgstr "Équipements"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:124
-#: code:addons/intervention_site/intervention.py:140
+#: code:addons/intervention_site/intervention.py:132
+#: code:addons/intervention_site/intervention.py:148
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -266,7 +280,7 @@ msgstr "Grouper par..."
 #. module: intervention_site
 #: help:crm.intervention,equipment_id:0
 msgid "Help note"
-msgstr ""
+msgstr "Note"
 
 #. module: intervention_site
 #: view:intervention.equipment:0
@@ -348,6 +362,11 @@ msgid "Last intervention date"
 msgstr "Date de dernière intervention"
 
 #. module: intervention_site
+#: help:intervention.line,name:0
+msgid "Line description, use on invoice"
+msgstr "Ligne de descriptif, utilisé en facturation"
+
+#. module: intervention_site
 #: code:_description:0
 #: model:ir.model,name:intervention_site.model_intervention_line
 #, python-format
@@ -394,13 +413,13 @@ msgid "Lot"
 msgstr "Lot"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:141
+#: code:addons/intervention_site/intervention.py:149
 #, python-format
 msgid "Lot is necessary for product \"%s\""
 msgstr "Le lot est necessaire pour ce produit \"%s\""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:125
+#: code:addons/intervention_site/intervention.py:133
 #, python-format
 msgid "Missing location to made output movement"
 msgstr "Emplacement manquant pour faire la sortie de stock"
@@ -423,7 +442,6 @@ msgstr "Mouvement lié au stock de produit"
 #. module: intervention_site
 #: field:intervention.equipment,name:0
 #: field:intervention.equipment.type,name:0
-#: field:intervention.site,name:0
 msgid "Name"
 msgstr "Nom"
 
@@ -441,6 +459,11 @@ msgstr "Nom de l'équipement"
 #: help:intervention.site,name:0
 msgid "Name of the site"
 msgstr "Nom du site"
+
+#. module: intervention_site
+#: view:intervention.site:0
+msgid "New Intervention"
+msgstr "Nouvelle intervention"
 
 #. module: intervention_site
 #: field:intervention.site,next_date:0
@@ -525,6 +548,7 @@ msgstr "Quantité de produit"
 #. module: intervention_site
 #: field:generate.equipment.intervention,user_id:0
 #: field:intervention.equipment,user_id:0
+#: field:intervention.site,user_id:0
 msgid "Repairer"
 msgstr "Technicien"
 
@@ -590,6 +614,16 @@ msgstr "Numéro de série"
 #: field:intervention.equipment,site_id:0
 msgid "Site"
 msgstr "Site"
+
+#. module: intervention_site
+#: field:intervention.site,code:0
+msgid "Site Code"
+msgstr "COde du site"
+
+#. module: intervention_site
+#: field:intervention.site,name:0
+msgid "Site Name"
+msgstr "Nom du site"
 
 #. module: intervention_site
 #: model:res.groups,comment:intervention_site.group_inter_site_mandatory
@@ -723,6 +757,21 @@ msgid "Without site"
 msgstr "Sans site"
 
 #. module: intervention_site
+#: help:intervention.site,zip:0
+msgid "Zip code for the physical address of the site"
+msgstr "Code postal pour l'adresse physique de ce site"
+
+#. module: intervention_site
+#: field:intervention.site,zip:0
+msgid "Zip site"
+msgstr "Code postal du site"
+
+#. module: intervention_site
+#: field:intervention.line,name:0
+msgid "description"
+msgstr "Descriptif"
+
+#. module: intervention_site
 #: field:intervention.equipment.history,equipment_id:0
 msgid "equipment"
 msgstr "équipement"
@@ -743,3 +792,6 @@ msgstr ""
 #: view:generate.equipment.intervention:0
 msgid "or"
 msgstr "ou"
+
+#~ msgid "Code for this site"
+#~ msgstr "Code pour ce site"
