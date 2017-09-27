@@ -90,6 +90,16 @@
                     <field name="partner_id"/>
                     <field name="contract_id"/>
                     <field name="section_id"/>
+                    <separator/>
+                    <filter string="Inspection in 15 days" domain="[('next_date','&gt;=', context_today()), ('next_date','&lt;=', (context_today()-datetime.timedelta(days=15)).strftime('%%Y-%%m-%%d'))]"
+                        help="Inspection planned in next 15 days" context="{}"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Partner" icon="terp-partner" domain="[]" help="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter string="Customer" icon="terp-partner" domain="[]" help="Customer" context="{'group_by':'customer_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Contract" icon="terp-partner" domain="[]" help="Contract" context="{'group_by':'contract_id'}"/>
+                        <filter string="Section" icon="terp-partner" domain="[]" help="Secction" context="{'group_by':'section_id'}"/>
+                    </group>
                 </search>
             </field>
         </record>
