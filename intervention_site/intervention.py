@@ -16,6 +16,19 @@ class ResPartner(orm.Model):
     }
 
 
+class account_analytic_account(orm.Model):
+    _inherit = 'account.analytic.account'
+
+    _columns = {
+        'site_ids': fields.one2many(
+            'intervention.site', 'contract_id', 'Sites',
+            help='Site link to this contract'),
+        'inter_ids': fields.one2many(
+            'crm.intervention', 'contract_id', 'Interventions',
+            help='intervention link to this contract'),
+    }
+
+
 class CrmIntervention(orm.Model):
     _inherit = 'crm.intervention'
 
