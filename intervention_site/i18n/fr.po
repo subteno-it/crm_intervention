@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-25 18:36+0000\n"
-"PO-Revision-Date: 2017-09-25 20:44+0200\n"
+"POT-Creation-Date: 2017-09-27 14:15+0000\n"
+"PO-Revision-Date: 2017-09-27 16:18+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -31,13 +31,25 @@ msgid "Address"
 msgstr "Adresse"
 
 #. module: intervention_site
+#: view:account.analytic.account:0
+msgid "All days planned"
+msgstr "Planifié toute la journée"
+
+#. module: intervention_site
+#: code:_description:0
+#: model:ir.model,name:intervention_site.model_account_analytic_account
+#, python-format
+msgid "Analytic Account"
+msgstr "Compte analytique"
+
+#. module: intervention_site
 #: field:intervention.line,analytic_line_id:0
 #: help:intervention.line,analytic_line_id:0
 msgid "Analytic line"
 msgstr "Ligne contrat"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:221
+#: code:addons/intervention_site/intervention.py:234
 #, python-format
 msgid "BI Num %s"
 msgstr "BI Num %s"
@@ -102,6 +114,7 @@ msgstr "Société"
 
 #. module: intervention_site
 #: field:intervention.equipment,contract_id:0
+#: view:intervention.site:0
 #: field:intervention.site,contract_id:0
 msgid "Contract"
 msgstr "Contrat"
@@ -129,6 +142,7 @@ msgstr "Créer une intervention"
 #. module: intervention_site
 #: view:intervention.equipment:0
 #: field:intervention.equipment,partner_id:0
+#: view:intervention.site:0
 #: field:intervention.site,customer_id:0
 msgid "Customer"
 msgstr "Client"
@@ -248,8 +262,8 @@ msgid "Equipments"
 msgstr "Équipements"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:132
-#: code:addons/intervention_site/intervention.py:148
+#: code:addons/intervention_site/intervention.py:145
+#: code:addons/intervention_site/intervention.py:161
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -271,6 +285,11 @@ msgstr "Générer une intervention"
 #, python-format
 msgid "Generate intervention from equipment"
 msgstr "Générer une intervention pour cet équipement"
+
+#. module: intervention_site
+#: view:intervention.site:0
+msgid "Group By..."
+msgstr "Grouper par..."
 
 #. module: intervention_site
 #: view:intervention.equipment:0
@@ -324,7 +343,18 @@ msgid "Indicate the next visite date"
 msgstr "Indique la prochaine date de visite"
 
 #. module: intervention_site
+#: view:intervention.site:0
+msgid "Inspection in 15 days"
+msgstr "Inspection sur 15 jours"
+
+#. module: intervention_site
+#: view:intervention.site:0
+msgid "Inspection planned in next 15 days"
+msgstr "Inspection a planifié sur 15 jours"
+
+#. module: intervention_site
 #: code:_description:0
+#: view:account.analytic.account:0
 #: field:intervention.line,inter_id:0
 #: model:ir.model,name:intervention_site.model_crm_intervention
 #, python-format
@@ -335,6 +365,12 @@ msgstr "Intervention"
 #: field:res.partner,inter_location_id:0
 msgid "Intervention location"
 msgstr "Emplacmeent d'intervention"
+
+#. module: intervention_site
+#: view:account.analytic.account:0
+#: field:account.analytic.account,inter_ids:0
+msgid "Interventions"
+msgstr "Interventions"
 
 #. module: intervention_site
 #: field:crm.intervention,invoice_contract_id:0
@@ -413,13 +449,13 @@ msgid "Lot"
 msgstr "Lot"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:149
+#: code:addons/intervention_site/intervention.py:162
 #, python-format
 msgid "Lot is necessary for product \"%s\""
 msgstr "Le lot est necessaire pour ce produit \"%s\""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:133
+#: code:addons/intervention_site/intervention.py:146
 #, python-format
 msgid "Missing location to made output movement"
 msgstr "Emplacement manquant pour faire la sortie de stock"
@@ -505,10 +541,17 @@ msgstr "Propriétaire"
 
 #. module: intervention_site
 #: code:_description:0
+#: view:account.analytic.account:0
+#: view:intervention.site:0
 #: model:ir.model,name:intervention_site.model_res_partner
 #, python-format
 msgid "Partner"
 msgstr "Partenaire"
+
+#. module: intervention_site
+#: view:account.analytic.account:0
+msgid "Planned for"
+msgstr "Planifié pour"
 
 #. module: intervention_site
 #: field:generate.equipment.intervention,name:0
@@ -548,6 +591,7 @@ msgstr "Quantité de produit"
 #. module: intervention_site
 #: field:generate.equipment.intervention,user_id:0
 #: field:intervention.equipment,user_id:0
+#: view:intervention.site:0
 #: field:intervention.site,user_id:0
 msgid "Repairer"
 msgstr "Technicien"
@@ -558,7 +602,13 @@ msgid "Replacement"
 msgstr "Remplacement"
 
 #. module: intervention_site
+#: view:intervention.site:0
+msgid "Secction"
+msgstr "Section"
+
+#. module: intervention_site
 #: field:generate.equipment.intervention,section_id:0
+#: view:intervention.site:0
 #: field:intervention.site,section_id:0
 msgid "Section"
 msgstr "Section"
@@ -609,6 +659,7 @@ msgid "Serial number"
 msgstr "Numéro de série"
 
 #. module: intervention_site
+#: view:account.analytic.account:0
 #: field:crm.intervention,site_id:0
 #: view:intervention.equipment:0
 #: field:intervention.equipment,site_id:0
@@ -629,6 +680,11 @@ msgstr "Nom du site"
 #: model:res.groups,comment:intervention_site.group_inter_site_mandatory
 msgid "Site is mandatory on intervention"
 msgstr "le site est requis sur les interventions"
+
+#. module: intervention_site
+#: help:account.analytic.account,site_ids:0
+msgid "Site link to this contract"
+msgstr "Site lié à ce contrat"
 
 #. module: intervention_site
 #: model:res.groups,name:intervention_site.group_inter_site_mandatory
@@ -653,6 +709,8 @@ msgid "Site where the equipment is visible"
 msgstr "Site ou l'équipement sera visible"
 
 #. module: intervention_site
+#: view:account.analytic.account:0
+#: field:account.analytic.account,site_ids:0
 #: view:intervention.site:0
 #: model:ir.actions.act_window,name:intervention_site.act_open_intervention_site_view
 #: model:ir.ui.menu,name:intervention_site.menu_intervention_site
@@ -782,6 +840,11 @@ msgstr "équipement"
 #: help:intervention.site,active:0
 msgid "if check, this object is always available"
 msgstr "Si coché, cette objet sera toujours visible"
+
+#. module: intervention_site
+#: help:account.analytic.account,inter_ids:0
+msgid "intervention link to this contract"
+msgstr "Intervention lié à ce contrat"
 
 #. module: intervention_site
 #: view:crm.intervention:0
