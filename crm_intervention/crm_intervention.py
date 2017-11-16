@@ -842,6 +842,11 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 unit_amount = inter.duration_effective
                 unit = inter.section_id.unit_hour_id.id
 
+            if not emp.journal_id:
+                raise orm.except_orm(
+                    _('Error'),
+                    _('Not journal defined on teh employee!!'))
+
             vals = {
                 'name': _('BI Num %s') % inter.number_request,
                 'account_id': inter.contract_id.id,
