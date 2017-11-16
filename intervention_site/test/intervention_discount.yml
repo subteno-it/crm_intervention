@@ -62,7 +62,7 @@
       import time
       inter = self.browse(cr, uid, ref('crm_intervention_test12'))
       log('Date end is %s' % inter.date_effective_end)
-      assert inter.date_effective_end == time.strftime('%Y-%m-01 17:00:00'), 'End effective hour must be 17:00'
+      assert inter.date_effective_end == time.strftime('%Y-%m-01 19:00:00'), 'End effective hour must be 19:00'
 -
      intervention to invoice, click on the button 
 -
@@ -75,8 +75,8 @@
   !record {model: crm.intervention, id: crm_intervention_test12}:
       name: Intervention Test 1
       product_id: product.product_product_2
-      duration_effective: 5.0
-      pause_effective: 1.0
+      duration_effective: 6.0
+      pause_effective: 1.5
       alldays_effective: False
       contract_id: False
 -
@@ -86,7 +86,7 @@
       inter = self.browse(cr, uid, ref('crm_intervention_test12'))
       log('Quantity is %s' % inter.invoice_qty)
       log('Unit is %s' % inter.invoice_uom_id)
-      assert inter.invoice_qty == 4.0, 'Quantity must be 4.0'
+      assert inter.invoice_qty == 6.0, 'Quantity must be 6.0'
 -
     Add product USB adapter to invoice
 -

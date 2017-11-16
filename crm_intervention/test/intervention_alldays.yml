@@ -59,7 +59,7 @@
       import time
       inter = self.browse(cr, uid, ref('crm_intervention_test2'))
       log('Date end is %s' % inter.date_effective_end)
-      assert inter.date_effective_end == time.strftime('%Y-%m-10 17:00:00'), 'End effective hour must be 17:00'
+      assert inter.date_effective_end == time.strftime('%Y-%m-10 18:00:00'), 'End effective hour must be 18:00'
 -
      intervention to invoice, click on the button 
 -

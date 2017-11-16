@@ -224,7 +224,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
             help='Indicate estimated to do the intervention.'),
         'duration_effective': fields.float(
             'Effective duration',
-            help='Indicate real time to do the intervention.'),
+            help='Indicate real time to do the intervention (w/o pause).'),
         'pause_effective': fields.float(
             'Pause duration',
             help='Indicate real time pause in the intervention.'),
@@ -415,7 +415,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
             except Exception, e:
                 vals['invoice_qty'] = 1.0
         else:
-            vals['invoice_qty'] = duration - pause
+            vals['invoice_qty'] = duration
 
         return {'value': vals}
 
@@ -522,10 +522,10 @@ class crm_intervention(base_state, base_stage, orm.Model):
             vals = {
                 'duration_effective': (
                     float(difference.days * 24) +
-                    float(hours) + float(minutes) / float(60)) + pause_eff
+                    float(hours) + float(minutes) / float(60)) - pause_eff
             }
         if fld in ('duration', 'pause') and eff_str_date:
-            total_duration =  (duration_eff or 0.0) - (pause_eff or 0.0)
+            total_duration =  (duration_eff or 0.0) + (pause_eff or 0.0)
             vals = {
                 'date_effective_end': (start_date + datetime.timedelta(
                     hours=total_duration)).strftime('%Y-%m-%d %H:%M:00')
